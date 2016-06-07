@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="struts_1" extends="struts-default" namespace="/">
+
+		<action name="login" class="logAct">
+			<result name="success">/home.jsp</result>
+			<result name="login">/home.jsp</result>
+		</action>
+		
+		<!-- 用户注册 -->
+        <action name="myregister" class="com.library.action.RegisterAction">
+            <result name="success">/login.jsp</result>
+            <result name="input">/register.jsp</result>
+        </action>
+        <!-- 类型搜索 -->
+        <action name="sSelect" class="com.library.action.sSelectAction">
+            <result name="success">/addbook.jsp</result>
+            <result name="input">/register.jsp</result>
+        </action>
+        <!-- 添加图书-->
+        <action name="addbook" class="com.library.action.AddbookAction">
+            <result name="success">/login.jsp</result>
+            <result name="input">/addbook.jsp</result>
+        </action>
+
+	</package>
+</struts>    

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table name="T_ADMIN" schema="SYSTEM"
+		class="com.library.bean.Admin">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+	<table name="T_BOOKINFO" schema="SYSTEM" class="com.library.bean.BookInfo"></table>
+<table name="T_BOOKTYPE" schema="SYSTEM" class="com.library.bean.BookType">
+	<primary-key>
+		<generator class="sequence"></generator>
+	</primary-key>
+</table>
+<table name="T_BORROW" schema="SYSTEM" class="com.library.bean.Borrow">
+		<primary-key>
+			<generator class="sequence"></generator>
+		</primary-key>
+	</table>
+	<table name="T_ORDER" schema="SYSTEM" class="com.library.bean.Order">
+		<primary-key>
+			<generator class="sequence"></generator>
+		</primary-key>
+	</table>
+	<table name="T_STOCK" schema="SYSTEM" class="com.library.bean.Stock">
+		<primary-key>
+			<generator class="sequence"></generator>
+		</primary-key>
+	</table>
+	<table name="T_READER" schema="SYSTEM" class="com.library.bean.Reader">
+		<primary-key>
+			<generator class="sequence"></generator>
+		</primary-key>
+	</table>
+	<table name="T_TICKET" schema="SYSTEM" class="com.library.bean.Ticket">
+		<primary-key>
+			<generator class="sequence"></generator>
+		</primary-key>
+	</table>
+</hibernate-reverse-engineering>
