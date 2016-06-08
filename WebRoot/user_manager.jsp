@@ -30,7 +30,7 @@
 				<p>
 					<s:if test="#session.get('loginName') != null">
 						&nbsp;&nbsp;<a href="#" class="tc">切换用户</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href=""><s:property value="#session.get('loginName')"/></a>,欢迎您
+						<a href=""><s:property value="#session.get('loginName')" /></a>,欢迎您
 					</s:if>
 					<s:elseif test="#session.get('loginName') == null">
 						&nbsp;&nbsp;<a href="#" class="tc">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -52,7 +52,7 @@
 						<div class="left">
 							</br> </br>
 							<div align="center">
-								<img src="images/zfb_2yuan.jpg" width="387" height="93" />
+								<img style="margin-top: 8px;" src="images/zfb_2yuan.jpg" width="387" height="93" />
 							</div>
 						</div>
 						<div id="right">
@@ -66,17 +66,17 @@
 									onblur="return checkname()" cssClass="input_yh"></s:textfield>
 								<s:password name="pwd" id="uPass" placeholder="密码"
 									onblur="return checkpass();" cssClass="input_mm"></s:password>
-								<s:radio name="selected" list="#{'1':'用户','0':'管理员'}" value="1"></s:radio>
+								<s:radio name="selected" list="#{'1':'用户','0':'管理员'}" value="1"
+									cssStyle="margin-left:10px; margin-top:8px;margin-bottom:8px;"></s:radio>
 
 								<!-- 	</div> -->
 								<s:submit cssClass="loginBtn" title="Sign In" value="登录"></s:submit>
 							</s:form>
 							<dd>
 								<div align="center">
-									<a href="#" target="_blank">立即注册 </a>
+									<a href="#" target="_blank" class="a_register">立即注册 </a>
 								</div>
 							</dd>
-							<hr align="center" />
 
 						</div>
 
@@ -153,8 +153,9 @@
 			<!-- 搜索  -->
 			<div class="row">
 				<s:form>
-					<s:submit theme="simple" cssClass="button" placeholder="搜索图书" value="308一下"></s:submit>
-					<s:textfield theme="simple"></s:textfield>
+					<s:submit theme="simple" cssClass="button" 
+						value="308一下"></s:submit>
+					<s:textfield theme="simple" placeholder="搜索图书"></s:textfield>
 				</s:form>
 			</div>
 
@@ -176,11 +177,12 @@
 							<li><a href="#">图书归还管理</a></li>
 							<li><a href="#">图书分类管理</a></li>
 							<li><a href="#">图书信息管理</a></li>
-							<li><a href="user_manager.jsp">会员信息管理</a></li>
+							<li><a href="userManager.action">会员信息管理</a></li>
 							<li><a href="#">个人信息修改</a></li>
 						</s:if>
 						<!-- 普通用户 -->
-						<s:if test="#session.get('loginName') != null && #session.get('loginName') != '123456'">
+						<s:if
+							test="#session.get('loginName') != null && #session.get('loginName') != '123456'">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
 							<li><a href="">图书查询</a></li>
 							<li><a href="#">图书借阅</a></li>
@@ -198,28 +200,57 @@
 
 				<div class="col c8_table">
 					<div class="div_title">
-						<b>
-							会员信息管理 
-						</b>
-						<a class="a_head">注册新的会员</a>
+						<b> 会员信息管理 </b> <a class="a_head">注册会员</a>
 					</div>
+
+					<%-- <s:iterator value="#request.pageBean.bbs" id="bbs">
+						<a href="replyPost.action?id=<s:property value="bbsId" />"> 
+						<s:property value="bbsTitle"></s:property>
+						</a>
+						<br />
+					</s:iterator> --%>
 
 					<table id="table" cellspacing="0">
 						<tr>
-							<th>用户ID</th>
-							<th>用户名</th>
-							<th>联系方式</th>
-							<th>基本操作</th>
+							<th class="th">用户ID</th>
+							<th class="th">用户名</th>
+							<th class="th">联系方式</th>
+							<th class="th">基本操作</th>
 						</tr>
-						<tr>
-							<td>Look at Orman's</td>
-							<td>100%</td>
-							<td>No</td>
-							<td><a>编辑 </a><a style="color:red;margin-left: 7px;">删除</a></td>
-					
+						<s:iterator value="#request.userPageBean.list" id="list">
+							<tr>
+								<td class="td"><s:property value="readerid" /></td>
+								<td class="td"><s:property value="name" /></td>
+								<td class="td"><s:property value="tel" /></td>
+								<td class="td">
+									<a>编辑 </a>
+									<a style="color:red;margin-left: 7px;">删除</a>
+								</td>
+							</tr>
+						</s:iterator>
 					</table>
-				
-					<div class="div_bottom"></div>
+
+					<div class="div_bottom">
+						  当前第<b>
+						 <font style="color:red;"><s:property value="#request.userPageBean.currentPage" /></font> /
+						 <s:property value="#request.userPageBean.totalPage" /></b>页
+						 <s:if test="#request.userPageBean.currentPage==#request.userPageBean.totalPage">
+						 	 <a href="" class="a_bottom">尾页</a> 
+							 <a href="" class="a_bottom">下一页</a> 
+						 </s:if>
+						 <s:else>
+							 <a href="userManager.action?page=<s:property value="#request.userPageBean.totalPage"/>" class="a_bottom">尾页</a> 
+						 	<a href="userManager.action?page=<s:property value="#request.userPageBean.currentPage + 1"/>" class="a_bottom">下一页</a> 
+						 </s:else>
+						 <s:if test="#request.userPageBean.currentPage==1">
+						 	 <a href="" class="a_bottom">上一页</a> 
+							 <a href="" class="a_bottom">首页</a>
+						 </s:if>
+						 <s:else>
+						 <a href="userManager.action?page=<s:property value="#request.userPageBean.currentPage - 1"/>" class="a_bottom">上一页</a> 
+						 <a href="userManager.action" class="a_bottom">首页</a>
+						 </s:else>
+					</div>
 				</div>
 
 				<div class="col c2">

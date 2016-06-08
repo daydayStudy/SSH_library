@@ -176,7 +176,7 @@
 							<li><a href="#">图书归还管理</a></li>
 							<li><a href="#">图书分类管理</a></li>
 							<li><a href="#">图书信息管理</a></li>
-							<li><a href="#">会员信息管理</a></li>
+							<li><a href="userManager.action">会员信息管理</a></li>
 							<li><a href="#">个人信息修改</a></li>
 						</s:if>
 						<!-- 普通用户 -->

@@ -23,6 +23,11 @@
             <result name="success">/login.jsp</result>
             <result name="input">/addbook.jsp</result>
         </action>
+        
+        <!-- 用户管理 -->
+        <action name="userManager" class="com.library.action.UserManagerAction">
+        	<result name="success">/user_manager.jsp</result>
+        </action>
 
 	</package>
 </struts>    
