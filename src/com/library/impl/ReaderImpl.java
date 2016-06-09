@@ -35,6 +35,7 @@ public class ReaderImpl implements CommonDao,ReaderDao {
 			session = HibernateSessionFactory.getSession();
 			tran = session.beginTransaction();
 			if(reader != null) {
+				reader.setIsdelete(0);
 				session.save(reader);
 				tran.commit();
 				return true;
@@ -167,7 +168,7 @@ public class ReaderImpl implements CommonDao,ReaderDao {
 	    {
 	        PageBean pageBean = new PageBean();
 	        
-	        String hql = "from Reader";
+	        String hql = "from Reader as r where r.isdelete=0";
 	        int allRows = pageImpl.getAllCount(hql);
 	        int totalPage = pageBean.getTotalPages(pageSize, allRows);
 	        int currentPage = pageBean.getCurPage(page);

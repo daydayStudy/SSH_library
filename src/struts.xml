@@ -28,6 +28,16 @@
         <action name="userManager" class="com.library.action.UserManagerAction">
         	<result name="success">/user_manager.jsp</result>
         </action>
+        
+        <!-- 图书类别管理 -->
+        <action name="btypeManager" class="com.library.action.BTypeManagerAction">
+        	<result name="success">/bookType_manager.jsp</result>
+        </action>
+        
+         <!-- 图书信息管理 -->
+        <action name="bookManager" class="com.library.action.BookManagerAction">
+        	<result name="success">/book_manager.jsp</result>
+        </action>
 
 	</package>
 </struts>    

@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.library.bean.BookInfo;
+import com.library.bean.BookManagerBean;
 import com.library.bean.HibernateSessionFactory;
+import com.library.bean.PageBean;
+import com.library.bean.Reader;
 import com.library.dao.BookInfoDao;
 
 /**
@@ -21,7 +26,9 @@ public class BookInfoImpl implements BookInfoDao  {
 
 	private Session session = null;
 	private Transaction tran = null;
-	
+	@Resource
+	private PageImpl pageImpl;
+
 	@Override
 	public List<BookInfo> seleBookInfos(String sql) {
 		List<BookInfo> list = null;
@@ -45,12 +52,12 @@ public class BookInfoImpl implements BookInfoDao  {
 		try {
 			session = HibernateSessionFactory.getSession();
 			tran = session.beginTransaction();
-			
+
 			String sql = "from BookInfo as r where r.isbn=? and r.isdelete=?";
 			Query query = session.createQuery(sql);
 			query.setParameter(0, isbn);
 			query.setParameter(1, 0);
-			List result = query.list();
+			List<BookInfo> result = query.list();
 			if(result.size()>0) {
 				for(Iterator it=result.iterator(); it.hasNext();) {
 					BookInfo book = (BookInfo) it.next();
@@ -107,6 +114,34 @@ public class BookInfoImpl implements BookInfoDao  {
 		}
 
 		return false;
+	}
+
+	/**
+	 * ·ÖÒ³
+	 * @param pageSize
+	 * @param page
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public PageBean getPageBean(int pageSize, int page) {
+		PageBean pageBean = new PageBean();
+
+		String hql = "select b.isbn,b.bookname,t.typename,s.amount from BookInfo as b,BookType as t,"
+				+ " Stock as s where b.bookType.typeid=t.typeid and b.isbn=s.bookInfo.isbn and b.isdelete=0";
+		int allRows = pageImpl.getAllCount(hql);
+		int totalPage = pageBean.getTotalPages(pageSize, allRows);
+		int currentPage = pageBean.getCurPage(page);
+		int offset = pageBean.getCurrentPageOffset(pageSize, currentPage);
+		List<BookManagerBean> list = pageImpl.queryBookManagerInfo(hql, offset, pageSize);
+
+		System.out.println("×ÜÒ³Êý="+totalPage);
+
+		pageBean.setList(list);
+		pageBean.setAllRows(allRows);
+		pageBean.setCurrentPage(currentPage);
+		pageBean.setTotalPage(totalPage);
+
+		return pageBean;
 	}
 
 }

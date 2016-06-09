@@ -69,12 +69,11 @@
 								<s:radio name="selected" list="#{'1':'用户','0':'管理员'}" value="1"
 									cssStyle="margin-left:10px; margin-top:8px;margin-bottom:8px;"></s:radio>
 
-								<!-- 	</div> -->
 								<s:submit cssClass="loginBtn" title="Sign In" value="登录"></s:submit>
 							</s:form>
 							<dd>
 								<div align="center">
-									<a href="#" target="_blank" class="a_register">立即注册 </a>
+									<a href="register.jsp" target="_blank" class="a_register">立即注册 </a>
 								</div>
 							</dd>
 
@@ -115,7 +114,18 @@
 						left : _left
 					});
 				}
-
+				function deleteConfirm(ids) {
+					if(confirm('确定删除？')){
+						$.ajax({
+							type : "post",
+							url : "userManager.action",
+							dataType:"json",
+							data : {method:"delete",id:ids},
+						});
+				    }else {
+				    	return false;
+				    }
+				}
 				
 			</script>
 
@@ -174,9 +184,9 @@
 						<!-- 管理员 -->
 						<s:if test="#session.get('loginName') == '123456' ">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
-							<li><a href="#">图书归还管理</a></li>
-							<li><a href="#">图书分类管理</a></li>
+							<li><a href="btypeManager.action">图书类别管理</a></li>
 							<li><a href="#">图书信息管理</a></li>
+							<li><a href="#">图书归还管理</a></li>
 							<li><a href="userManager.action">会员信息管理</a></li>
 							<li><a href="#">个人信息修改</a></li>
 						</s:if>
@@ -200,20 +210,13 @@
 
 				<div class="col c8_table">
 					<div class="div_title">
-						<b> 会员信息管理 </b> <a class="a_head">注册会员</a>
+						<b> 会员信息管理 </b> <a href="register.jsp" class="a_head">注册会员</a>
 					</div>
-
-					<%-- <s:iterator value="#request.pageBean.bbs" id="bbs">
-						<a href="replyPost.action?id=<s:property value="bbsId" />"> 
-						<s:property value="bbsTitle"></s:property>
-						</a>
-						<br />
-					</s:iterator> --%>
-
 					<table id="table" cellspacing="0">
 						<tr>
 							<th class="th">用户ID</th>
 							<th class="th">用户名</th>
+							<th class="th">密码</th>
 							<th class="th">联系方式</th>
 							<th class="th">基本操作</th>
 						</tr>
@@ -221,10 +224,11 @@
 							<tr>
 								<td class="td"><s:property value="readerid" /></td>
 								<td class="td"><s:property value="name" /></td>
+								<td class="td"><s:property value="pwd" /></td>
 								<td class="td"><s:property value="tel" /></td>
 								<td class="td">
 									<a>编辑 </a>
-									<a style="color:red;margin-left: 7px;">删除</a>
+									<a id="delete" style="color:red;margin-left: 7px;" href="userManager.action?method=delete&id=<s:property value="readerid"/>">删除</a>
 								</td>
 							</tr>
 						</s:iterator>

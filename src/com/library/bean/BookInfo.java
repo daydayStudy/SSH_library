@@ -24,7 +24,7 @@ public class BookInfo implements java.io.Serializable {
 	private String translator;
 	private String publisher;
 	private Date publishedate;
-	private float price;
+	private Float price;
 	private int isdelete;
 	private Set orders = new HashSet(0);
 	private Set stocks = new HashSet(0);
@@ -44,7 +44,7 @@ public class BookInfo implements java.io.Serializable {
 	/** full constructor */
 	public BookInfo(BookType bookType, String bookname, String writer,
 			String translator, String publisher, Date publishedate,
-			float price, int isdelete, Set orders, Set stocks,
+			Float price, int isdelete, Set orders, Set stocks,
 			Set borrows) {
 		this.bookType = bookType;
 		this.bookname = bookname;
@@ -117,11 +117,11 @@ public class BookInfo implements java.io.Serializable {
 		this.publishedate = publishedate;
 	}
 
-	public float getPrice() {
+	public Float getPrice() {
 		return this.price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(Float price) {
 		this.price = price;
 	}
 

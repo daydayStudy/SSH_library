@@ -173,9 +173,9 @@
 						<!-- 管理员 -->
 						<s:if test="#session.get('loginName') == '123456' ">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
+							<li><a href="btypeManager.action">图书类别管理</a></li>
+							<li><a href="bookManager.action">图书信息管理</a></li>
 							<li><a href="#">图书归还管理</a></li>
-							<li><a href="#">图书分类管理</a></li>
-							<li><a href="#">图书信息管理</a></li>
 							<li><a href="userManager.action">会员信息管理</a></li>
 							<li><a href="#">个人信息修改</a></li>
 						</s:if>
@@ -249,49 +249,3 @@
 
 </body>
 </html>
-
-
-<%-- <div class="popup" id="popup">
-
-				<div class="top_nav" id='top_nav'>
-					<div align="center">
-						<i></i> <span>登录账号</span> <a class="guanbi"></a>
-					</div>
-				</div>
-				<div class="min">
-					<div class="tc_login">
-						<div class="left">
-							</br> </br>
-							<div align="center">
-								<img src="images/zfb_2yuan.jpg" width="387" height="93" />
-							</div>
-						</div>
-						<div class="right">
-							<s:form method="POST" name="form_login" target="_top"
-								onsubmit="return register();">
-								<!-- <div align="center"> -->
-								<i class="icon-mobile-phone"></i>
-								<p id="namets"
-									style="width: 120px; height: 12px;  font-size: 12px;"></p>
-								<s:textfield name="name" id="uName" placeholder="用户名"
-									onblur="return checkname()" cssClass="input_yh"></s:textfield>
-								<s:password name="pass" id="uPass" placeholder="密码"
-									onblur="return checkpass();" cssClass="input_mm"></s:password>
-								<s:radio name="checkUser" list="#{'1':'管理员','0':'用户'}" value="0"></s:radio>
-
-								<!-- 	</div> -->
-								<div align="center">
-									<s:submit cssClass="loginBtn" title="Sign In" value="登录"></s:submit>
-								</div>
-							</s:form>
-							<dd>
-								<div align="center">
-									<a href="#" target="_blank">立即注册 </a>
-								</div>
-							</dd>
-							<hr align="center" />
-
-						</div>
-
-					</div>
- --%>
