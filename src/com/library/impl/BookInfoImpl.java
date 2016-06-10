@@ -16,6 +16,7 @@ import com.library.bean.BookManagerBean;
 import com.library.bean.HibernateSessionFactory;
 import com.library.bean.PageBean;
 import com.library.bean.Reader;
+import com.library.bean.SelectBookBean;
 import com.library.dao.BookInfoDao;
 
 /**
@@ -117,7 +118,7 @@ public class BookInfoImpl implements BookInfoDao  {
 	}
 
 	/**
-	 * 分页
+	 * 分页(管理员)
 	 * @param pageSize
 	 * @param page
 	 * @return
@@ -133,6 +134,62 @@ public class BookInfoImpl implements BookInfoDao  {
 		int currentPage = pageBean.getCurPage(page);
 		int offset = pageBean.getCurrentPageOffset(pageSize, currentPage);
 		List<BookManagerBean> list = pageImpl.queryBookManagerInfo(hql, offset, pageSize);
+
+		System.out.println("总页数="+totalPage);
+
+		pageBean.setList(list);
+		pageBean.setAllRows(allRows);
+		pageBean.setCurrentPage(currentPage);
+		pageBean.setTotalPage(totalPage);
+
+		return pageBean;
+	}
+	
+	/**
+	 * 分页(查询图书用)
+	 * @param pageSize
+	 * @param page
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public PageBean getPageBeanR(int pageSize, int page) {
+		PageBean pageBean = new PageBean();
+
+		String hql = "select b.bookname,t.typename,b.publisher,b.writer,b.translator,s.amount,b.isbn from BookInfo as b,BookType as t,"
+				+ " Stock as s where b.bookType.typeid=t.typeid and b.isbn=s.bookInfo.isbn and b.isdelete=0";
+		int allRows = pageImpl.getAllCount(hql);
+		int totalPage = pageBean.getTotalPages(pageSize, allRows);
+		int currentPage = pageBean.getCurPage(page);
+		int offset = pageBean.getCurrentPageOffset(pageSize, currentPage);
+		List<SelectBookBean> list = pageImpl.queryBookInfo(hql, offset, pageSize);
+
+		System.out.println("总页数="+totalPage);
+
+		pageBean.setList(list);
+		pageBean.setAllRows(allRows);
+		pageBean.setCurrentPage(currentPage);
+		pageBean.setTotalPage(totalPage);
+
+		return pageBean;
+	}
+	
+	/**
+	 * 分页(模糊查询图书用)
+	 * @param pageSize
+	 * @param page
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public PageBean getPageBeanM(String name, int pageSize, int page) {
+		PageBean pageBean = new PageBean();
+
+		String hql = "select b.bookname,t.typename,b.publisher,b.writer,b.translator,s.amount,b.isbn from BookInfo as b,BookType as t,"
+				+ " Stock as s where b.bookType.typeid=t.typeid and b.isbn=s.bookInfo.isbn and b.isdelete=0 and b.bookname like '%"+name+"%'";
+		int allRows = pageImpl.getAllCount(hql);                                                      //a.classno like '%"+OId+"%'"
+		int totalPage = pageBean.getTotalPages(pageSize, allRows);
+		int currentPage = pageBean.getCurPage(page);
+		int offset = pageBean.getCurrentPageOffset(pageSize, currentPage);
+		List<SelectBookBean> list = pageImpl.queryBookInfo(hql, offset, pageSize);
 
 		System.out.println("总页数="+totalPage);
 

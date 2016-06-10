@@ -54,7 +54,7 @@ public class UserManagerAction extends ActionSupport{
 	 */
 	private void pageInfo() {
 		//表示每页显示5条记录，page表示当前网页
-        PageBean pageBean = readerImpl.getPageBean(8, page);
+        PageBean pageBean = readerImpl.getPageBean(11, page);
         System.out.println("page="+page);
         HttpServletRequest request = ServletActionContext.getRequest();
         request.setAttribute("userPageBean", pageBean);

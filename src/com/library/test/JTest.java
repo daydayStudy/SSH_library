@@ -5,6 +5,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -66,6 +67,18 @@ public class JTest extends TestCase {
 	public void testDeleteBook() {
 		BookInfoImpl impl = new BookInfoImpl();
 		impl.deleteBook("13020112");
+	}
+	
+	public void testSelect() {
+		String name = "Êý";
+		String hql = "select b.bookname,t.typename,b.publisher,b.writer,b.translator,s.amount from BookInfo as b,BookType as t,"
+				+ " Stock as s where b.bookType.typeid=t.typeid and b.isbn=s.bookInfo.isbn and b.isdelete=0 and b.bookname like '%"+name+"%'";
+		Session session = HibernateSessionFactory.getSession();
+		Query query = session.createQuery(hql);
+		List list = query.list();
+		if(list.size() > 0) 
+			System.out.println("lalala");
+	
 	}
 
 }

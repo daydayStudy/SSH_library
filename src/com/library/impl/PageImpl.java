@@ -13,6 +13,7 @@ import org.hibernate.Transaction;
 import com.library.bean.BookInfo;
 import com.library.bean.BookManagerBean;
 import com.library.bean.HibernateSessionFactory;
+import com.library.bean.SelectBookBean;
 import com.library.util.JUtils;
 
 
@@ -86,6 +87,13 @@ public class PageImpl {
 		return result;
 	}
 	
+	/**
+	 * 分页（图书信息管理页面）
+	 * @param hql
+	 * @param offset
+	 * @param pageSize
+	 * @return
+	 */
 	public List<BookManagerBean> queryBookManagerInfo(String hql, int offset, int pageSize) {
 		session = HibernateSessionFactory.getSession();
 		List<BookManagerBean> result = new ArrayList<>();
@@ -109,6 +117,73 @@ public class PageImpl {
 				}else {
 					bean.setAmount(0);
 				}
+				
+				result.add(bean);
+			}
+			transaction.commit();
+			
+		} catch (Exception e) {
+			if(transaction != null) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			query = null;
+			HibernateSessionFactory.closeSession();
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 分页（图书查询页面）
+	 * @param hql
+	 * @param offset
+	 * @param pageSize
+	 * @return
+	 */
+	public List<SelectBookBean> queryBookInfo(String hql, int offset, int pageSize) {
+		session = HibernateSessionFactory.getSession();
+		List<SelectBookBean> result = new ArrayList<SelectBookBean>();
+		
+		try {
+			transaction = session.beginTransaction();
+			query = session.createQuery(hql).setFirstResult(offset)
+						.setMaxResults(pageSize);
+			List list = query.list();
+			
+			for(Iterator it=list.iterator();it.hasNext();) {
+				SelectBookBean bean = new SelectBookBean();
+				String str = "";
+				Object[] obj = (Object[]) it.next();
+				
+				bean.setBookname(obj[0].toString());
+				bean.setTypename(obj[1].toString());
+				if(obj[2] == null) {
+					bean.setPublisher("");
+				}else {
+					bean.setPublisher(obj[2].toString());
+				}
+				
+				if(obj[3] == null) {
+					bean.setWriter("");
+				}else {
+					bean.setWriter(obj[3].toString());
+				}
+				
+				if(obj[4] == null) {
+					bean.setTranslator("");
+				}else {
+					bean.setTranslator(obj[4].toString());
+				}
+				
+				str = obj[5].toString();
+				if(JUtils.changeToNum(str)) {
+					bean.setAmount(Integer.parseInt(str));
+				}else {
+					bean.setAmount(0);
+				}
+				bean.setIsbn(obj[6].toString());
 				
 				result.add(bean);
 			}

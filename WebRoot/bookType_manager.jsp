@@ -162,7 +162,7 @@
 			<br /> <br />
 			<!-- 搜索  -->
 			<div class="row">
-				<s:form>
+				<s:form action="/selectBook">
 					<s:submit theme="simple" cssClass="button" 
 						value="308一下"></s:submit>
 					<s:textfield theme="simple" placeholder="搜索图书"></s:textfield>
@@ -186,7 +186,7 @@
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
 							<li><a href="btypeManager.action">图书类别管理</a></li>
 							<li><a href="bookManager.action">图书信息管理</a></li>
-							<li><a href="#">图书归还管理</a></li>
+							<li><a href="#">图书借阅管理</a></li>
 							<li><a href="userManager.action">会员信息管理</a></li>
 							<li><a href="#">个人信息修改</a></li>
 						</s:if>
@@ -194,16 +194,14 @@
 						<s:if
 							test="#session.get('loginName') != null && #session.get('loginName') != '123456'">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
-							<li><a href="">图书查询</a></li>
-							<li><a href="#">图书借阅</a></li>
-							<li><a href="#">图书预定</a></li>
+							<li><a href="selectBook.action">图书查询</a></li>
 							<li><a href="#">信息修改</a></li>
 						</s:if>
 						<!-- 游客 -->
 						<s:if test="#session.get('loginName') == null">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
 							<li><a href="register.jsp">注&nbsp;&nbsp;&nbsp;&nbsp;册</a></li>
-							<li><a href="#">图书查询</a></li>
+							<li><a href="selectBook.action">图书查询</a></li>
 						</s:if>
 					</ul>
 				</div>
@@ -220,6 +218,10 @@
 							<th class="th">可借天数</th>
 							<th class="th">基本操作</th>
 						</tr>
+						<s:if test="#request.btypePageBean.list.size()==0">
+							<tr class="td"><td class="td" colspan="7">对不起，暂无图书类别信息</td></tr>
+						</s:if>
+						<s:else>
 						<s:iterator value="#request.btypePageBean.list" id="list">
 							<tr>
 								<td class="td"><s:property value="typeid" /></td>
@@ -232,6 +234,7 @@
 								</td>
 							</tr>
 						</s:iterator>
+						</s:else>
 					</table>
 
 					<div class="div_bottom">

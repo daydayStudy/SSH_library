@@ -38,6 +38,11 @@
         <action name="bookManager" class="com.library.action.BookManagerAction">
         	<result name="success">/book_manager.jsp</result>
         </action>
+        
+         <!-- 图书查询 -->
+        <action name="selectBook" class="com.library.action.SelectBookAction">
+        	<result name="success">/select_book.jsp</result>
+        </action>
 
 	</package>
 </struts>    
