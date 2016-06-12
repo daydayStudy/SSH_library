@@ -21,8 +21,13 @@
         <!-- 添加图书-->
         <action name="addbook" class="com.library.action.AddbookAction">
             <result name="success">/login.jsp</result>
-            <result name="input">/addbook.jsp</result>
+            <result name="input">/register.action</result>
         </action>
 
+         <!-- 添加图书类型-->
+        <action name="addbooktype" class="com.library.action.AddbookTypeAction">
+            <result name="success">/login.jsp</result>
+            <result name="input">/register.action</result>
+        </action>
 	</package>
 </struts>    

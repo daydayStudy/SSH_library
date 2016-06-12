@@ -13,7 +13,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="css/style3.css"
 	title="Origo" media="all">
-<script type="text/javascript" src="js/userLoginCheck.js" charset="UTF-8"></script>
+<script type="text/javascript" src="js/userRegisterCheck.js" charset="UTF-8"></script>
 <title>Origo v1.1</title>
 
 </head>
@@ -25,7 +25,7 @@
 		</div>
 		<hr>
 	<center>
-		<s:form action="myregister"  method="post" namespace="/" onsubmit="return register();">
+		<s:form action="myregister"  method="post" namespace="/" onsubmit="return register1();">
 			<p id="namets"									
 			style="width: 150px; height: 12px;  font-size: 12px;"></p>
 			</br>

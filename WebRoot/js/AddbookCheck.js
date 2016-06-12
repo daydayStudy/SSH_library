@@ -1,21 +1,17 @@
-function addbook() {
-	if(!checkISBN()){
+function addbookck(){
+	 if(!checkISBN()){
 		return false;
 	}else if (!checkbname()) {
 		return false;
-	} else if (!checkweiter()){
+	}else if (!checkweiter()){
 		return false;
-	}
-	else if (!checktranslator()){
+	}else if (!checktranslator()){
 		return false;
-	}
-	else if (!checkpublisher()){
+	}else if (!checkpublisher()){
 		return false;
-	}
-	else if (!checkprice()){
+	}else if (!checkprice()){
 		return false;
-	}
-	else if (!checkdate()){
+	}else if (!checkdate()){
 		return false;
 	}
 	return true;
@@ -40,6 +36,8 @@ function falseshuzi(str2){
 	var fshu=/^([0-9.]+)$/;
 	return fshu.test(str2);
 }
+
+
 
 
 function checkISBN()    

@@ -14,7 +14,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
-<script type="text/javascript" src="js/AddbookCheck.js" charset="UTF-8"></script>
+<script type="text/javascript" src="js/AddbookTypeCheck.js" charset="UTF-8"></script>
 <link rel="stylesheet" type="text/css" href="css/style.css"
 	title="Origo" media="all">
 <title>Origo v1.1</title>
@@ -62,47 +62,30 @@
 				</div>
 
 				<div class="col c8">
-				<div id="#clear1">
 					<center>
-						<s:form action="addbook" method="post" namespace="/"
-							onsubmit="return addbookck();">
+						<s:form action="addbooktype" method="post" namespace="/"
+							onsubmit="return addbooktyck();">
 							<p id="namets"
 								style="width: 150px; height: 12px;  font-size: 12px;"></p>
 							</br>
-							
-							<s:select label="图书类型 " name="typeid" list="list"
-								listKey="typeid" listValue="typename" 
-								id="Atid"	onblur="return checktypeid()"								
-								cssStyle="width:220px; height:25px" />
+														
 																							
-							<s:textfield label="ISBN" name="book.isbn" id="Aisbn"
-								placeholder="ISBN" onblur="return checkISBN()" cssClass="inputfile"></s:textfield>
+							<s:textfield label="类型名称" name="booktype.typename" id="Tname"
+								placeholder="类型名称" onblur="return checkbname()" cssClass="loginInp"></s:textfield>
 							
-							<s:textfield label="图书名称" name="book.bookname" id="Aname"
-								placeholder="图书名称" onblur="return checkbname()"
-								cssClass="inputfile"></s:textfield>
-							<s:textfield label="作者" name="book.writer" id="Awriter"
-								placeholder="作者" onblur="return checkweiter()"
-								cssClass="inputfile"></s:textfield>
-							<s:textfield label="译者" name="book.translator" id="Atran"
-								placeholder="译者" onblur="return checktranslator()"
-								cssClass="inputfile"></s:textfield>
-							<s:textfield label="出版社" name="book.publisher" id="Apsh"
-								placeholder="出版社" onblur="return checkpublisher()"
-								cssClass="inputfile"></s:textfield>
-							<s:textfield label="出版日期" name="book.publishedate" id="Adate"
-								placeholder="出版日期" onblur="return checkdate()"
-								cssClass="inputfile"></s:textfield>
+							<s:textfield label="罚款金额" name="booktype.finemoney" id="Tprice"
+								placeholder="罚款金额" onblur="return checkprice()"
+								cssClass="loginInp"></s:textfield>
+							<s:textfield label="可借天数" name="booktype.days" id="Tday"
+								placeholder="可借天数" onblur="return checkday()"
+								cssClass="loginInp"></s:textfield>
 							
-							<s:textfield label="价格" name="book.price" id="Aprice"
-								placeholder="价格" onblur="return checkprice()"
-								cssClass="inputfile"></s:textfield>
 
-							<s:submit cssClass="buttonfile" title="Sign In" value="图书添加"></s:submit>
+							<s:submit cssClass="loginBtn" title="Sign In" value="图书添加"></s:submit>
 
 						</s:form>
 					</center>
-                   </div>
+                   
 				</div>
 
 

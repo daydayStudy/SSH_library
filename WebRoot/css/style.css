@@ -116,6 +116,40 @@ body.wider #layout {
 	max-width: 100%;
 }
 
+.col #clear1{
+	clear:both; 
+}
+
+.col #clear1 .inputfile{
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	color: #000;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1em;
+	height: 30px;
+	padding: 0 0 0 34px;
+	margin: 10px 0px 0px 10px;
+	transition: background 0.3s ease-in-out;
+	width: 200px;
+	float: left;
+	background: url(../images/tc_login_yonghu.jpg) no-repeat left top; 
+}
+
+.col #clear1 .buttonfile{
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	color: #000;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1em;
+	height: 30px;
+	padding: 0 0 0 34px;
+	margin: 10px 0px 0px 10px;
+	transition: background 0.3s ease-in-out;
+	width: 200px;
+	float: left;
+	background: url(../images/tc_login_mima.jpg) no-repeat left top; 
+}
+
 #row {
 	width: 960px;
 	margin: 20px auto 0;
