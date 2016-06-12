@@ -24,4 +24,7 @@
 	
 	<bean name="readerImpl" class="com.library.impl.ReaderImpl"></bean>
 	<bean name="adminImpl" class="com.library.impl.AdminImpl"></bean>
+	<bean name="pageImpl" class="com.library.impl.PageImpl"></bean>
+	<bean name="bookTypeImpl" class="com.library.impl.BookTypeImpl"></bean>
+	<bean name="bookInfoImpl" class="com.library.impl.BookInfoImpl"></bean>
 </beans>

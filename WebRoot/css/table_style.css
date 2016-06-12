@@ -12,13 +12,13 @@ table,caption,tbody,tfoot,thead,tr,th,td {
 	height: 30px;
 	line-height: 30px;
 	width: 620px;
-	height: 30px;
 	background: #CCCCCC;
 }
 
 .div_bottom {
-	width: 620px;
 	height: 30px;
+	line-height: 30px;
+	width: 620px;
 	position: absolute;
 	bottom: 0;
 	background: #CCCCCC;
@@ -31,9 +31,23 @@ a {
 .a_head {
 	 font-family:Arial,Helvetica,sans-serif;
 	float: right;
-	color: #5CACEE;
+	color: #3288a8;
 	margin-right: 7px;
 	font-size: 1em;
+}
+
+.a_bottom {
+	 font-family:Arial,Helvetica,sans-serif;
+	float: right;
+	color: #3288a8;
+	margin-right: 7px;
+	font-size: 1em;
+}
+
+.a_register {
+	float: right;
+	margin-right: 40px;
+	margin-top: 8px;
 }
 
 #content {
@@ -47,7 +61,7 @@ a {
 	border: 1px solid #d3d3d3;
 	background: #fefefe;
 	width: 99%;
-	margin: 1% auto 0;
+	margin: 3px auto 0;
 	-moz-border-radius: 5px; /* FF1+ */
 	-webkit-border-radius: 5px; /* Saf3-4 */
 	border-radius: 5px;
@@ -55,18 +69,22 @@ a {
 	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
 
-th,td {
+/* .th,.td {
 	padding: 10px 28px 10px;
 	text-align: center;
-}
+} */
 
-th {
+.th {
+	padding: 6px 2px 6px;
+	text-align: center;
 	padding-top: 8px;
 	text-shadow: 1px 1px 1px #fff;
 	background: #e8eaeb;
 }
 
-td {
+.td {
+	padding: 6px 2px 6px;
+	text-align: center;
 	border-top: 1px solid #e0e0e0;
 	border-right: 1px solid #e0e0e0;
 }

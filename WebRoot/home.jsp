@@ -14,7 +14,7 @@
 <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="js/userLoginCheck.js" charset=utf-8></script>
 
-
+<link rel="stylesheet" type="text/css" href="css/table_style.css" />
 <link rel="stylesheet" type="text/css" href="css/style2.css"
 	title="Origo" media="all" />
 <title>Origo v1.1</title>
@@ -52,7 +52,7 @@
 						<div class="left">
 							</br> </br>
 							<div align="center">
-								<img src="images/zfb_2yuan.jpg" width="387" height="93" />
+								<img style="margin-top: 8px;" src="images/zfb_2yuan.jpg" width="387" height="93" />
 							</div>
 						</div>
 						<div id="right">
@@ -66,17 +66,16 @@
 									onblur="return checkname()" cssClass="input_yh"></s:textfield>
 								<s:password name="pwd" id="uPass" placeholder="密码"
 									onblur="return checkpass();" cssClass="input_mm"></s:password>
-								<s:radio name="selected" list="#{'1':'用户','0':'管理员'}" value="1"></s:radio>
+								<s:radio name="selected" list="#{'1':'用户','0':'管理员'}" value="1"
+									cssStyle="margin-left:10px; margin-top:8px;margin-bottom:8px;"></s:radio>
 
-								<!-- 	</div> -->
 								<s:submit cssClass="loginBtn" title="Sign In" value="登录"></s:submit>
 							</s:form>
 							<dd>
 								<div align="center">
-									<a href="#" target="_blank">立即注册 </a>
+									<a href="register.jsp" target="_blank" class="a_register">立即注册 </a>
 								</div>
 							</dd>
-							<hr align="center" />
 
 						</div>
 
@@ -152,9 +151,9 @@
 			<br /> <br />
 			<!-- 搜索  -->
 			<div class="row">
-				<s:form>
+				<s:form action="/selectBook">
 					<s:submit theme="simple" cssClass="button" value="308一下"></s:submit>
-					<s:textfield theme="simple"></s:textfield>
+					<s:textfield theme="simple" placeholder="搜索图书"></s:textfield>
 				</s:form>
 			</div>
 
@@ -173,25 +172,23 @@
 						<!-- 管理员 -->
 						<s:if test="#session.get('loginName') == '123456' ">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
-							<li><a href="#">图书归还管理</a></li>
-							<li><a href="#">图书分类管理</a></li>
-							<li><a href="#">图书信息管理</a></li>
-							<li><a href="#">会员信息管理</a></li>
+							<li><a href="btypeManager.action">图书类别管理</a></li>
+							<li><a href="bookManager.action">图书信息管理</a></li>
+							<li><a href="#">图书借阅管理</a></li>
+							<li><a href="userManager.action">会员信息管理</a></li>
 							<li><a href="#">个人信息修改</a></li>
 						</s:if>
 						<!-- 普通用户 -->
 						<s:if test="#session.get('loginName') != null && #session.get('loginName') != '123456'">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
-							<li><a href="">图书查询</a></li>
-							<li><a href="#">图书借阅</a></li>
-							<li><a href="#">图书预定</a></li>
+							<li><a href="selectBook.action">图书查询</a></li>
 							<li><a href="#">信息修改</a></li>
 						</s:if>
 						<!-- 游客 -->
 						<s:if test="#session.get('loginName') == null">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
 							<li><a href="register.jsp">注&nbsp;&nbsp;&nbsp;&nbsp;册</a></li>
-							<li><a href="#">图书查询</a></li>
+							<li><a href="selectBook.action">图书查询</a></li>
 						</s:if>
 					</ul>
 				</div>
@@ -249,49 +246,3 @@
 
 </body>
 </html>
-
-
-<%-- <div class="popup" id="popup">
-
-				<div class="top_nav" id='top_nav'>
-					<div align="center">
-						<i></i> <span>登录账号</span> <a class="guanbi"></a>
-					</div>
-				</div>
-				<div class="min">
-					<div class="tc_login">
-						<div class="left">
-							</br> </br>
-							<div align="center">
-								<img src="images/zfb_2yuan.jpg" width="387" height="93" />
-							</div>
-						</div>
-						<div class="right">
-							<s:form method="POST" name="form_login" target="_top"
-								onsubmit="return register();">
-								<!-- <div align="center"> -->
-								<i class="icon-mobile-phone"></i>
-								<p id="namets"
-									style="width: 120px; height: 12px;  font-size: 12px;"></p>
-								<s:textfield name="name" id="uName" placeholder="用户名"
-									onblur="return checkname()" cssClass="input_yh"></s:textfield>
-								<s:password name="pass" id="uPass" placeholder="密码"
-									onblur="return checkpass();" cssClass="input_mm"></s:password>
-								<s:radio name="checkUser" list="#{'1':'管理员','0':'用户'}" value="0"></s:radio>
-
-								<!-- 	</div> -->
-								<div align="center">
-									<s:submit cssClass="loginBtn" title="Sign In" value="登录"></s:submit>
-								</div>
-							</s:form>
-							<dd>
-								<div align="center">
-									<a href="#" target="_blank">立即注册 </a>
-								</div>
-							</dd>
-							<hr align="center" />
-
-						</div>
-
-					</div>
- --%>

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -11,6 +13,7 @@ import org.hibernate.Transaction;
 
 import com.library.bean.BookInfo;
 import com.library.bean.HibernateSessionFactory;
+import com.library.bean.PageBean;
 import com.library.bean.Reader;
 import com.library.dao.CommonDao;
 import com.library.dao.ReaderDao;
@@ -23,6 +26,8 @@ public class ReaderImpl implements CommonDao,ReaderDao {
 
 	private Session session = null;
 	private Transaction tran = null;
+	@Resource
+	private PageImpl pageImpl = null;
 
 	@Override
 	public boolean addReader(Reader reader) {
@@ -30,6 +35,7 @@ public class ReaderImpl implements CommonDao,ReaderDao {
 			session = HibernateSessionFactory.getSession();
 			tran = session.beginTransaction();
 			if(reader != null) {
+				reader.setIsdelete(0);
 				session.save(reader);
 				tran.commit();
 				return true;
@@ -151,5 +157,32 @@ public class ReaderImpl implements CommonDao,ReaderDao {
 
 		return false;
 	}
+	
+	 /**
+	  * ·ÖÒ³
+	 * @param pageSize
+	 * @param page
+	 * @return
+	 */
+	public PageBean getPageBean(int pageSize, int page)
+	    {
+	        PageBean pageBean = new PageBean();
+	        
+	        String hql = "from Reader as r where r.isdelete=0";
+	        int allRows = pageImpl.getAllCount(hql);
+	        int totalPage = pageBean.getTotalPages(pageSize, allRows);
+	        int currentPage = pageBean.getCurPage(page);
+	        int offset = pageBean.getCurrentPageOffset(pageSize, currentPage);
+	        List<Reader> list = pageImpl.queryByHibernate(hql, offset, pageSize);
+	        
+	        System.out.println("×ÜÒ³Êý="+totalPage);
+	        
+	        pageBean.setList(list);
+	        pageBean.setAllRows(allRows);
+	        pageBean.setCurrentPage(currentPage);
+	        pageBean.setTotalPage(totalPage);
+	        
+	        return pageBean;
+	    }
 
 }

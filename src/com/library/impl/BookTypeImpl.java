@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -11,6 +13,8 @@ import org.hibernate.Transaction;
 
 import com.library.bean.BookType;
 import com.library.bean.HibernateSessionFactory;
+import com.library.bean.PageBean;
+import com.library.bean.Reader;
 import com.library.dao.BookTypeDao;
 
 /**
@@ -21,7 +25,9 @@ public class BookTypeImpl implements BookTypeDao {
 
 	private Session session = null;
 	private Transaction tran = null;
-	
+	@Resource
+	private PageImpl pageImpl;
+
 	@Override
 	public boolean addType(BookType bookType) {
 		try {
@@ -47,7 +53,7 @@ public class BookTypeImpl implements BookTypeDao {
 		try {
 			session = HibernateSessionFactory.getSession();
 			tran = session.beginTransaction();
-			
+
 			String sql = "from BookType as r where r.typeid=? and r.isdelete=?";
 			Query query = session.createQuery(sql);
 			query.setParameter(0, typeId);
@@ -109,6 +115,7 @@ public class BookTypeImpl implements BookTypeDao {
 		return false;
 	}
 
+
     /**
      * 根据id查询booktype
      * @param typeId
@@ -136,5 +143,33 @@ public class BookTypeImpl implements BookTypeDao {
 
 		return null;
     }
+
+	/**
+	 * ��ҳ
+	 * @param pageSize
+	 * @param page
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public PageBean getPageBean(int pageSize, int page){
+		PageBean pageBean = new PageBean();
+
+		String hql = "from BookType as b where b.isdelete=0";
+		int allRows = pageImpl.getAllCount(hql);
+		int totalPage = pageBean.getTotalPages(pageSize, allRows);
+		int currentPage = pageBean.getCurPage(page);
+		int offset = pageBean.getCurrentPageOffset(pageSize, currentPage);
+		List<Reader> list = pageImpl.queryByHibernate(hql, offset, pageSize);
+
+		System.out.println("��ҳ��="+totalPage);
+
+		pageBean.setList(list);
+		pageBean.setAllRows(allRows);
+		pageBean.setCurrentPage(currentPage);
+		pageBean.setTotalPage(totalPage);
+
+		return pageBean;
+	}
+
 
 }

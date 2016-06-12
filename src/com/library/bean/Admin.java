@@ -15,7 +15,7 @@ public class Admin implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private int admindid;
 	private String name;
-	private int age;
+	private Integer age;
 	private String sex;
 	private String tel;
 	private String email;
@@ -35,7 +35,7 @@ public class Admin implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Admin(int admindid, String name, int age, String sex,
+	public Admin(int admindid, String name, Integer age, String sex,
 			String tel, String email, String pwd) {
 		this.admindid = admindid;
 		this.name = name;
@@ -64,11 +64,11 @@ public class Admin implements java.io.Serializable {
 		this.name = name;
 	}
 
-	public int getAge() {
+	public Integer getAge() {
 		return this.age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
 

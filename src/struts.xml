@@ -10,24 +10,44 @@
 		
 		<!-- 用户注册 -->
         <action name="myregister" class="com.library.action.RegisterAction">
-            <result name="success">/login.jsp</result>
+            <result name="success">/home.jsp</result>
             <result name="input">/register.jsp</result>
         </action>
         <!-- 类型搜索 -->
         <action name="sSelect" class="com.library.action.sSelectAction">
             <result name="success">/addbook.jsp</result>
-            <result name="input">/register.jsp</result>
+            <result name="input">/home.jsp</result>
         </action>
         <!-- 添加图书-->
         <action name="addbook" class="com.library.action.AddbookAction">
-            <result name="success">/login.jsp</result>
-            <result name="input">/register.action</result>
+            <result name="success">/select_book.jsp</result>
+            <result name="input">/book_manager.jsp</result>
+        </action>
+        
+        <!-- 用户管理 -->
+        <action name="userManager" class="com.library.action.UserManagerAction">
+        	<result name="success">/user_manager.jsp</result>
+        </action>
+        
+        <!-- 图书类别管理 -->
+        <action name="btypeManager" class="com.library.action.BTypeManagerAction">
+        	<result name="success">/bookType_manager.jsp</result>
+        </action>
+        
+         <!-- 图书信息管理 -->
+        <action name="bookManager" class="com.library.action.BookManagerAction">
+        	<result name="success">/book_manager.jsp</result>
+        </action>
+        
+         <!-- 图书查询 -->
+        <action name="selectBook" class="com.library.action.SelectBookAction">
+        	<result name="success">/select_book.jsp</result>
         </action>
 
          <!-- 添加图书类型-->
         <action name="addbooktype" class="com.library.action.AddbookTypeAction">
-            <result name="success">/login.jsp</result>
-            <result name="input">/register.action</result>
+            <result name="success">/bookType_manager.jsp</result>
+            <result name="input">/bookType_manager.jsp</result>
         </action>
 	</package>
 </struts>    
