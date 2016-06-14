@@ -27,7 +27,7 @@ function falseshuzi(str2){
 function checkbname(){
 	var tname = document.getElementById("Tname").value;
 
-	var pts = document.getElementById("namets");
+	var pts = document.getElementById("namets1");
 	
 	if(tname.length==0)    
 	{   
@@ -48,7 +48,7 @@ function checkbname(){
 
 function checkprice(){
 	var trice = document.getElementById("Tprice").value;
-	var mts = document.getElementById("namets");	
+	var mts = document.getElementById("namets1");	
 	if(trice.length == 0) {
 		mts.innerHTML ="罚款金额不能为空";
 		mts.style.color="red";
@@ -72,7 +72,7 @@ function checkday()
 {
 	
 	var day = document.getElementById("Tday").value;
-	var ts = document.getElementById("namets");
+	var ts = document.getElementById("namets1");
 	 
 	if(day.length==0)    
 	{   

@@ -203,14 +203,14 @@
 							<li><a href="bookManager.action">图书信息管理</a></li>
 							<li><a href="#">图书借阅管理</a></li>
 							<li><a href="userManager.action">会员信息管理</a></li>
-							<li><a href="#">个人信息修改</a></li>
+							<li><a id="select" href="sladmin.action?method=select&id=<s:property value="#session.get('loginName')"/>">个人信息修改</a></li>
 						</s:if>
 						<!-- 普通用户 -->
 						<s:if
 							test="#session.get('loginName') != null && #session.get('loginName') != '123456'">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
 							<li><a href="selectBook.action">图书查询</a></li>
-							<li><a href="#">信息修改</a></li>
+							<li><a id="select" href="slreader.action?method=select&id=<s:property value="#session.get('loginName')"/>">信息修改</a></li>
 						</s:if>
 						<!-- 游客 -->
 						<s:if test="#session.get('loginName') == null">

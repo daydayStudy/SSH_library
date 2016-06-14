@@ -1,10 +1,12 @@
 package com.library.action;
 
-import javax.servlet.http.HttpServletRequest;
+import java.io.PrintWriter;
+import java.util.List;
 
-import org.apache.struts2.ServletActionContext;
+import javax.servlet.http.HttpServletResponse;
 
 import oracle.net.aso.p;
+
 
 import com.library.bean.Reader;
 import com.library.dao.ReaderDao;
@@ -12,29 +14,46 @@ import com.library.impl.ReaderImpl;
 import com.opensymphony.xwork2.ActionSupport;
 
 
-public class RegisterAction extends ActionSupport {
+public class UpdateReaderAction extends ActionSupport {
 
-	private Reader reader;
-	private ReaderDao readerDao = new ReaderImpl();
+	
+	public  Reader reader;
+	private ReaderDao rdao = new ReaderImpl();
+
+
+
+   
+
+
 
 	public Reader getReader() {
 		return reader;
 	}
 
+
+
+
+
+
+
 	public void setReader(Reader reader) {
 		this.reader = reader;
 	}
 
+
+
+
+
+
+
 	@Override
     public String execute() throws Exception {
-       
-		if(readerDao.addReader(reader)){
-			HttpServletRequest request = ServletActionContext.getRequest();
-			request.setAttribute("reader", reader);
-			
+		if(rdao.updateReader(reader)){
 			return SUCCESS;
-		}       
-		return INPUT;
+		}
+		else{
+	
+		return INPUT;}
     }
 
     

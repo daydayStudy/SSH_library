@@ -1,7 +1,7 @@
 function register1() {
-	if(!checkname()){
+	if(!checkname1()){
 		return false;
-	}else if (!checkpass()) {
+	}else if (!checkpass1()) {
 		return false;
 	} else if (!checkage()){
 		return false;
@@ -37,16 +37,17 @@ function falseage(str2){
 }
 
 function falsetel(str4){
-	var ftel=/(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}/;
+	
+	var ftel=/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
 	return ftel.test(str4);
 }
 
 
-function checkname()    
+function checkname1()    
 {
 	
-	var name = document.getElementById("uName").value;
-	var ts = document.getElementById("namets");
+	var name = document.getElementById("uName1").value;
+	var ts = document.getElementById("namets2");
 	 
 	if(name.length==0)    
 	{   
@@ -72,10 +73,10 @@ function checkname()
 	return true;
 }
 
-function checkpass(){
-	var userPass = document.getElementById("uPass").value;
+function checkpass1(){
+	var userPass = document.getElementById("uPass1").value;
 
-	var pts = document.getElementById("namets");
+	var pts = document.getElementById("namets2");
 	
 	if(userPass.length == 0) {
 		pts.innerHTML ="密码不能为空";
@@ -95,7 +96,7 @@ function checkpass(){
 
 function checkage(){
 	var usage = document.getElementById("uAge").value;
-	var ats = document.getElementById("namets");
+	var ats = document.getElementById("namets2");
 	
 	if(usage.length == 0) {
 		ats.innerHTML ="年龄不能为空";
@@ -119,15 +120,16 @@ function checkage(){
 
 function checktel(){
 	var utel = document.getElementById("uTel").value;
-	var tts = document.getElementById("namets");	
+	var tts = document.getElementById("namets2");	
 	if(utel.length == 0) {
 		tts.innerHTML ="联系方式不能为空";
 		tts.style.color="red";
 		return false;
 	}
+	
 	else if(!falsetel(utel)){ 
-		  ats.innerHTML="手机号不合法"; 
-		  ats.style.color="red"; 
+		  tts.innerHTML="手机号不合法"; 
+		  tts.style.color="red"; 
 		  return false; 
 		  }
 		
@@ -137,7 +139,7 @@ function checktel(){
 
 function checkemail(){
 	var uem = document.getElementById("uEmail").value;
-	var mts = document.getElementById("namets");	
+	var mts = document.getElementById("namets2");	
 	if(uem.length == 0) {
 		mts.innerHTML ="邮箱不能为空";
 		mts.style.color="red";

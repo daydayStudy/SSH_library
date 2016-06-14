@@ -13,11 +13,12 @@ import org.hibernate.Transaction;
 
 import com.library.bean.Borrow;
 import com.library.bean.HibernateSessionFactory;
+import com.library.bean.Stock;
 import com.library.dao.BorrowDao;
 
 /**
  * @author Administrator
- * ½èÔÄ¼ÇÂ¼ÒµÎñÂß¼­Àà
+ * ï¿½ï¿½ï¿½Ä¼ï¿½Â¼Òµï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½
  */
 public class BorrowImpl implements BorrowDao {
 
@@ -73,6 +74,29 @@ public class BorrowImpl implements BorrowDao {
 		return false;
 	}
 
+	public Borrow getBorrow(String ISBN){
+		try {
+			session = HibernateSessionFactory.getSession();
+			
+			String sql = "from Borrow as r where r.bookInfo.isbn=?";
+			Query query = session.createQuery(sql);
+			query.setParameter(0, ISBN);
+			List result = query.list();
+			if(result.size()>0) {
+				for(Iterator it=result.iterator(); it.hasNext();) {
+					Borrow borrow = (Borrow) it.next();
+					return borrow;
+				}
+			}
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+
+		return null;
+	}
+	
 	@Override
 	public List<Borrow> selectBorrows(String sql) {
 		List<Borrow> list = null;

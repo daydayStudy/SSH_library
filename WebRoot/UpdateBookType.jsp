@@ -13,8 +13,8 @@
 <head>
 <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="js/userLoginCheck.js" charset=utf-8></script>
-
-<link rel="stylesheet" type="text/css" href="css/table_style.css" />
+<script type="text/javascript" src="js/AddbookTypeCheck.js" charset=utf-8></script>
+<link rel="stylesheet" type="text/css" href="css/table2_style.css" />
 <link rel="stylesheet" type="text/css" href="css/style2.css"
 	title="Origo" media="all" />
 <title>Origo v1.1</title>
@@ -206,58 +206,38 @@
 					</ul>
 				</div>
 
-				<div class="col c8_table">
+				<div class="col c8">
 					<div class="div_title">
-						<b> 图书类别管理 </b> <a href="AddBookType.jsp" class="a_head">添加类别</a>
+						<b> 图书类别修改 </b> 
 					</div>
-					<table id="table" cellspacing="0">
-						<tr>
-							<th class="th">类别ID</th>
-							<th class="th">类别名</th>
-							<th class="th">罚款金额</th>
-							<th class="th">可借天数</th>
-							<th class="th">基本操作</th>
-						</tr>
-						<s:if test="#request.btypePageBean.list.size()==0">
-							<tr class="td"><td class="td" colspan="7">对不起，暂无图书类别信息</td></tr>
-						</s:if>
-						<s:else>
-						<s:iterator value="#request.btypePageBean.list" id="list">
-							<tr>
-								<td class="td"><s:property value="typeid" /></td>
-								<td class="td"><s:property value="typename" /></td>
-								<td class="td"><s:property value="finemoney" /></td>
-								<td class="td"><s:property value="days" /></td>
-								<td class="td">
-									<a id="select" href="slbtype.action?method=select&id=<s:property value="typeid"/>">编辑 </a>
-									<a id="delete" style="color:red;margin-left: 7px;" href="btypeManager.action?method=delete&id=<s:property value="typeid"/>">删除</a>
-								</td>
-							</tr>
-						</s:iterator>
-						</s:else>
-					</table>
+					</br>	
+					<center>
+						
+						<s:form action="upbooktype" method="post" namespace="/"
+							onsubmit="return addbooktyck();">
+							<p id="namets1"
+								style="width: 150px; height: 12px;  font-size: 12px;"></p>
+							</br>
+							<s:hidden name="booktype.typeid" value="%{booktype.typeid}"/>																																				
+							<s:textfield label="类型名称" name="booktype.typename" id="Tname"
+								cssClass="addin" placeholder="类型名称" value="%{booktype.typename}" onblur="return checkbname()" 
+								></s:textfield>
+							
+							<s:textfield label="罚款金额" name="booktype.finemoney" id="Tprice"
+								cssClass="addin" placeholder="罚款金额" value="%{booktype.finemoney}" onblur="return checkprice()"
+								></s:textfield>
+							<s:textfield label="可借天数" name="booktype.days" id="Tday"
+								cssClass="addin" placeholder="可借天数" value="%{booktype.days}" onblur="return checkday()"
+								></s:textfield>
+							
 
-					<div class="div_bottom">
-						  当前第<b>
-						 <font style="color:red;"><s:property value="#request.btypePageBean.currentPage" /></font> /
-						 <s:property value="#request.btypePageBean.totalPage" /></b>页
-						 <s:if test="#request.btypePageBean.currentPage==#request.btypePageBean.totalPage">
-						 	 <a href="" class="a_bottom">尾页</a> 
-							 <a href="" class="a_bottom">下一页</a> 
-						 </s:if>
-						 <s:else>
-							 <a href="btypeManager.action?page=<s:property value="#request.btypePageBean.totalPage"/>" class="a_bottom">尾页</a> 
-						 	<a href="btypeManager.action?page=<s:property value="#request.btypePageBean.currentPage + 1"/>" class="a_bottom">下一页</a> 
-						 </s:else>
-						 <s:if test="#request.btypePageBean.currentPage==1">
-						 	 <a href="" class="a_bottom">上一页</a> 
-							 <a href="" class="a_bottom">首页</a>
-						 </s:if>
-						 <s:else>
-						 <a href="btypeManager.action?page=<s:property value="#request.btypePageBean.currentPage - 1"/>" class="a_bottom">上一页</a> 
-						 <a href="btypeManager.action" class="a_bottom">首页</a>
-						 </s:else>
-					</div>
+							<s:submit cssClass="addbt" title="Sign In" value="图书类别修改"></s:submit>
+
+						</s:form>
+					
+					</center>
+
+				
 				</div>
 
 				<div class="col c2">

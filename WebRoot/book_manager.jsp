@@ -188,14 +188,14 @@
 							<li><a href="bookManager.action">图书信息管理</a></li>
 							<li><a href="#">图书借阅管理</a></li>
 							<li><a href="userManager.action">会员信息管理</a></li>
-							<li><a href="#">个人信息修改</a></li>
+							<li><a id="select" href="sladmin.action?method=select&id=<s:property value="#session.get('loginName')"/>">个人信息修改</a></li>
 						</s:if>
 						<!-- 普通用户 -->
 						<s:if
 							test="#session.get('loginName') != null && #session.get('loginName') != '123456'">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
 							<li><a href="selctBook.action"">图书查询</a></li>
-							<li><a href="#">信息修改</a></li>
+							<li><a id="select" href="slreader.action?method=select&id=<s:property value="#session.get('loginName')"/>">信息修改</a></li>
 						</s:if>
 						<!-- 游客 -->
 						<s:if test="#session.get('loginName') == null">
@@ -208,7 +208,7 @@
 
 				<div class="col c8_table">
 					<div class="div_title">
-						<b> 图书信息管理 </b> <a href="register.jsp" class="a_head">添加图书</a>
+						<b> 图书信息管理 </b> <a href="sSelect.action" class="a_head">添加图书</a>
 					</div>
 					<table id="table" cellspacing="0">
 						<tr>
@@ -218,7 +218,7 @@
 							<th class="th">库存</th>
 							<th class="th">基本操作</th>
 						</tr>
-						<s:if test="#request.bookPageBean.list.size()==0">
+						<s:if test="(#request.bookPageBean.list).size()==0">
 							<tr class="td"><td class="td" colspan="7">对不起，暂无图书信息</td></tr>
 						</s:if>
 						<s:else>
@@ -229,7 +229,7 @@
 								<td class="td"><s:property value="typename" /></td>
 								<td class="td"><s:property value="amount" /></td>
 								<td class="td">
-									<a>编辑 </a>
+									<a id="select" href="slbook.action?method=select&id=<s:property value="isbn"/>">编辑 </a>
 									<a id="delete" style="color:red;margin-left: 7px;" href="bookManager.action?method=delete&id=<s:property value="isbn"/>">删除</a>
 								</td>
 							</tr>

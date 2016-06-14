@@ -1,7 +1,5 @@
 function addbookck(){
-	 if(!checkISBN()){
-		return false;
-	}else if (!checkbname()) {
+	 if (!checkbname()) {
 		return false;
 	}else if (!checkweiter()){
 		return false;
@@ -13,10 +11,11 @@ function addbookck(){
 		return false;
 	}else if (!checkdate()){
 		return false;
-	}
-	else if (!checknumber()){
+	}else if (!checknumber()){
 		return false;
 	}
+	
+	
 	return true;
 }
 
@@ -43,35 +42,7 @@ function falseshuzi(str2){
 
 
 
-function checkISBN()    
-{
-	
-	var isbn = document.getElementById("Aisbn").value;
-	var ts = document.getElementById("namets1");
-	 
-	if(isbn.length==0)    
-	{   
-		ts.innerHTML ="ISBN不能为空";
-		ts.style.color="red";
-		return false;
-		
-	}
-	else if(isbn.length<10||isbn.length>13){
-		ts.innerHTML ="ISBN长度在13以内";
-		ts.style.color="red";
-		return false;
-	}
-	
 
-	  else if(!falseshuzi(isbn)){ 
-		  ts.innerHTML="ISBN只能是数字"; 
-		  ts.style.color="red"; 
-		  return false; 
-		  }
-
-	ts.innerHTML = '';
-	return true;
-}
 
 function checkbname(){
 	var bname = document.getElementById("Aname").value;

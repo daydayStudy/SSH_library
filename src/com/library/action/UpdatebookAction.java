@@ -15,8 +15,6 @@ import oracle.net.aso.p;
 
 
 
-
-
 import com.library.bean.BookInfo;
 import com.library.bean.BookType;
 import com.library.bean.Stock;
@@ -29,38 +27,32 @@ import com.library.impl.StockImpl;
 import com.opensymphony.xwork2.ActionSupport;
 
 
-public class AddbookAction extends ActionSupport {
+public class UpdatebookAction extends ActionSupport {
 
+	
 	private BookInfo book;	
-	public  BookType booktype;
 	private Stock stock;
 	public int typeid;
-	private BookInfoDao bookDao = new BookInfoImpl();
+	private  BookType booktype;
 	private BookTypeDao stdao = new BookTypeImpl();
+	private BookInfoDao bookDao = new BookInfoImpl();
 	private StockDao stcdao = new StockImpl();
-	
-	
 
-	
+
    
 
 
-
-	public Stock getStock() {
-		return stock;
-	}
-
-
-
-	public void setStock(Stock stock) {
-		this.stock = stock;
-	}
-
+	
 
 
 	public int getTypeid() {
 		return typeid;
 	}
+
+
+
+
+
 
 
 
@@ -70,26 +62,70 @@ public class AddbookAction extends ActionSupport {
 
 
 
-	
-	public BookInfo getBook() {		
+
+
+
+
+
+	public BookInfo getBook() {
 		return book;
 	}
 
- 
+
+
+
+
+
+
 
 	public void setBook(BookInfo book) {
-		
 		this.book = book;
 	}
 
 
 
+
+
+
+
+
+	public Stock getStock() {
+		return stock;
+	}
+
+
+
+
+
+
+
+
+	public void setStock(Stock stock) {
+		this.stock = stock;
+	}
+
+
+   
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
 	@Override
-    public String execute() throws Exception {
+    public String execute() throws Exception {		
 		this.booktype = stdao.get(typeid);
 		book.setBookType(booktype);
 		stock.setBookInfo(book);
-		if(bookDao.addBook(book) && stcdao.addStock(stock)){
+		if(bookDao.updateBook(book) && stcdao.updateStock(stock) ){
 			return SUCCESS;
 		}
 		else{

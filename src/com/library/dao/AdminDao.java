@@ -1,17 +1,19 @@
 package com.library.dao;
 
 import com.library.bean.Admin;
+import com.library.bean.Reader;
 
 /**
  * @author Administrator
- * 管理员通用接口
+ * 锟斤拷锟斤拷员通锟矫接匡拷
  */
 public interface AdminDao {
 
 	/**
-	 * 更新管理员信息
+	 * 锟斤拷锟铰癸拷锟斤拷员锟斤拷息
 	 * @param admin
 	 * @return
 	 */
 	public boolean update(Admin admin);
+	public Admin getadmin(int admindid);
 }

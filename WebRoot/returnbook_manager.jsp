@@ -194,7 +194,7 @@
 						<s:if
 							test="#session.get('loginName') != null && #session.get('loginName') != '123456'">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
-							<li><a href="selectBook.action">图书查询</a></li>
+							<li><a href="selctBook.action"">图书查询</a></li>
 							<li><a id="select" href="slreader.action?method=select&id=<s:property value="#session.get('loginName')"/>">信息修改</a></li>
 						</s:if>
 						<!-- 游客 -->
@@ -208,29 +208,33 @@
 
 				<div class="col c8_table">
 					<div class="div_title">
-						<b> 图书类别管理 </b> <a href="AddBookType.jsp" class="a_head">添加类别</a>
+						<b> 图书归还管理 </b> 
 					</div>
 					<table id="table" cellspacing="0">
 						<tr>
-							<th class="th">类别ID</th>
-							<th class="th">类别名</th>
-							<th class="th">罚款金额</th>
-							<th class="th">可借天数</th>
+						    <th class="th">图书ID</th>
+							<th class="th">借阅者</th>
+							<th class="th">图书名称</th>
+							<th class="th">是否归还</th>							
+							<th class="th">借阅日期</th>
+							<th class="th">库存</th>
 							<th class="th">基本操作</th>
 						</tr>
-						<s:if test="#request.btypePageBean.list.size()==0">
-							<tr class="td"><td class="td" colspan="7">对不起，暂无图书类别信息</td></tr>
+						<s:if test="(#request.bookPageBean.list).size()==0">
+							<tr class="td"><td class="td" colspan="7">对不起，暂无借阅信息</td></tr>
 						</s:if>
 						<s:else>
-						<s:iterator value="#request.btypePageBean.list" id="list">
+						<s:iterator value="#request.bookPageBean.list" id="list">
 							<tr>
-								<td class="td"><s:property value="typeid" /></td>
-								<td class="td"><s:property value="typename" /></td>
-								<td class="td"><s:property value="finemoney" /></td>
-								<td class="td"><s:property value="days" /></td>
+							    <td class="td"><s:property value="isbn" /></td>
+								<td class="td"><s:property value="name" /></td>
+								<td class="td"><s:property value="bookname" /></td>
+								<td class="td"><s:property value="isback" /></td>
+								<td class="td"><s:property value="borrowdate" /></td>
+								<td class="td"><s:property value="amount" /></td>
 								<td class="td">
-									<a id="select" href="slbtype.action?method=select&id=<s:property value="typeid"/>">编辑 </a>
-									<a id="delete" style="color:red;margin-left: 7px;" href="btypeManager.action?method=delete&id=<s:property value="typeid"/>">删除</a>
+									<a id="select" href="rtbook.action?method=select&id=<s:property value="isbn"/>">归还 </a>
+									
 								</td>
 							</tr>
 						</s:iterator>
@@ -239,23 +243,23 @@
 
 					<div class="div_bottom">
 						  当前第<b>
-						 <font style="color:red;"><s:property value="#request.btypePageBean.currentPage" /></font> /
-						 <s:property value="#request.btypePageBean.totalPage" /></b>页
-						 <s:if test="#request.btypePageBean.currentPage==#request.btypePageBean.totalPage">
+						 <font style="color:red;"><s:property value="#request.bookPageBean.currentPage" /></font> /
+						 <s:property value="#request.bookPageBean.totalPage" /></b>页
+						 <s:if test="#request.bookPageBean.currentPage==#request.bookPageBean.totalPage">
 						 	 <a href="" class="a_bottom">尾页</a> 
 							 <a href="" class="a_bottom">下一页</a> 
 						 </s:if>
 						 <s:else>
-							 <a href="btypeManager.action?page=<s:property value="#request.btypePageBean.totalPage"/>" class="a_bottom">尾页</a> 
-						 	<a href="btypeManager.action?page=<s:property value="#request.btypePageBean.currentPage + 1"/>" class="a_bottom">下一页</a> 
+							 <a href="bookManager.action?page=<s:property value="#request.bookPageBean.totalPage"/>" class="a_bottom">尾页</a> 
+						 	<a href="bookManager.action?page=<s:property value="#request.bookPageBean.currentPage + 1"/>" class="a_bottom">下一页</a> 
 						 </s:else>
-						 <s:if test="#request.btypePageBean.currentPage==1">
+						 <s:if test="#request.bookPageBean.currentPage==1">
 						 	 <a href="" class="a_bottom">上一页</a> 
 							 <a href="" class="a_bottom">首页</a>
 						 </s:if>
 						 <s:else>
-						 <a href="btypeManager.action?page=<s:property value="#request.btypePageBean.currentPage - 1"/>" class="a_bottom">上一页</a> 
-						 <a href="btypeManager.action" class="a_bottom">首页</a>
+						 <a href="bookManager.action?page=<s:property value="#request.bookPageBean.currentPage - 1"/>" class="a_bottom">上一页</a> 
+						 <a href="bookManager.action" class="a_bottom">首页</a>
 						 </s:else>
 					</div>
 				</div>

@@ -70,7 +70,7 @@ public class JTest extends TestCase {
 	}
 	
 	public void testSelect() {
-		String name = "Êý";
+		String name = "a";
 		String hql = "select b.bookname,t.typename,b.publisher,b.writer,b.translator,s.amount from BookInfo as b,BookType as t,"
 				+ " Stock as s where b.bookType.typeid=t.typeid and b.isbn=s.bookInfo.isbn and b.isdelete=0 and b.bookname like '%"+name+"%'";
 		Session session = HibernateSessionFactory.getSession();
@@ -81,4 +81,7 @@ public class JTest extends TestCase {
 	
 	}
 
+	
+	public void testBOOK() {
+	}
 }

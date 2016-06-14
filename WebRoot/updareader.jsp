@@ -13,9 +13,9 @@
 <head>
 <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="js/userLoginCheck.js" charset=utf-8></script>
-
-<link rel="stylesheet" type="text/css" href="css/table_style.css" />
-<link rel="stylesheet" type="text/css" href="css/style2.css"
+<script type="text/javascript" src="js/userRegisterCheck.js" charset=utf-8></script>
+<link rel="stylesheet" type="text/css" href="css/table2_style.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css"
 	title="Origo" media="all" />
 <title>Origo v1.1</title>
 </head>
@@ -30,7 +30,7 @@
 				<p>
 					<s:if test="#session.get('loginName') != null">
 						&nbsp;&nbsp;<a href="#" class="tc">切换用户</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href=""><s:property value="#session.get('loginName')" /></a>,欢迎您
+						<a href=""><s:property value="#session.get('loginName')"/></a>,欢迎您
 					</s:if>
 					<s:elseif test="#session.get('loginName') == null">
 						&nbsp;&nbsp;<a href="#" class="tc">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -114,18 +114,7 @@
 						left : _left
 					});
 				}
-				function deleteConfirm(ids) {
-					if(confirm('确定删除？')){
-						$.ajax({
-							type : "post",
-							url : "userManager.action",
-							dataType:"json",
-							data : {method:"delete",id:ids},
-						});
-				    }else {
-				    	return false;
-				    }
-				}
+
 				
 			</script>
 
@@ -163,8 +152,7 @@
 			<!-- 搜索  -->
 			<div class="row">
 				<s:form action="/selectBook">
-					<s:submit theme="simple" cssClass="button" 
-						value="308一下"></s:submit>
+					<s:submit theme="simple" cssClass="button" value="308一下"></s:submit>
 					<s:textfield theme="simple" placeholder="搜索图书"></s:textfield>
 				</s:form>
 			</div>
@@ -178,7 +166,7 @@
 				</div>
 			</div>
 			<!-- 左侧导航栏 -->
-			<div class="row">
+			<div id="row">
 				<div class="col c2 alignleft">
 					<ul class="menu">
 						<!-- 管理员 -->
@@ -191,11 +179,11 @@
 							<li><a id="select" href="sladmin.action?method=select&id=<s:property value="#session.get('loginName')"/>">个人信息修改</a></li>
 						</s:if>
 						<!-- 普通用户 -->
-						<s:if
-							test="#session.get('loginName') != null && #session.get('loginName') != '123456'">
+						<s:if test="#session.get('loginName') != null && #session.get('loginName') != '123456'">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
 							<li><a href="selectBook.action">图书查询</a></li>
 							<li><a id="select" href="slreader.action?method=select&id=<s:property value="#session.get('loginName')"/>">信息修改</a></li>
+							
 						</s:if>
 						<!-- 游客 -->
 						<s:if test="#session.get('loginName') == null">
@@ -206,60 +194,36 @@
 					</ul>
 				</div>
 
-				<div class="col c8_table">
+				<div class="col c8">
 					<div class="div_title">
-						<b> 图书类别管理 </b> <a href="AddBookType.jsp" class="a_head">添加类别</a>
+						<b> 会员信息修改 </b> 
 					</div>
-					<table id="table" cellspacing="0">
-						<tr>
-							<th class="th">类别ID</th>
-							<th class="th">类别名</th>
-							<th class="th">罚款金额</th>
-							<th class="th">可借天数</th>
-							<th class="th">基本操作</th>
-						</tr>
-						<s:if test="#request.btypePageBean.list.size()==0">
-							<tr class="td"><td class="td" colspan="7">对不起，暂无图书类别信息</td></tr>
-						</s:if>
-						<s:else>
-						<s:iterator value="#request.btypePageBean.list" id="list">
-							<tr>
-								<td class="td"><s:property value="typeid" /></td>
-								<td class="td"><s:property value="typename" /></td>
-								<td class="td"><s:property value="finemoney" /></td>
-								<td class="td"><s:property value="days" /></td>
-								<td class="td">
-									<a id="select" href="slbtype.action?method=select&id=<s:property value="typeid"/>">编辑 </a>
-									<a id="delete" style="color:red;margin-left: 7px;" href="btypeManager.action?method=delete&id=<s:property value="typeid"/>">删除</a>
-								</td>
-							</tr>
-						</s:iterator>
-						</s:else>
-					</table>
+					<center>
+		<s:form action="upreader"  method="post" namespace="/" onsubmit="return register1();">
+			<p id="namets2"									
+			style="width: 150px; height: 12px;  font-size: 12px;"></p>
+			</br>
+			<s:hidden name="reader.readerid" value="%{reader.readerid}"/>
+			<s:textfield label="用户名" name="reader.name" id="uName1" placeholder="用户名" 
+				cssClass="addin" value="%{reader.name}" onblur="return checkname1()" ></s:textfield>
+			<s:password label="密码" name="reader.pwd" id="uPass1" placeholder="密码"
+				cssClass="addin" value="%{reader.pwd}" onblur="return checkpass1();" ></s:password>
+			<s:textfield label="年龄" name="reader.age" id="uAge" placeholder="年龄"
+				cssClass="addin" value="%{reader.age}" onblur="return checkage()" ></s:textfield>
+			<s:radio name="reader.sex" list="#{'男':'男','女':'女'}" value="%{reader.sex}" 
+			cssStyle="margin-left:10px; margin-top:15px;margin-bottom:15px;"> </s:radio>
+			<s:textfield label="联系方式" name="reader.tel" id="uTel" placeholder="联系方式"
+				cssClass="addin" value="%{reader.tel}" onblur="return checktel()" ></s:textfield>
+			<s:textfield label="邮箱" name="reader.email" id="uEmail" placeholder="邮箱"
+				cssClass="addin" value="%{reader.email}" onblur="return checkemail()" ></s:textfield>
 
-					<div class="div_bottom">
-						  当前第<b>
-						 <font style="color:red;"><s:property value="#request.btypePageBean.currentPage" /></font> /
-						 <s:property value="#request.btypePageBean.totalPage" /></b>页
-						 <s:if test="#request.btypePageBean.currentPage==#request.btypePageBean.totalPage">
-						 	 <a href="" class="a_bottom">尾页</a> 
-							 <a href="" class="a_bottom">下一页</a> 
-						 </s:if>
-						 <s:else>
-							 <a href="btypeManager.action?page=<s:property value="#request.btypePageBean.totalPage"/>" class="a_bottom">尾页</a> 
-						 	<a href="btypeManager.action?page=<s:property value="#request.btypePageBean.currentPage + 1"/>" class="a_bottom">下一页</a> 
-						 </s:else>
-						 <s:if test="#request.btypePageBean.currentPage==1">
-						 	 <a href="" class="a_bottom">上一页</a> 
-							 <a href="" class="a_bottom">首页</a>
-						 </s:if>
-						 <s:else>
-						 <a href="btypeManager.action?page=<s:property value="#request.btypePageBean.currentPage - 1"/>" class="a_bottom">上一页</a> 
-						 <a href="btypeManager.action" class="a_bottom">首页</a>
-						 </s:else>
-					</div>
+			<s:submit cssClass="addbt" title="Sign In" value="修改信息"></s:submit>
+
+		</s:form>
+</center>
+
+				
 				</div>
-
 				<div class="col c2">
 					<h3>Presentation:</h3>
 					<p>

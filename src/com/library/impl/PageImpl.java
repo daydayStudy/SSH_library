@@ -13,13 +13,14 @@ import org.hibernate.Transaction;
 import com.library.bean.BookInfo;
 import com.library.bean.BookManagerBean;
 import com.library.bean.HibernateSessionFactory;
+import com.library.bean.ReturnBookBean;
 import com.library.bean.SelectBookBean;
 import com.library.util.JUtils;
 
 
 /**
  * @author Administrator
- *·ÖÒ³
+ *ï¿½ï¿½Ò³
  */
 public class PageImpl {
 
@@ -28,7 +29,7 @@ public class PageImpl {
 	Query query = null;
 	
 	/**
-	 * »ñµÃÈ«²¿¼ÇÂ¼
+	 * ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½Â¼
 	 * @param hql
 	 * @return
 	 */
@@ -56,7 +57,7 @@ public class PageImpl {
 	}
 	
 	/**
-	 * ·ÖÒ³
+	 * ï¿½ï¿½Ò³
 	 * @param hql
 	 * @param offset
 	 * @param pageSize
@@ -88,7 +89,7 @@ public class PageImpl {
 	}
 	
 	/**
-	 * ·ÖÒ³£¨Í¼ÊéÐÅÏ¢¹ÜÀíÒ³Ãæ£©
+	 * ï¿½ï¿½Ò³ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ò³ï¿½æ£©
 	 * @param hql
 	 * @param offset
 	 * @param pageSize
@@ -135,8 +136,47 @@ public class PageImpl {
 		return result;
 	}
 	
+	
+	public List<ReturnBookBean> queryReturnBookManagerInfo(String hql, int offset, int pageSize) {
+		session = HibernateSessionFactory.getSession();
+		List<ReturnBookBean> result = new ArrayList<>();
+		
+		try {
+			transaction = session.beginTransaction();
+			query = session.createQuery(hql).setFirstResult(offset)
+						.setMaxResults(pageSize);
+			List list = query.list();
+			
+			for(Iterator it=list.iterator();it.hasNext();) {
+				ReturnBookBean bean = new ReturnBookBean();
+				Object[] obj = (Object[]) it.next();
+				bean.setIsbn(obj[0].toString());
+				bean.setName(obj[1].toString());
+				bean.setBookname(obj[2].toString());
+				int isback = Integer.parseInt(obj[3].toString());
+				bean.setIsback(isback);
+				bean.setBorrowdate(obj[4].toString());
+				int amount = Integer.parseInt(obj[5].toString());
+				bean.setAmount(amount);				
+				
+				result.add(bean);
+			}
+			transaction.commit();
+			
+		} catch (Exception e) {
+			if(transaction != null) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			query = null;
+			HibernateSessionFactory.closeSession();
+		}
+		
+		return result;
+	}
 	/**
-	 * ·ÖÒ³£¨Í¼Êé²éÑ¯Ò³Ãæ£©
+	 * ï¿½ï¿½Ò³ï¿½ï¿½Í¼ï¿½ï¿½ï¿½Ñ¯Ò³ï¿½æ£©
 	 * @param hql
 	 * @param offset
 	 * @param pageSize
