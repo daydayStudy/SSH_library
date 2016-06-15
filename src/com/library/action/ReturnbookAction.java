@@ -111,10 +111,10 @@ public class ReturnbookAction extends ActionSupport {
 
 
 	public String execute() throws Exception{
-		return "borrow"
+		return SUCCESS;
     }
 
-	public boolean borrow()  {
+	public void borrow()  {
 		if("select".equals(method)) { 
         	if(JUtils.changeToNum(id)) {
         		System.out.println("id="+id);
@@ -128,7 +128,7 @@ public class ReturnbookAction extends ActionSupport {
             		stcdao.updateStock(stock);       		
             		borrow.setIsback(1);
             		bordao.updateBorrow(borrow);
-            		return true;
+            		
         		}
         		else {
         			response.setContentType("text/html;charset=UTF-8");
@@ -138,7 +138,7 @@ public class ReturnbookAction extends ActionSupport {
         			out.print("<script>window.location.href='" + "returnbook_manager.jsp" + "'</script>");   
         			out.flush();   
         			out.close();*/
-        			return false;
+        			
         		}
         	}
         }
