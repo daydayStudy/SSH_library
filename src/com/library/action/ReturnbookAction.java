@@ -111,10 +111,12 @@ public class ReturnbookAction extends ActionSupport {
 
 
 	public String execute() throws Exception{
-		return SUCCESS;
+		if(borrow()){
+		return SUCCESS;}
+		else return INPUT;
     }
 
-	public void borrow()  {
+	public boolean borrow()  {
 		if("select".equals(method)) { 
         	if(JUtils.changeToNum(id)) {
         		System.out.println("id="+id);
@@ -124,25 +126,32 @@ public class ReturnbookAction extends ActionSupport {
         		long day = borrow.getBackdate().getTime() -borrow.getBorrowdate().getTime()/(24*60*60*1000); 
         		if(day>0){
         			stock=stcdao.getStock(isbn);
-            		stock.setAmount(stock.getAmount()-1);
+            		stock.setAmount(stock.getAmount()+1);
             		stcdao.updateStock(stock);       		
             		borrow.setIsback(1);
             		bordao.updateBorrow(borrow);
-            		
+            		return true;
         		}
         		else {
         			response.setContentType("text/html;charset=UTF-8");
         			response.setCharacterEncoding("UTF-8");
         			PrintWriter out;
-        			/*out.print("<script>alert('需交罚款')</script>");
-        			out.print("<script>window.location.href='" + "returnbook_manager.jsp" + "'</script>");   
-        			out.flush();   
-        			out.close();*/
+					try {
+						out = response.getWriter();
+						out.print("<script>alert('需交罚款')</script>");
+	        			out.print("<script>window.location.href='" + "returnbook_manager.jsp" + "'</script>");   
+	        			out.flush();   
+	        			out.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
         			
+        			return false;
         		}
         	}
         }
-		
+		return (Boolean) null;
 	}
 	public void setServletResponse(HttpServletResponse response) {
 		this.response = response;

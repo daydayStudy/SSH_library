@@ -103,7 +103,7 @@
         <!-- 图书归还-->
         <action name="rtbook" class="com.library.action.ReturnbookAction">
             <result name="success" type="redirect">/returnbookManager.action</result>
-            
+            <result name="input">/home.jsp</result>
         </action>
 	</package>
 </struts>    
