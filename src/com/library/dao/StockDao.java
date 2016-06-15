@@ -2,30 +2,31 @@ package com.library.dao;
 
 import java.util.List;
 
+import com.library.bean.BookType;
 import com.library.bean.Stock;
 
 /**
  * @author Administrator
- * ¿â´æ½Ó¿ÚÀà
+ * ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½
  */
 public interface StockDao {
 
 	/**
-	 * Ôö¼ÓÒ»Ìõ¿â´æ¼ÇÂ¼
+	 * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼
 	 * @param stock
 	 * @return
 	 */
 	public boolean addStock(Stock stock);
 	
 	/**
-	 * ²éÑ¯¿â´æÐÅÏ¢
+	 * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * @param sql
 	 * @return
 	 */
 	public List<Stock> selectStocks(String sql);
-	
+	public Stock getStock(String ISBN);
 	/**
-	 * ÐÞ¸Ä¿â´æ
+	 * ï¿½Þ¸Ä¿ï¿½ï¿½
 	 * @param stock
 	 * @return
 	 */

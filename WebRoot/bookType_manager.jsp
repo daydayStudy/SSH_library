@@ -187,17 +187,16 @@
 							<li><a href="btypeManager.action">图书类别管理</a></li>
 							<li><a href="bookManager.action">图书信息管理</a></li>
 							<li><a href="borrow_book.jsp">图书借阅管理</a></li>
-							<li><a href="">会员借阅记录</a></li>
 							<li><a href="userManager.action">会员信息管理</a></li>
-							<li><a href="#">个人信息修改</a></li>
+							<li><a id="select" href="sladmin.action?method=select&id=<s:property value="#session.get('loginName')"/>">个人信息修改</a></li>
 						</s:if>
 						<!-- 普通用户 -->
 						<s:if
 							test="#session.get('loginName') != null && #session.get('loginName') != '123456'">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
 							<li><a href="selectBook.action">图书查询</a></li>
-							<li><a href="">借阅记录</a></li>
-							<li><a href="#">信息修改</a></li>
+							<li><a href="borrowRecord.action">借阅记录</a></li>
+							<li><a id="select" href="slreader.action?method=select&id=<s:property value="#session.get('loginName')"/>">信息修改</a></li>
 						</s:if>
 						<!-- 游客 -->
 						<s:if test="#session.get('loginName') == null">
@@ -210,7 +209,7 @@
 
 				<div class="col c8_table">
 					<div class="div_title">
-						<b> 图书类别管理 </b> <a href="register.jsp" class="a_head">添加类别</a>
+						<b> 图书类别管理 </b> <a href="AddBookType.jsp" class="a_head">添加类别</a>
 					</div>
 					<table id="table" cellspacing="0">
 						<tr>
@@ -231,7 +230,7 @@
 								<td class="td"><s:property value="finemoney" /></td>
 								<td class="td"><s:property value="days" /></td>
 								<td class="td">
-									<a>编辑 </a>
+									<a id="select" href="slbtype.action?method=select&id=<s:property value="typeid"/>">编辑 </a>
 									<a id="delete" style="color:red;margin-left: 7px;" href="btypeManager.action?method=delete&id=<s:property value="typeid"/>">删除</a>
 								</td>
 							</tr>

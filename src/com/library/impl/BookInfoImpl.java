@@ -16,13 +16,13 @@ import com.library.bean.BookManagerBean;
 import com.library.bean.BorrowBookBean;
 import com.library.bean.HibernateSessionFactory;
 import com.library.bean.PageBean;
-import com.library.bean.Reader;
+import com.library.bean.ReturnBookBean;
 import com.library.bean.SelectBookBean;
 import com.library.dao.BookInfoDao;
 
 /**
  * @author Administrator
- * Í¼ÊéÒµÎñÂß¼­Àà
+ * å›¾é”Ÿæ–¤æ‹·ä¸šé”Ÿæ–¤æ‹·é”Ÿç«­ç¡·æ‹·é”Ÿæ–¤æ‹·
  */
 public class BookInfoImpl implements BookInfoDao  {
 
@@ -121,7 +121,7 @@ public class BookInfoImpl implements BookInfoDao  {
 	}
 
 	/**
-	 * ·ÖÒ³(¹ÜÀíÔ±)
+	 * é”Ÿæ–¤æ‹·é¡µ(é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·å‘˜)
 	 * @param pageSize
 	 * @param page
 	 * @return
@@ -138,7 +138,6 @@ public class BookInfoImpl implements BookInfoDao  {
 		int offset = pageBean.getCurrentPageOffset(pageSize, currentPage);
 		List<BookManagerBean> list = pageImpl.queryBookManagerInfo(hql, offset, pageSize);
 
-		System.out.println("×ÜÒ³Êı="+totalPage);
 
 		pageBean.setList(list);
 		pageBean.setAllRows(allRows);
@@ -148,8 +147,55 @@ public class BookInfoImpl implements BookInfoDao  {
 		return pageBean;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public PageBean getPageBean2(int pageSize, int page) {
+		PageBean pageBean = new PageBean();
+		
+		String hql = "select b.isbn,bor.reader.name,b.bookname,bor.isback,bor.borrowdate,bor.backdate,s.amount from BookInfo as b,"
+				+ " Borrow as bor,Stock as s where b.isbn=bor.bookInfo.isbn and b.isbn=s.bookInfo.isbn and b.isdelete=0"
+				+"and bor.isback=0";
+		int allRows = pageImpl.getAllCount(hql);
+		int totalPage = pageBean.getTotalPages(pageSize, allRows);
+		int currentPage = pageBean.getCurPage(page);
+		int offset = pageBean.getCurrentPageOffset(pageSize, currentPage);
+		List<ReturnBookBean> list = pageImpl.queryReturnBookManagerInfo(hql, offset, pageSize);
+
+
+		pageBean.setList(list);
+		pageBean.setAllRows(allRows);
+		pageBean.setCurrentPage(currentPage);
+		pageBean.setTotalPage(totalPage);
+
+		return pageBean;
+	}
+	
+	public BookInfo getBook(String isbn){
+		try {
+			session = HibernateSessionFactory.getSession();
+			
+			String sql = "from BookInfo as r where r.isbn=?";
+			Query query = session.createQuery(sql);
+			query.setParameter(0, isbn);
+			List result = query.list();
+			if(result.size()>0) {
+				for(Iterator it=result.iterator(); it.hasNext();) {
+					BookInfo book = (BookInfo) it.next();
+					return book;
+				}
+			}
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+
+		return null;
+	}
+	
+	
+	
 	/**
-	 * ·ÖÒ³(²éÑ¯Í¼ÊéÓÃ)
+	 * é”Ÿæ–¤æ‹·é¡µ(é”Ÿæ–¤æ‹·è¯¢å›¾é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·)
 	 * @param pageSize
 	 * @param page
 	 * @return
@@ -166,7 +212,7 @@ public class BookInfoImpl implements BookInfoDao  {
 		int offset = pageBean.getCurrentPageOffset(pageSize, currentPage);
 		List<SelectBookBean> list = pageImpl.queryBookInfo(hql, offset, pageSize);
 
-		System.out.println("×ÜÒ³Êı="+totalPage);
+		System.out.println("é”Ÿæ–¤æ‹·é¡µé”Ÿæ–¤æ‹·="+totalPage);
 
 		pageBean.setList(list);
 		pageBean.setAllRows(allRows);
@@ -177,7 +223,7 @@ public class BookInfoImpl implements BookInfoDao  {
 	}
 	
 	/**
-	 * ·ÖÒ³(Ä£ºı²éÑ¯Í¼ÊéÓÃ)
+	 * é”Ÿæ–¤æ‹·é¡µ(æ¨¡é”Ÿæ–¤æ‹·é”Ÿçª–îˆ‚ç¡·æ‹·é”Ÿæ–¤æ‹·é”Ÿï¿½
 	 * @param pageSize
 	 * @param page
 	 * @return
@@ -194,7 +240,7 @@ public class BookInfoImpl implements BookInfoDao  {
 		int offset = pageBean.getCurrentPageOffset(pageSize, currentPage);
 		List<SelectBookBean> list = pageImpl.queryBookInfo(hql, offset, pageSize);
 
-		System.out.println("×ÜÒ³Êı="+totalPage);
+		System.out.println("é”Ÿæ–¤æ‹·é¡µé”Ÿæ–¤æ‹·="+totalPage);
 
 		pageBean.setList(list);
 		pageBean.setAllRows(allRows);
@@ -205,7 +251,7 @@ public class BookInfoImpl implements BookInfoDao  {
 	}
 	
 	/**
-	 * ²éÑ¯±àºÅ¡¢ÀàĞÍ¡¢¿É½èÌìÊı
+	 * æŸ¥è¯¢ç¼–å·ã€ç±»å‹ã€å¯å€Ÿå¤©æ•°
 	 * @param bookname
 	 * @return
 	 */

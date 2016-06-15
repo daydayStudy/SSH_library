@@ -9,3 +9,52 @@ body.light {
 		no-repeat;
 	color: #555;
 }
+.input1{
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	color: #000;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1em;
+	height: 30px;
+	padding: 0 0 0 34px;
+	margin: 10px 0px 0px 10px;
+	transition: background 0.3s ease-in-out;
+	width: 165px;
+	float: right;
+}
+
+.button1{
+-webkit-appearance: none;
+	background: #36a803;
+	border: none;
+	border-radius: 2px;
+	color: #fff;
+	cursor: pointer;
+	height: 30px;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1.2em;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	transition: background 0.3s ease-in-out;
+	width: 165px;
+	padding: 0 50px 0 50px;
+	font-weight: bold;
+	}
+
+.rido1{
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	
+	color: #000;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1em;
+	text-align:justify;
+	
+	padding: 0 0 0 34px;
+	transition: background 0.3s ease-in-out;
+	margin: 20px auto 0;
+	overflow: hidden;
+	height: 20px;
+	width: 50px;
+	float: right;
+}

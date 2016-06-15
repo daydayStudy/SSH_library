@@ -60,6 +60,7 @@ public class SelectBookAction extends ActionSupport{
 		if(bookname == null || "".equals(bookname.trim())) {
 			pageInfo();
 		}else {
+			System.out.println("wwwwwww");
 			PageBean pageBean = bookInfoImpl.getPageBeanM(bookname,8, page);
 			System.out.println("page="+page);
 			HttpServletRequest request = ServletActionContext.getRequest();
@@ -75,10 +76,10 @@ public class SelectBookAction extends ActionSupport{
 	}
 
 	/**
-	 * ·ÖÒ³ÐÅÏ¢
+	 * ï¿½ï¿½Ò³ï¿½ï¿½Ï¢
 	 */
 	private void pageInfo() {
-		//±íÊ¾Ã¿Ò³ÏÔÊ¾5Ìõ¼ÇÂ¼£¬page±íÊ¾µ±Ç°ÍøÒ³
+		//ï¿½ï¿½Ê¾Ã¿Ò³ï¿½ï¿½Ê¾5ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½pageï¿½ï¿½Ê¾ï¿½ï¿½Ç°ï¿½ï¿½Ò³
 		PageBean pageBean = bookInfoImpl.getPageBeanR(8, page);
 		System.out.println("page="+page);
 		HttpServletRequest request = ServletActionContext.getRequest();

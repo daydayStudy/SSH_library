@@ -1,5 +1,9 @@
 package com.library.action;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
+
 import oracle.net.aso.p;
 
 import com.library.bean.Reader;
@@ -25,6 +29,9 @@ public class RegisterAction extends ActionSupport {
     public String execute() throws Exception {
        
 		if(readerDao.addReader(reader)){
+			HttpServletRequest request = ServletActionContext.getRequest();
+			request.setAttribute("reader", reader);
+			
 			return SUCCESS;
 		}       
 		return INPUT;

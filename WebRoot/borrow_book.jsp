@@ -211,17 +211,16 @@
 							<li><a href="btypeManager.action">图书类别管理</a></li>
 							<li><a href="bookManager.action">图书信息管理</a></li>
 							<li><a href="borrow_book.jsp">图书借阅管理</a></li>
-							<li><a href="">会员借阅记录</a></li>
 							<li><a href="userManager.action">会员信息管理</a></li>
-							<li><a href="#">个人信息修改</a></li>
+							<li><a id="select" href="sladmin.action?method=select&id=<s:property value="#session.get('loginName')"/>">个人信息修改</a></li>
 						</s:if>
 						<!-- 普通用户 -->
 						<s:if
 							test="#session.get('loginName') != null && #session.get('loginName') != '123456'">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
 							<li><a href="selectBook.action">图书查询</a></li>
-							<li><a href="">借阅记录</a></li>
-							<li><a href="#">信息修改</a></li>
+							<li><a href="borrowRecord.action">借阅记录</a></li>
+							<li><a id="select" href="slreader.action?method=select&id=<s:property value="#session.get('loginName')"/>">信息修改</a></li>
 						</s:if>
 						<!-- 游客 -->
 						<s:if test="#session.get('loginName') == null">
@@ -234,7 +233,7 @@
 
 				<div class="col c8_table">
 					<div class="div_title">
-						<b> 图书借阅</b> <a href="" class="a_head">图书归还</a>
+						<b> 图书借阅</b> <a href="returnbookManager.action"  class="a_head">图书归还</a>
 						<div id="div_borrow_info">
 							<s:form name="borrowinfo" method="post" namespace="/" onsubmit="return confirms();">
 								<font class="font_style">用户ID:</font>

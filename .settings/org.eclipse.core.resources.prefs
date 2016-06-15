@@ -1,2 +1,8 @@
 eclipse.preferences.version=1
+encoding//WebRoot/css/style2.css=UTF-8
 encoding//WebRoot/js/userLoginCheck.js=UTF-8
+encoding//src/com/library/action/BookManagerAction.java=UTF-8
+encoding//src/com/library/action/ReturnBookManagerAction.java=UTF-8
+encoding//src/com/library/action/ReturnbookAction.java=UTF-8
+encoding//src/com/library/impl/BookInfoImpl.java=UTF-8
+encoding//src/com/library/impl/PageImpl.java=UTF-8

@@ -105,7 +105,7 @@ body.wider #layout {
 
 /* Grid classes, fixed width, 960px with 12 columns */
 .col {
-	float: right;
+	float: left;
 	margin: 0 10px;
 	overflow: hidden;
 	float: left;
@@ -118,10 +118,12 @@ body.wider #layout {
 
 #row {
 	width: 960px;
-	margin: 20px auto 0;
+	margin: 0 -10px;
 	overflow: hidden;
 }
-
+#row#clear1{
+	text-align:center;
+}
 
 /* {margin:20px auto 0; width:960px;} */
 /* by xu */
@@ -215,6 +217,15 @@ body.wider #layout {
 
 .c8 {
 	width: 620px;
+}
+
+.c8_table {
+	overflow:hidden;
+	position:relative;
+	width: 620px;
+	height: 417px;
+	border-radius:6px;  
+	border:1px solid #CCCCCC;
 }
 
 .c9 {
@@ -388,9 +399,11 @@ ul.menu li a:hover {
 }
 
 /* Light styles, apply by using class="light" on the body HTML element */
-
-
-
+body.light {
+	background: #f5f5f5 url(images/background-light.jpg) top center
+		no-repeat;
+	color: #555;
+}
 
 body.light a {
 	color: #d06060;
@@ -768,40 +781,47 @@ a {
 	float: right;
 }
 
-#radio2 {
-	position:relative;
-	border: 1px solid #ccc;
-	border-radius: 2px;
-	color: #000;
-	font-family: 'Open Sans', sans-serif;
-	font-size: 1em;
-	margin: 10px 0px 0px 10px;
-	transition: background 0.3s ease-in-out;
-	padding: 0 0 0 34px;
-	height: 20px;
-	width: 60px;
-	float: right;
-}
-
 .tc_login .right input:focus {
 	outline: none;
 	border-color: #019A0D;
 	box-shadow: 0 0 0px #019A0D;
 }
 
-.tc_login .right .input_yh {
+.tc_login #right .input_yh {
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	color: #000;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1em;
+	height: 30px;
+	padding: 0 0 0 34px;
+	margin: 10px 0px 0px 10px;
+	transition: background 0.3s ease-in-out;
+	width: 200px;
+	float: left;
 	background: url(../images/tc_login_yonghu.jpg) no-repeat left top;
 }
 
-.tc_login .right .input_mm {
+.tc_login #right .input_mm {
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	color: #000;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1em;
+	height: 30px;
+	padding: 0 0 0 34px;
+	margin: 10px 0px 0px 10px;
+	transition: background 0.3s ease-in-out;
+	width: 200px;
+	float: left;
 	background: url(../images/tc_login_mima.jpg) no-repeat left top;
 }
 
-.tc_login .right .input_yh:focus {
+.tc_login #right .input_yh:focus {
 	background: url(../images/tc_login_yonghu2.jpg) no-repeat left top;
 }
 
-.tc_login .right .input_mm:focus {
+.tc_login #right .input_mm:focus {
 	background: url(../images/tc_login_mima2.jpg) no-repeat left top;
 }
 
@@ -812,40 +832,20 @@ a {
 	border-radius: 2px;
 	color: #fff;
 	cursor: pointer;
-	height: 50px;
+	height: 30px;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 1.2em;
 	letter-spacing: 0.05em;
 	text-align: center;
 	text-transform: uppercase;
 	transition: background 0.3s ease-in-out;
-	width: 255px;
+	width: 235px;
 	padding: 0 50px 0 50px;
 	font-weight: bold;
 }
 
 .tc_login .right .loginBtn:hover {
 	background: #019A0D;
-}
-.tc_login #right .loginInp {
-	-webkit-appearance: none;
-	border: 1px solid #ccc;
-	border-radius: 2px;
-	color: #000;
-	font-family: 'Open Sans', sans-serif;
-	font-size: 1em;
-	height: 40px;
-	padding: 0 0 0 34px;
-	margin: 10px 0px 0px 10px;
-	transition: background 0.3s ease-in-out;
-	width: 220px;
-	float: right;
-}
-
-.tc_login .right .loginInp:hover {
-	outline: none;
-	border-color: #019A0D;
-	box-shadow: 0 0 0px #019A0D;
 }
 
 .tc_login .right dd {
@@ -866,10 +866,10 @@ a {
 	text-decoration: underline;
 }
 
-/* .tc_login .right hr {
+.tc_login .right hr {
 	height: 1px;
 	border: none;
 	border-top: 1px dashed #E4E4E4;
 	clear: both;
 	margin: 240px 0 5px 0px;
-} */
+}

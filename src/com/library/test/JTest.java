@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.TestCase;
+import oracle.net.aso.p;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -17,6 +18,7 @@ import com.library.bean.Admin;
 import com.library.bean.BookInfo;
 import com.library.bean.BookManagerBean;
 import com.library.bean.BorrowBookBean;
+import com.library.bean.BorrowRecordBean;
 import com.library.bean.HibernateSessionFactory;
 import com.library.bean.PageBean;
 import com.library.bean.Reader;
@@ -79,7 +81,7 @@ public class JTest extends TestCase {
 	}
 
 	public void testSelect() {
-		String name = "Êý";
+		String name = "a";
 		String hql = "select b.bookname,t.typename,b.publisher,b.writer,b.translator,s.amount from BookInfo as b,BookType as t,"
 				+ " Stock as s where b.bookType.typeid=t.typeid and b.isbn=s.bookInfo.isbn and b.isdelete=0 and b.bookname like '%"+name+"%'";
 		Session session = HibernateSessionFactory.getSession();
@@ -117,4 +119,25 @@ public class JTest extends TestCase {
 		System.out.println(date);
 	}
 
+	
+	public void testRecord() {
+		PageImpl pageImpl = new PageImpl();
+		String hql = "select b.reader.readerid,b.bookInfo.bookname,b.borrowdate,b.backdate from Borrow as b where b.reader.readerid="+"1304001";
+		List<BorrowRecordBean> beans = pageImpl.queryBorrowRecordInfo(hql, 0, 8);
+		for(Iterator<BorrowRecordBean> iterator=beans.iterator();iterator.hasNext();) {
+			BorrowRecordBean bean = iterator.next();
+			System.out.println(bean.getBorrowDate());
+			System.out.println(bean.getBackDate());
+			System.out.println(bean.getReaderid());
+			System.out.println(bean.getBookname());
+			System.out.println(bean.getDays());
+		}
+	}
+	
+	public void testCount() {
+		PageImpl pageImpl = new PageImpl();
+		String hql = "select b.reader.readerid,b.bookInfo.bookname,b.borrowdate,b.backdate from Borrow as b where b.reader.readerid="+"1304001";
+		int allRows = pageImpl.getAllCount(hql);
+		System.out.println(allRows);
+	}
 }

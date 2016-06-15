@@ -10,18 +10,22 @@
 		
 		<!-- 用户注册 -->
         <action name="myregister" class="com.library.action.RegisterAction">
-            <result name="success">/login.jsp</result>
+            <result name="success">/registerinfo.jsp</result>
             <result name="input">/register.jsp</result>
         </action>
         <!-- 类型搜索 -->
         <action name="sSelect" class="com.library.action.sSelectAction">
             <result name="success">/addbook.jsp</result>
-            <result name="input">/register.jsp</result>
+            <result name="input">/home.jsp</result>
+        </action>
+          <!-- 图书信息管理 -->
+        <action name="bookManager" class="com.library.action.BookManagerAction">
+        	<result name="success">/book_manager.jsp</result>
         </action>
         <!-- 添加图书-->
         <action name="addbook" class="com.library.action.AddbookAction">
-            <result name="success">/login.jsp</result>
-            <result name="input">/addbook.jsp</result>
+            <result name="success" type="redirect">/bookManager.action</result>
+            <result name="input">/book_manager.jsp</result>
         </action>
         
         <!-- 用户管理 -->
@@ -34,11 +38,11 @@
         	<result name="success">/bookType_manager.jsp</result>
         </action>
         
-         <!-- 图书信息管理 -->
-        <action name="bookManager" class="com.library.action.BookManagerAction">
-        	<result name="success">/book_manager.jsp</result>
+       
+         <!-- 图书归还管理 -->
+        <action name="returnbookManager" class="com.library.action.ReturnBookManagerAction">
+        	<result name="success">/returnbook_manager.jsp</result>
         </action>
-        
          <!-- 图书查询 -->
         <action name="selectBook" class="com.library.action.SelectBookAction">
         	<result name="success">/select_book.jsp</result>
@@ -49,5 +53,73 @@
         	<result name="success">/borrow_book.jsp</result>
         </action>
 
+         <!-- 添加图书类型-->
+        <action name="addbooktype" class="com.library.action.AddbookTypeAction">
+            <result name="success">/bookType_manager.jsp</result>
+            <result name="input">/bookType_manager.jsp</result>
+        </action>
+        <!-- 搜索图书类型传值-->
+        <action name="slbtype" class="com.library.action.SelectbtforjspAction">
+            <result name="success">/UpdateBookType.jsp</result>
+            
+        </action>
+        <!-- 图书类型修改-->
+        <action name="upbooktype" class="com.library.action.UpdatebookTypeAction">
+            <result name="success" type="redirect">/btypeManager.action</result>
+            <result name="input">/UpdateBookType.jsp</result>
+        </action>
+         <!-- 搜索会员信息传值-->
+        <action name="sluser" class="com.library.action.selectredforjspAction">
+            <result name="success">/updateuser.jsp</result>
+            
+        </action>
+        <!-- 会员信息修改-->
+        <action name="upuser" class="com.library.action.UpdateUserAction">
+            <result name="success" type="redirect">/userManager.action</result>
+            <result name="input">/updateuser.jsp</result>
+        </action>
+        <!-- 搜索图书传值-->
+        <action name="slbook" class="com.library.action.SelectbookforjspAction">
+            <result name="success">/updatebook.jsp</result>
+            <result name="input" type="redirect">/bookManager.action</result>
+        </action>
+        
+        <!-- 图书信息修改-->
+        <action name="updabook" class="com.library.action.UpdatebookAction">
+            <result name="success" type="redirect">/bookManager.action</result>
+            <result name="input">/updatebook.jsp</result>
+        </action>
+        
+        <!-- 搜索会员个人信息传值（自己）-->
+        <action name="slreader" class="com.library.action.selectredforjspAction2">
+            <result name="success">/updareader.jsp</result>            
+        </action>
+        
+        <!-- 会员信息修改（自己）-->
+        <action name="upreader" class="com.library.action.UpdateReaderAction">
+            <result name="success" >/home.jsp</result>
+            <result name="input">/updareader.jsp</result>
+        </action>
+        
+        <!-- 搜索管理员个人信息传值-->
+        <action name="sladmin" class="com.library.action.selectadminforjspAction">
+            <result name="success">/updaadmin.jsp</result>            
+        </action>
+        
+         <!-- 管理员信息修改-->
+        <action name="upadmin" class="com.library.action.UpdateAdminAction">
+            <result name="success" >/home.jsp</result>
+            <result name="input">/updaadmin.jsp</result>
+        </action>
+        
+        <!-- 图书归还-->
+        <action name="rtbook" class="com.library.action.ReturnbookAction">
+            <result name="success" type="redirect">/returnbookManager.action</result>
+        </action>
+        
+        <!-- 借阅记录 -->
+        <action name="borrowRecord" class="com.library.action.BorrowRecordAction">
+        	<result name="success">/borrow_record.jsp</result>
+        </action>
 	</package>
 </struts>    

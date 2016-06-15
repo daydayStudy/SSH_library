@@ -6,35 +6,37 @@ import com.library.bean.BookType;
 
 /**
  * @author Administrator
- * Í¼ÊéÀà±ğ½Ó¿ÚÀà
+ * Í¼ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½
  */
 public interface BookTypeDao {
 
 	/**
-	 * Ìí¼ÓÍ¼ÊéÀà±ğ
+	 * ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param bookType
 	 * @return
 	 */
 	public boolean addType(BookType bookType);
 	
 	/**
-	 * ¸ù¾İidÉ¾³ıÀà±ğĞÅÏ¢£¬isDeleteÉèÖÃÎª1
+	 * ï¿½ï¿½ï¿½idÉ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½isDeleteï¿½ï¿½ï¿½ï¿½Îª1
 	 * @param typeId
 	 * @return
 	 */
 	public boolean deleteType(int typeId);
 	
 	/**
-	 * ²éÑ¯Àà±ğĞÅÏ¢
+	 * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * @param sql
 	 * @return
 	 */
 	public List<BookType> selectType(String sql);
 	
 	/**
-	 * ¸üĞÂÍ¼ÊéÀà±ğ
+	 * ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param bookType
 	 * @return
 	 */
 	public boolean updateType(BookType bookType);
+	public BookType get(int typeId);
+	
 }

@@ -19,7 +19,7 @@ import com.library.dao.BookTypeDao;
 
 /**
  * @author Administrator
- * Í¼ÊéÀà±ðÒµÎñÂß¼­Àà
+ * Í¼ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½
  */
 public class BookTypeImpl implements BookTypeDao {
 
@@ -115,8 +115,37 @@ public class BookTypeImpl implements BookTypeDao {
 		return false;
 	}
 
+
+    /**
+     * æ ¹æ®idæŸ¥è¯¢booktype
+     * @param typeId
+     * @return
+     */
+    public BookType get(int typeId) {
+    	try {
+			session = HibernateSessionFactory.getSession();
+			
+			String sql = "from BookType as r where r.typeid=?";
+			Query query = session.createQuery(sql);
+			query.setParameter(0, typeId);
+			List result = query.list();
+			if(result.size()>0) {
+				for(Iterator it=result.iterator(); it.hasNext();) {
+					BookType book = (BookType) it.next();
+					return book;
+				}
+			}
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+
+		return null;
+    }
+
 	/**
-	 * ·ÖÒ³
+	 * ï¿½ï¿½Ò³
 	 * @param pageSize
 	 * @param page
 	 * @return
@@ -132,7 +161,7 @@ public class BookTypeImpl implements BookTypeDao {
 		int offset = pageBean.getCurrentPageOffset(pageSize, currentPage);
 		List<Reader> list = pageImpl.queryByHibernate(hql, offset, pageSize);
 
-		System.out.println("×ÜÒ³Êý="+totalPage);
+		System.out.println("ï¿½ï¿½Ò³ï¿½ï¿½="+totalPage);
 
 		pageBean.setList(list);
 		pageBean.setAllRows(allRows);
@@ -141,5 +170,6 @@ public class BookTypeImpl implements BookTypeDao {
 
 		return pageBean;
 	}
+
 
 }

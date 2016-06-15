@@ -6,35 +6,36 @@ import com.library.bean.Borrow;
 
 /**
  * @author Administrator
- * Í¼Êé½èÔÄ¼ÇÂ¼½Ó¿ÚÀà
+ * Í¼ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Â¼ï¿½Ó¿ï¿½ï¿½ï¿½
  */
 public interface BorrowDao {
 
 	/**
-	 * É¾³ı½èÔÄ¼ÇÂ¼, isDeleteÉèÖÃÎª1
+	 * É¾ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Â¼, isDeleteï¿½ï¿½ï¿½ï¿½Îª1
 	 * @param borrowId
 	 * @return
 	 */
 	public boolean deleteBorrow(int borrowId);
 	
 	/**
-	 * ĞŞ¸Ä½èÔÄ¼ÇÂ¼
+	 * ï¿½Ş¸Ä½ï¿½ï¿½Ä¼ï¿½Â¼
 	 * @param borrow
 	 * @return
 	 */
 	public boolean updateBorrow(Borrow borrow);
 	
 	/**
-	 * ²éÑ¯½èÔÄ¼ÇÂ¼
+	 * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ä¼ï¿½Â¼
 	 * @param sql
 	 * @return
 	 */
 	public List<Borrow> selectBorrows(String sql);
 	
 	/**
-	 * ²åÈëÒ»Ìõ½èÔÄ¼ÇÂ¼
+	 * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Â¼
 	 * @param borrow
 	 * @return
 	 */
+	public Borrow getBorrow(String ISBN);
 	public boolean addBorrow(Borrow borrow);
 }

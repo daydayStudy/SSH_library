@@ -2,52 +2,53 @@ package com.library.dao;
 
 import java.util.List;
 
+import com.library.bean.BookType;
 import com.library.bean.Reader;
 
 /**
  * @author Administrator
- * Í¼Êé»áÔ±½Ó¿ÚÀà
+ * Í¼ï¿½ï¿½ï¿½Ô±ï¿½Ó¿ï¿½ï¿½ï¿½
  */
 public interface ReaderDao {
 
 	/**
-	 * ×¢²á»áÔ±
+	 * ×¢ï¿½ï¿½ï¿½Ô±
 	 * @param reader
 	 * @return
 	 */
 	public boolean addReader(Reader reader);
 	
 	/**
-	 * ¸ù¾İidÉ¾³ı»áÔ±£¬ isDelete=1
+	 * ï¿½ï¿½ï¿½idÉ¾ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ isDelete=1
 	 * @param readerId
 	 * @return
 	 */
 	public boolean deleteReader(int readerId);
 	
 	/**
-	 * ¸ù¾İidĞŞ¸Ä»áÔ±ĞÅÏ¢
-	 * @param readerId »áÔ±±àºÅ
+	 * ï¿½ï¿½ï¿½idï¿½Ş¸Ä»ï¿½Ô±ï¿½ï¿½Ï¢
+	 * @param readerId ï¿½ï¿½Ô±ï¿½ï¿½ï¿½
 	 * @param reader 
 	 * @return
 	 */
 	public boolean updateReader(Reader reader);
 	
 	/**
-	 * ²éÑ¯»áÔ±ĞÅÏ¢
+	 * ï¿½ï¿½Ñ¯ï¿½ï¿½Ô±ï¿½ï¿½Ï¢
 	 * @param sql
 	 * @return
 	 */
 	public List<Reader> selectReaders(String sql);
-	
+	public Reader getuser(int readerid);
 	/**
-	 * ¸ù¾İ»áÔ±id²éÑ¯»áÔ±ĞÅÏ¢
+	 * ï¿½ï¿½İ»ï¿½Ô±idï¿½ï¿½Ñ¯ï¿½ï¿½Ô±ï¿½ï¿½Ï¢
 	 * @param readerId
 	 * @return
 	 *//*
 	public Reader selectById(int readerId);
 	
 	*//**
-	 * ¸ù¾İ»áÔ±ĞÕÃû½øĞĞÄ£ºı²éÑ¯
+	 * ï¿½ï¿½İ»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½Ñ¯
 	 * @param name 
 	 * @return
 	 *//*

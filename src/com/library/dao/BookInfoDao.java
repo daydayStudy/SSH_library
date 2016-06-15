@@ -3,36 +3,38 @@ package com.library.dao;
 import java.util.List;
 
 import com.library.bean.BookInfo;
+import com.library.bean.BookType;
 
 /**
  * @author Administrator
- * Í¼ÊéÐÅÏ¢½Ó¿ÚÀà
+ * Í¼ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ó¿ï¿½ï¿½ï¿½
  */
 public interface BookInfoDao {
 
 	/**
-	 * ²éÑ¯Í¼Êé
+	 * ï¿½ï¿½Ñ¯Í¼ï¿½ï¿½
 	 * @param sql
 	 * @return
 	 */
 	public List<BookInfo> seleBookInfos(String sql);
 	
 	/**
-	 * É¾³ýÍ¼Êé,isDeleteÉèÖÃÎª1
+	 * É¾ï¿½ï¿½Í¼ï¿½ï¿½,isDeleteï¿½ï¿½ï¿½ï¿½Îª1
 	 * @param isbn
 	 * @return
 	 */
 	public boolean deleteBook(String isbn);
 	
 	/**
-	 * ÐÞ¸ÄÍ¼Êé
+	 * ï¿½Þ¸ï¿½Í¼ï¿½ï¿½
 	 * @param bookInfo
 	 * @return
 	 */
 	public boolean updateBook(BookInfo bookInfo);
+	public BookInfo getBook(String isbn);
 	
 	/**
-	 * Ìí¼ÓÒ»±¾Í¼Êé
+	 * ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Í¼ï¿½ï¿½
 	 * @param bookInfo
 	 * @return
 	 */

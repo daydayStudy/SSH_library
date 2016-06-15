@@ -1,21 +1,20 @@
-function addbook() {
-	if(!checkISBN()){
+function addbookck(){
+	 if(!checkISBN()){
 		return false;
 	}else if (!checkbname()) {
 		return false;
-	} else if (!checkweiter()){
+	}else if (!checkweiter()){
+		return false;
+	}else if (!checktranslator()){
+		return false;
+	}else if (!checkpublisher()){
+		return false;
+	}else if (!checkprice()){
+		return false;
+	}else if (!checkdate()){
 		return false;
 	}
-	else if (!checktranslator()){
-		return false;
-	}
-	else if (!checkpublisher()){
-		return false;
-	}
-	else if (!checkprice()){
-		return false;
-	}
-	else if (!checkdate()){
+	else if (!checknumber()){
 		return false;
 	}
 	return true;
@@ -42,11 +41,13 @@ function falseshuzi(str2){
 }
 
 
+
+
 function checkISBN()    
 {
 	
 	var isbn = document.getElementById("Aisbn").value;
-	var ts = document.getElementById("namets");
+	var ts = document.getElementById("namets1");
 	 
 	if(isbn.length==0)    
 	{   
@@ -75,7 +76,7 @@ function checkISBN()
 function checkbname(){
 	var bname = document.getElementById("Aname").value;
 
-	var pts = document.getElementById("namets");
+	var pts = document.getElementById("namets1");
 	
 	if(bname.length==0)    
 	{   
@@ -96,7 +97,7 @@ function checkbname(){
 
 function checkweiter(){
 	var writer = document.getElementById("Awriter").value;
-	var ats = document.getElementById("namets");
+	var ats = document.getElementById("namets1");
 	
 	if(writer.length == 0) {
 		ats.innerHTML ="作者不能为空";
@@ -120,7 +121,7 @@ function checkweiter(){
 
 function checktranslator (){
 	var tran = document.getElementById("Atran").value;
-	var tts = document.getElementById("namets");	
+	var tts = document.getElementById("namets1");	
 	if(tran.length == 0) {
 		tts.innerHTML ="译者不能为空";
 		tts.style.color="red";
@@ -143,7 +144,7 @@ function checktranslator (){
 
 function checkpublisher  (){
 	var psh = document.getElementById("Apsh").value;
-	var qts = document.getElementById("namets");	
+	var qts = document.getElementById("namets1");	
 	if(psh.length == 0) {
 		qts.innerHTML ="出版社不能为空";
 		qts.style.color="red";
@@ -166,7 +167,7 @@ function checkpublisher  (){
 
 function checkprice(){
 	var price = document.getElementById("Aprice").value;
-	var mts = document.getElementById("namets");	
+	var mts = document.getElementById("namets1");	
 	if(price.length == 0) {
 		mts.innerHTML ="价格不能为空";
 		mts.style.color="red";
@@ -185,7 +186,7 @@ function checkprice(){
 
 function checkdate(){
 	var da = document.getElementById("Adate").value;
-	var dts = document.getElementById("namets");	
+	var dts = document.getElementById("namets1");	
 	if(da.length == 0) {
 		dts.innerHTML ="出版日期不能为空";
 		dts.style.color="red";
@@ -202,3 +203,27 @@ function checkdate(){
 	return true;
 }
 
+function checknumber()    
+{
+	
+	var anum = document.getElementById("Anum").value;
+	var mun = document.getElementById("namets1");
+	 
+	if(anum.length==0)    
+	{   
+		mun.innerHTML ="库存不能为空";
+		mun.style.color="red";
+		return false;
+		
+	}
+	
+
+	  else if(!falseshuzi(anum)){ 
+		  mun.innerHTML="库存只能是数字"; 
+		  mun.style.color="red"; 
+		  return false; 
+		  }
+
+	mun.innerHTML = '';
+	return true;
+}

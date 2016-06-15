@@ -1,19 +1,22 @@
 package com.library.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.library.bean.HibernateSessionFactory;
+import com.library.bean.Reader;
 import com.library.bean.Stock;
 import com.library.dao.StockDao;
 
 /**
  * @author Administrator
- * ¿â´æÒµÎñÂß¼­Àà
+ * ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½
  */
 public class StockImpl implements StockDao {
 
@@ -56,6 +59,29 @@ public class StockImpl implements StockDao {
 		}
 
 		return list;
+	}
+	
+	public Stock getStock(String ISBN){
+		try {
+			session = HibernateSessionFactory.getSession();
+			
+			String sql = "from Stock as r where r.bookInfo.isbn=?";
+			Query query = session.createQuery(sql);
+			query.setParameter(0, ISBN);
+			List result = query.list();
+			if(result.size()>0) {
+				for(Iterator it=result.iterator(); it.hasNext();) {
+					Stock stock = (Stock) it.next();
+					return stock;
+				}
+			}
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateSessionFactory.closeSession();
+		}
+
+		return null;
 	}
 
 	@Override
