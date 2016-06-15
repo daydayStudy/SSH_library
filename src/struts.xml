@@ -43,6 +43,11 @@
         <action name="selectBook" class="com.library.action.SelectBookAction">
         	<result name="success">/select_book.jsp</result>
         </action>
+        
+        <!-- 图书借阅  -->
+        <action name="borrowBook" class="com.library.action.BorrowAction">
+        	<result name="success">/borrow_book.jsp</result>
+        </action>
 
 	</package>
 </struts>    

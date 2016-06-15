@@ -1,5 +1,9 @@
 package com.library.test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,41 +16,46 @@ import org.hibernate.Transaction;
 import com.library.bean.Admin;
 import com.library.bean.BookInfo;
 import com.library.bean.BookManagerBean;
+import com.library.bean.BorrowBookBean;
 import com.library.bean.HibernateSessionFactory;
 import com.library.bean.PageBean;
 import com.library.bean.Reader;
 import com.library.impl.BookInfoImpl;
 import com.library.impl.PageImpl;
+import com.library.impl.ReaderImpl;
 
 public class JTest extends TestCase {
-	
+	Session session = null;
+	Transaction transaction = null;
+	Query query = null;
+
 	public void testInsertReader() {
 		Session session = HibernateSessionFactory.getSession();
 		Transaction tran = session.beginTransaction();
-		
+
 		Reader reader = new Reader();
 		reader.setName("lala");
 		reader.setPwd("123456");
 		session.saveOrUpdate(reader);
-		
+
 		tran.commit();
 		HibernateSessionFactory.closeSession();
 	}
-	
+
 	public void testInsertAdmin() {
 		Session session = HibernateSessionFactory.getSession();
 		Transaction tran = session.beginTransaction();
-		
+
 		Admin admin = new Admin();
 		admin.setAdmindid(123456);
 		admin.setName("lala");
 		admin.setPwd("123456");
 		session.saveOrUpdate(admin);
-		
+
 		tran.commit();
 		HibernateSessionFactory.closeSession();
 	}
-	
+
 	public void testPage() {
 		PageBean pageBean = new PageBean();
 		PageImpl pageImpl = new PageImpl();
@@ -57,18 +66,18 @@ public class JTest extends TestCase {
 		int currentPage = pageBean.getCurPage(1);
 		int offset = pageBean.getCurrentPageOffset(8, currentPage);
 		List list = pageImpl.queryBookManagerInfo(hql, offset, 8);
-		
+
 		for(Iterator iterator= list.iterator();iterator.hasNext();) {
 			BookManagerBean bean = (BookManagerBean) iterator.next();
 			System.out.println(bean.getIsbn());
 		}
 	}
-	
+
 	public void testDeleteBook() {
 		BookInfoImpl impl = new BookInfoImpl();
 		impl.deleteBook("13020112");
 	}
-	
+
 	public void testSelect() {
 		String name = "Êý";
 		String hql = "select b.bookname,t.typename,b.publisher,b.writer,b.translator,s.amount from BookInfo as b,BookType as t,"
@@ -78,7 +87,34 @@ public class JTest extends TestCase {
 		List list = query.list();
 		if(list.size() > 0) 
 			System.out.println("lalala");
+
+	}
+
+	public void testSelectReaders() {
+		ReaderImpl readerImpl = new ReaderImpl();
+		String hql = "from Reader as r where r.isdelete=0 and r.readerid like '%"+130+"%'";
+		List<Reader> readers = readerImpl.selectReaders(hql);
+		for(Iterator it = readers.iterator();it.hasNext();) {
+			Reader reader = (Reader) it.next();
+			System.out.println(reader.getReaderid());
+		}
+	}
+
+	public void testselectBookInfo() {
+		BookInfoImpl impl = new BookInfoImpl();
+		List<BorrowBookBean> beans = impl.selectBook("a");
+		for(Iterator it = beans.iterator();it.hasNext();) {
+			BorrowBookBean reader = (BorrowBookBean) it.next();
+			System.out.println(reader.getAmount());
+		}
+		
+	}
 	
+	public void testChangeDate() throws ParseException {
+		String dateString = "2017-7-14";
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = format.parse(dateString);
+		System.out.println(date);
 	}
 
 }

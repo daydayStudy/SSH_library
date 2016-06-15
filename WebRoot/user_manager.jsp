@@ -195,13 +195,14 @@
 							test="#session.get('loginName') != null && #session.get('loginName') != '123456'">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
 							<li><a href="selectBook.action">图书查询</a></li>
+							<li><a href="">借阅记录</a></li>
 							<li><a href="#">信息修改</a></li>
 						</s:if>
 						<!-- 游客 -->
 						<s:if test="#session.get('loginName') == null">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
 							<li><a href="register.jsp">注&nbsp;&nbsp;&nbsp;&nbsp;册</a></li>
-							<li><a href="#">图书查询</a></li>
+							<li><a href="selectBook.action">图书查询</a></li>
 						</s:if>
 					</ul>
 				</div>

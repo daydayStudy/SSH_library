@@ -13,6 +13,7 @@ import org.hibernate.Transaction;
 
 import com.library.bean.BookInfo;
 import com.library.bean.BookManagerBean;
+import com.library.bean.BorrowBookBean;
 import com.library.bean.HibernateSessionFactory;
 import com.library.bean.PageBean;
 import com.library.bean.Reader;
@@ -29,6 +30,8 @@ public class BookInfoImpl implements BookInfoDao  {
 	private Transaction tran = null;
 	@Resource
 	private PageImpl pageImpl;
+	Transaction transaction = null;
+	Query query = null;
 
 	@Override
 	public List<BookInfo> seleBookInfos(String sql) {
@@ -200,5 +203,37 @@ public class BookInfoImpl implements BookInfoDao  {
 
 		return pageBean;
 	}
+	
+	/**
+	 * 查询编号、类型、可借天数
+	 * @param bookname
+	 * @return
+	 */
+	public List<BorrowBookBean> selectBook(String bookname) {
+		String hql = "select b.isbn,b.bookname,t.typename,t.days,s.amount from BookInfo as b,BookType as t, Stock s "
+				+ "where b.bookType.typeid=t.typeid and b.isbn=s.bookInfo.isbn and b.isdelete=0 and s.amount>0 and b.bookname like '%"+bookname+"%'";
+		session = HibernateSessionFactory.getSession();
+		List<BorrowBookBean> result = new ArrayList<>();
 
+		transaction = session.beginTransaction();
+		query = session.createQuery(hql);
+		List list = query.list();
+
+		for(Iterator it=list.iterator();it.hasNext();) {
+			BorrowBookBean bean = new BorrowBookBean();
+			Object[] obj = (Object[]) it.next();
+			
+			bean.setIsbn(obj[0].toString());
+			bean.setBookname(obj[1].toString());
+			bean.setType(obj[2].toString());
+			int days = Integer.parseInt(obj[3].toString());
+			bean.setDays(days);
+			int amount = Integer.parseInt(obj[4].toString());
+			bean.setAmount(amount);
+			
+			result.add(bean);
+		}
+		
+		return result;
+	}
 }

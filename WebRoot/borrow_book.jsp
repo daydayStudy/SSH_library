@@ -13,6 +13,16 @@
 <head>
 <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="js/userLoginCheck.js" charset=utf-8></script>
+<script type="text/javascript" src="js/BorrowCheck.js" charset=utf-8></script>
+<script>
+	var name = '${bookName}';
+	var len = '${listLen}';
+	/* for(var i=0; i<len; i++){ */
+	var ff = document.getElementById("td_name").innerHTML;
+	document.getElementById("td_name").innerHTML = ff.replace(name,
+			"<font color='red'>" + name + "</font>");
+	/*  	}*/
+</script>
 
 <link rel="stylesheet" type="text/css" href="css/table_style.css" />
 <link rel="stylesheet" type="text/css" href="css/style2.css"
@@ -20,7 +30,7 @@
 <title>Origo v1.1</title>
 </head>
 
-<body class="light blue smaller freestyle01">
+<body class="light blue smaller freestyle01" onload="currentTime()">
 	<div id="layout">
 		<div id="row">
 			<div class="col c7 aligncenter">
@@ -30,7 +40,7 @@
 				<p>
 					<s:if test="#session.get('loginName') != null">
 						&nbsp;&nbsp;<a href="#" class="tc">切换用户</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href=""><s:property value="#session.get('loginName')"/></a>,欢迎您
+						<a href=""><s:property value="#session.get('loginName')" /></a>,欢迎您
 					</s:if>
 					<s:elseif test="#session.get('loginName') == null">
 						&nbsp;&nbsp;<a href="#" class="tc">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -114,8 +124,25 @@
 						left : _left
 					});
 				}
-
+				function deleteConfirm(ids) {
+					if(confirm('确定删除？')){
+						$.ajax({
+							type : "post",
+							url : "userManager.action",
+							dataType:"json",
+							data : {method:"delete",id:ids},
+						});
+				    }else {
+				    	return false;
+				    }
+				}
 				
+				function changeColor() {
+					var name = '${bookName}';
+					var ff = document.getElementById("td_name").innerHTML;
+					document.getElementById("td_name").innerHTML = ff.replace(
+					name, "<font color='red'>"+name+"</font>");
+				}
 			</script>
 
 			<script type="text/javascript">
@@ -147,13 +174,22 @@
 						$(this).unbind("mousemove");
 					});
 				});
+				
+				function currentTime() {
+					var time = new Date(); //获得当前时间
+					var year = time.getFullYear();//获得年、月、日
+					var month = time.getMonth()+1;
+					var day = time.getDate(); 
+					document.getElementById("borrow_date").value=year+"-"+month+"-"+day;
+				}
 			</script>
 			<br /> <br />
 			<!-- 搜索  -->
 			<div class="row">
 				<s:form action="/selectBook">
-					<s:submit theme="simple" cssClass="button" value="308一下"></s:submit>
-					<s:textfield theme="simple" placeholder="搜索图书"></s:textfield>
+					<s:submit theme="simple" cssClass="button" 
+						value="308一下"></s:submit>
+					<s:textfield name="bookname" theme="simple" placeholder="搜索图书"></s:textfield>
 				</s:form>
 			</div>
 
@@ -180,7 +216,8 @@
 							<li><a href="#">个人信息修改</a></li>
 						</s:if>
 						<!-- 普通用户 -->
-						<s:if test="#session.get('loginName') != null && #session.get('loginName') != '123456'">
+						<s:if
+							test="#session.get('loginName') != null && #session.get('loginName') != '123456'">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
 							<li><a href="selectBook.action">图书查询</a></li>
 							<li><a href="">借阅记录</a></li>
@@ -195,23 +232,100 @@
 					</ul>
 				</div>
 
-				<div class="col c8">
-					<h2>Lorem Ipsum</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-						sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-						Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-						reprehenderit in voluptate velit esse cillum dolore eu fugiat
-						nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-						sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				<div class="col c8_table">
+					<div class="div_title">
+						<b> 图书借阅</b> <a href="" class="a_head">图书归还</a>
+						<div id="div_borrow_info">
+							<s:form name="borrowinfo" method="post" namespace="/" onsubmit="return confirms();">
+								<font class="font_style">用户ID:</font>
+								<s:textfield theme="simple" name="readerID" placeholder="用户ID" cssClass="borrow" onblur="selectReader()" id="ip_readerid"></s:textfield>
+								<s:submit theme="simple" cssClass="borrow_button" value="查询" onclick="selectReader()"></s:submit>
+								<font class="font_style">借书日期:</font>
+								<s:textfield theme="simple" name="borrowdate" cssClass="borrow" readonly="true" id="borrow_date"></s:textfield>
+								<br/>
+								<font class="font_style">图书ID:</font>
+								<s:textfield theme="simple" name="bookISBN" placeholder="图书ID" cssClass="borrow" onblur="selectBooks()" id="ip_isbn"></s:textfield>
+								<s:submit theme="simple" cssClass="borrow_button" value="查询" onclick="selectBooks()"></s:submit>
+								<font class="font_style">应还日期:</font>
+								<s:textfield theme="simple" name="backdate" cssClass="borrow" readonly="true" id="ip_backdate"></s:textfield>
+								<br/>
+								<font id="borrowTips"
+									style="width:120px; height: 30px;font-size: 15px;margin-left: 34px;color:red;"></font>
+								<s:submit theme="simple" cssClass="borrow_button" value="确认" cssStyle="float:right;margin-right:35px;" onclick="commit()"></s:submit>
+							</s:form>
+						</div>
+						<s:if test="(#request.borrow_reader).size()>0">
+							<div id="div_table">
+								<table id="table3" cellspacing="0">
+									<tr>
+										<th class="th">用户ID</th>
+										<th class="th">用户名</th>
+									</tr>
+									<s:iterator value="#request.borrow_reader" id="reader">
+										<tr>
+											<td class="td" id="rid"><s:property value="readerid" /></td>
+											<td class="td"><s:property value="name" /></td>
+										</tr>
+									</s:iterator>
+								</table>
+							</div>
+						</s:if>
+						<s:if test="(#request.borrow_bookinfo).size()>0">
+							<div id="div_table">
+								<table id="table2" cellspacing="0">
+									<tr>
+										<th class="th">ISBN</th>
+										<th class="th">图书名</th>
+										<th class="th">类型</th>
+										<th class="th">库存</th>
+										<th class="th">可借天数</th>
+									</tr>
+									<s:iterator value="#request.borrow_bookinfo" id="book">
+										<tr>
+											<td class="td" id="bisbn"><s:property value="isbn" /></td>
+											<td class="td"><s:property value="bookname" /></td>
+											<td class="td"><s:property value="type" /></td>
+											<td class="td" id="bamount"><s:property value="amount" /></td>
+											<td class="td" id="bdays"><s:property value="days" /></td>
+										</tr>
+									</s:iterator>
+								</table>
+							</div>
+						</s:if>
+					</div>
+					<script type="text/javascript">
+						function selectReader() {
+							document.borrowinfo.action = "/library/borrowBook!selectReaderID.action";
+							document.borrowinfo.submit();
+						}
+						function selectBooks() {
+							document.borrowinfo.action = "/library/borrowBook!selectBook.action";
+							document.borrowinfo.submit();
+						}
+						function commit() {
+							document.borrowinfo.action = "/library/borrowBook!addRecord.action";
+							document.borrowinfo.submit();
+						}
+						 $("table[id='table2'] tr td[id='bisbn']").click(function(){
+							 document.getElementById("ip_isbn").value =$(this).html();
+						 });
+						 $("table[id='table3'] tr td[id='rid']").click(function(){
+							 document.getElementById("ip_readerid").value =$(this).html();
+						 });
+						 $("table[id='table2'] tr td[id='bdays']").click(function(){
+							   var days = $(this).html();
+						       var date = new Date();
+						       date.setDate(date.getDate()+parseInt(days));
+						       var year = date.getFullYear();
+						       var month = date.getMonth()+1;
+						       var today = date.getDate();
+							 document.getElementById("ip_backdate").value = year+"-"+month+"-"+today;
+						 });
+						
+					</script>
 
-					<h3>Dolor Sit Amet</h3>
-					<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco
-						laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-						dolor in reprehenderit in voluptate velit esse cillum dolore eu
-						fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						proident, sunt in culpa qui officia deserunt mollit anim id est
-						laborum.</p>
+					<div class="div_bottom">
+					</div>
 				</div>
 
 				<div class="col c2">

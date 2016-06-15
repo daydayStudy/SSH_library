@@ -27,4 +27,7 @@
 	<bean name="pageImpl" class="com.library.impl.PageImpl"></bean>
 	<bean name="bookTypeImpl" class="com.library.impl.BookTypeImpl"></bean>
 	<bean name="bookInfoImpl" class="com.library.impl.BookInfoImpl"></bean>
+	<bean name="borrowImpl" class="com.library.impl.BorrowImpl"></bean>
+	<bean name="orderImpl" class="com.library.impl.OrderImpl"></bean>
+	<bean name="stockImpl" class="com.library.impl.StockImpl"></bean>
 </beans>
