@@ -156,7 +156,8 @@ public class PageImpl {
 				int isback = Integer.parseInt(obj[3].toString());
 				bean.setIsback(isback);
 				bean.setBorrowdate(obj[4].toString());
-				int amount = Integer.parseInt(obj[5].toString());
+				bean.setBackdate(obj[5].toString());
+				int amount = Integer.parseInt(obj[6].toString());
 				bean.setAmount(amount);				
 				
 				result.add(bean);

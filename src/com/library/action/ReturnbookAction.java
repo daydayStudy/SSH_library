@@ -1,9 +1,13 @@
 package com.library.action;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import oracle.net.aso.p;
 
@@ -34,6 +38,7 @@ public class ReturnbookAction extends ActionSupport {
 	private Stock stock;
 	private BorrowDao bordao =new BorrowImpl();
 	private StockDao stcdao = new StockImpl();
+	HttpServletResponse response;
 	
 
    
@@ -106,27 +111,42 @@ public class ReturnbookAction extends ActionSupport {
 
 
 	public String execute() throws Exception{
-		select();
-	
-		return SUCCESS;
+		return "borrow"
     }
 
-	public void select() {
+	public boolean borrow()  {
 		if("select".equals(method)) { 
         	if(JUtils.changeToNum(id)) {
         		System.out.println("id="+id);
         		System.out.println("method="+method);
-        		String isbn = id;    
-        		stock=stcdao.getStock(isbn);
-        		stock.setAmount(stock.getAmount()-1);
-        		stcdao.updateStock(stock);
+        		String isbn = id;   
         		borrow=bordao.getBorrow(isbn);
-        		borrow.setIsback(1);
-        		bordao.updateBorrow(borrow);
+        		long day = borrow.getBackdate().getTime() -borrow.getBorrowdate().getTime()/(24*60*60*1000); 
+        		if(day>0){
+        			stock=stcdao.getStock(isbn);
+            		stock.setAmount(stock.getAmount()-1);
+            		stcdao.updateStock(stock);       		
+            		borrow.setIsback(1);
+            		bordao.updateBorrow(borrow);
+            		return true;
+        		}
+        		else {
+        			response.setContentType("text/html;charset=UTF-8");
+        			response.setCharacterEncoding("UTF-8");
+        			PrintWriter out;
+        			out.print("<script>alert('需交罚款')</script>");
+        			out.print("<script>window.location.href='" + "returnbook_manager.jsp" + "'</script>");   
+        			out.flush();   
+        			out.close();
+        			return false;
+        		}
         	}
         }
+		
 	}
-    
+	public void setServletResponse(HttpServletResponse response) {
+		this.response = response;
+	}
         
 }
 

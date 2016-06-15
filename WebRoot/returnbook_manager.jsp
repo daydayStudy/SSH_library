@@ -217,6 +217,7 @@
 							<th class="th">图书名称</th>
 							<th class="th">是否归还</th>							
 							<th class="th">借阅日期</th>
+							<th class="th">应归还日期</th>
 							<th class="th">库存</th>
 							<th class="th">基本操作</th>
 						</tr>
@@ -231,6 +232,7 @@
 								<td class="td"><s:property value="bookname" /></td>
 								<td class="td"><s:property value="isback" /></td>
 								<td class="td"><s:property value="borrowdate" /></td>
+								<td class="td"><s:property value="backdate" /></td>								
 								<td class="td"><s:property value="amount" /></td>
 								<td class="td">
 									<a id="select" href="rtbook.action?method=select&id=<s:property value="isbn"/>">归还 </a>

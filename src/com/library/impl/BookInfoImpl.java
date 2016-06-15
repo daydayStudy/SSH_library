@@ -152,7 +152,7 @@ public class BookInfoImpl implements BookInfoDao  {
 	public PageBean getPageBean2(int pageSize, int page) {
 		PageBean pageBean = new PageBean();
 		
-		String hql = "select b.isbn,bor.reader.name,b.bookname,bor.isback,bor.borrowdate,s.amount from BookInfo as b,"
+		String hql = "select b.isbn,bor.reader.name,b.bookname,bor.isback,bor.borrowdate,bor.backdate,s.amount from BookInfo as b,"
 				+ " Borrow as bor,Stock as s where b.isbn=bor.bookInfo.isbn and b.isbn=s.bookInfo.isbn and b.isdelete=0"
 				+"and bor.isback=0";
 		int allRows = pageImpl.getAllCount(hql);

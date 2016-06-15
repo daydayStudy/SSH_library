@@ -1,5 +1,7 @@
 package com.library.bean;
 
+import java.util.Date;
+
 public class ReturnBookBean {
 
 	// b.isbn,bor.reader.name,b.bookname,bor.isback,bor.borrowdate,bor.backdate,s.amount
@@ -8,6 +10,7 @@ public class ReturnBookBean {
 	private String bookname;
 	private int isback;
 	private String borrowdate;
+	private String backdate;
 	private int amount;
 	
 	public String getIsbn() {
@@ -42,6 +45,12 @@ public class ReturnBookBean {
 		this.borrowdate = borrowdate;
 	}
 	
+	public String getBackdate() {
+		return backdate;
+	}
+	public void setBackdate(String backdate) {
+		this.backdate = backdate;
+	}
 	public int getAmount() {
 		return amount;
 	}
