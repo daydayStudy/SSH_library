@@ -134,10 +134,10 @@ public class ReturnbookAction extends ActionSupport {
         			response.setContentType("text/html;charset=UTF-8");
         			response.setCharacterEncoding("UTF-8");
         			PrintWriter out;
-        			out.print("<script>alert('需交罚款')</script>");
+        			/*out.print("<script>alert('需交罚款')</script>");
         			out.print("<script>window.location.href='" + "returnbook_manager.jsp" + "'</script>");   
         			out.flush();   
-        			out.close();
+        			out.close();*/
         			return false;
         		}
         	}
