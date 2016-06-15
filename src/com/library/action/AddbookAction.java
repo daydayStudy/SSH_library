@@ -5,7 +5,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts2.interceptor.ServletResponseAware;
+
 import oracle.net.aso.p;
+
 
 
 
@@ -29,7 +32,7 @@ import com.library.impl.StockImpl;
 import com.opensymphony.xwork2.ActionSupport;
 
 
-public class AddbookAction extends ActionSupport {
+public class AddbookAction extends ActionSupport implements ServletResponseAware{
 
 	private BookInfo book;	
 	public  BookType booktype;
@@ -38,6 +41,7 @@ public class AddbookAction extends ActionSupport {
 	private BookInfoDao bookDao = new BookInfoImpl();
 	private BookTypeDao stdao = new BookTypeImpl();
 	private StockDao stcdao = new StockImpl();
+	private HttpServletResponse response;
 	
 	
 
@@ -93,10 +97,19 @@ public class AddbookAction extends ActionSupport {
 			return SUCCESS;
 		}
 		else{
+			response.setContentType("text/html;charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");        	
+			PrintWriter out= response.getWriter();
+			out.print("<script>alert('添加图书失败')</script>");
+			out.print("<script>window.location.href='bookManager.action'</script>");   
+			out.flush();   
+			out.close();		
 	
 		return INPUT;}
     }
-
+	public void setServletResponse(HttpServletResponse response) {
+		this.response = response;
+	}
     
         
 }

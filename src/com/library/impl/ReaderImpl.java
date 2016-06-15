@@ -208,5 +208,32 @@ public class ReaderImpl implements CommonDao,ReaderDao {
 	        
 	        return pageBean;
 	    }
+	
+	 /**
+	  * ·ÖÒ³
+	 * @param pageSize
+	 * @param page
+	 * @return
+	 */
+	public PageBean getReaderPageBean(int pageSize, int page,String readerid)
+	    {
+	        PageBean pageBean = new PageBean();
+	        
+	        String hql = "from Reader as r where r.isdelete=0 and r.readerid like '%"+readerid+"%'";
+	        int allRows = pageImpl.getAllCount(hql);
+	        int totalPage = pageBean.getTotalPages(pageSize, allRows);
+	        int currentPage = pageBean.getCurPage(page);
+	        int offset = pageBean.getCurrentPageOffset(pageSize, currentPage);
+	        List<Reader> list = pageImpl.queryByHibernate(hql, offset, pageSize);
+	        
+	        System.out.println("×ÜÒ³Êý="+totalPage);
+	        
+	        pageBean.setList(list);
+	        pageBean.setAllRows(allRows);
+	        pageBean.setCurrentPage(currentPage);
+	        pageBean.setTotalPage(totalPage);
+	        
+	        return pageBean;
+	    }
 
 }

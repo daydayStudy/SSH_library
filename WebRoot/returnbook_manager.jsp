@@ -186,7 +186,7 @@
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
 							<li><a href="btypeManager.action">图书类别管理</a></li>
 							<li><a href="bookManager.action">图书信息管理</a></li>
-							<li><a href="#">图书借阅管理</a></li>
+							<li><a href="borrow_book.jsp">图书借阅管理</a></li>
 							<li><a href="userManager.action">会员信息管理</a></li>
 							<li><a id="select" href="sladmin.action?method=select&id=<s:property value="#session.get('loginName')"/>">个人信息修改</a></li>
 						</s:if>
@@ -194,7 +194,8 @@
 						<s:if
 							test="#session.get('loginName') != null && #session.get('loginName') != '123456'">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
-							<li><a href="selctBook.action"">图书查询</a></li>
+							<li><a href="selectBook.action">图书查询</a></li>
+							<li><a href="borrowRecord.action">借阅记录</a></li>
 							<li><a id="select" href="slreader.action?method=select&id=<s:property value="#session.get('loginName')"/>">信息修改</a></li>
 						</s:if>
 						<!-- 游客 -->
@@ -215,7 +216,6 @@
 						    <th class="th">图书ID</th>
 							<th class="th">借阅者</th>
 							<th class="th">图书名称</th>
-							<th class="th">是否归还</th>							
 							<th class="th">借阅日期</th>
 							<th class="th">应归还日期</th>
 							<th class="th">库存</th>
@@ -230,7 +230,6 @@
 							    <td class="td"><s:property value="isbn" /></td>
 								<td class="td"><s:property value="name" /></td>
 								<td class="td"><s:property value="bookname" /></td>
-								<td class="td"><s:property value="isback" /></td>
 								<td class="td"><s:property value="borrowdate" /></td>
 								<td class="td"><s:property value="backdate" /></td>								
 								<td class="td"><s:property value="amount" /></td>
@@ -252,16 +251,16 @@
 							 <a href="" class="a_bottom">下一页</a> 
 						 </s:if>
 						 <s:else>
-							 <a href="bookManager.action?page=<s:property value="#request.bookPageBean.totalPage"/>" class="a_bottom">尾页</a> 
-						 	<a href="bookManager.action?page=<s:property value="#request.bookPageBean.currentPage + 1"/>" class="a_bottom">下一页</a> 
+							 <a href="returnbookManager.action?page=<s:property value="#request.bookPageBean.totalPage"/>" class="a_bottom">尾页</a> 
+						 	<a href="returnbookManager.action?page=<s:property value="#request.bookPageBean.currentPage + 1"/>" class="a_bottom">下一页</a> 
 						 </s:else>
 						 <s:if test="#request.bookPageBean.currentPage==1">
 						 	 <a href="" class="a_bottom">上一页</a> 
 							 <a href="" class="a_bottom">首页</a>
 						 </s:if>
 						 <s:else>
-						 <a href="bookManager.action?page=<s:property value="#request.bookPageBean.currentPage - 1"/>" class="a_bottom">上一页</a> 
-						 <a href="bookManager.action" class="a_bottom">首页</a>
+						 <a href="returnbookManager.action?page=<s:property value="#request.bookPageBean.currentPage - 1"/>" class="a_bottom">上一页</a> 
+						 <a href="returnbookManager.action" class="a_bottom">首页</a>
 						 </s:else>
 					</div>
 				</div>

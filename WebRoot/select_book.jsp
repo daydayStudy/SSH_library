@@ -201,7 +201,7 @@
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
 							<li><a href="btypeManager.action">图书类别管理</a></li>
 							<li><a href="bookManager.action">图书信息管理</a></li>
-							<li><a href="#">图书借阅管理</a></li>
+							<li><a href="borrow_book.jsp">图书借阅管理</a></li>
 							<li><a href="userManager.action">会员信息管理</a></li>
 							<li><a id="select" href="sladmin.action?method=select&id=<s:property value="#session.get('loginName')"/>">个人信息修改</a></li>
 						</s:if>
@@ -210,6 +210,7 @@
 							test="#session.get('loginName') != null && #session.get('loginName') != '123456'">
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
 							<li><a href="selectBook.action">图书查询</a></li>
+							<li><a href="borrowRecord.action">借阅记录</a></li>
 							<li><a id="select" href="slreader.action?method=select&id=<s:property value="#session.get('loginName')"/>">信息修改</a></li>
 						</s:if>
 						<!-- 游客 -->
@@ -253,7 +254,7 @@
 									<td class="td"><s:property value="translator" /></td>
 									<td class="td"><s:property value="amount" /></td>
 									<td class="td"><s:if
-											test="#session.get('loginName') != null">
+											test="#session.get('loginName') != null &&#session.get('loginName')!='123456'">
 											<s:if test="amount == 0">
 												<a>预定 </a>
 											</s:if>
@@ -262,16 +263,6 @@
 							</s:iterator>
 						</s:else>
 					</table>
-					<script>
-						var name = '${bookName}';
-						var len = '${listLen}';
-						/* for(var i=0; i<len; i++){ */
-						var ff = document.getElementById("bookname").innerHTML;
-						document.getElementById("bookname").innerHTML = ff
-								.replace(name, "<font color='red'>" + name
-										+ "</font>");
-						/*  	}*/
-					</script>
 					<div class="div_bottom">
 						  当前第<b>
 						 <font style="color:red;"><s:property value="#request.selectbookBean.currentPage" /></font> /

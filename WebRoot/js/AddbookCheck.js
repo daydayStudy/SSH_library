@@ -13,8 +13,7 @@ function addbookck(){
 		return false;
 	}else if (!checkdate()){
 		return false;
-	}
-	else if (!checknumber()){
+	}else if (!checknumber()){
 		return false;
 	}
 	return true;

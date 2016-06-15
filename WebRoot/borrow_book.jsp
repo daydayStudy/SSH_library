@@ -13,14 +13,24 @@
 <head>
 <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="js/userLoginCheck.js" charset=utf-8></script>
-<script type="text/javascript" src="js/userRegisterCheck.js" charset=utf-8></script>
-<link rel="stylesheet" type="text/css" href="css/table2_style.css" />
-<link rel="stylesheet" type="text/css" href="css/style.css"
+<script type="text/javascript" src="js/BorrowCheck.js" charset=utf-8></script>
+<script>
+	var name = '${bookName}';
+	var len = '${listLen}';
+	/* for(var i=0; i<len; i++){ */
+	var ff = document.getElementById("td_name").innerHTML;
+	document.getElementById("td_name").innerHTML = ff.replace(name,
+			"<font color='red'>" + name + "</font>");
+	/*  	}*/
+</script>
+
+<link rel="stylesheet" type="text/css" href="css/table_style.css" />
+<link rel="stylesheet" type="text/css" href="css/style2.css"
 	title="Origo" media="all" />
 <title>Origo v1.1</title>
 </head>
 
-<body class="light blue smaller freestyle01">
+<body class="light blue smaller freestyle01" onload="currentTime()">
 	<div id="layout">
 		<div id="row">
 			<div class="col c7 aligncenter">
@@ -30,7 +40,7 @@
 				<p>
 					<s:if test="#session.get('loginName') != null">
 						&nbsp;&nbsp;<a href="#" class="tc">切换用户</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href=""><s:property value="#session.get('loginName')"/></a>,欢迎您
+						<a href=""><s:property value="#session.get('loginName')" /></a>,欢迎您
 					</s:if>
 					<s:elseif test="#session.get('loginName') == null">
 						&nbsp;&nbsp;<a href="#" class="tc">登录</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -114,8 +124,25 @@
 						left : _left
 					});
 				}
-
+				function deleteConfirm(ids) {
+					if(confirm('确定删除？')){
+						$.ajax({
+							type : "post",
+							url : "userManager.action",
+							dataType:"json",
+							data : {method:"delete",id:ids},
+						});
+				    }else {
+				    	return false;
+				    }
+				}
 				
+				function changeColor() {
+					var name = '${bookName}';
+					var ff = document.getElementById("td_name").innerHTML;
+					document.getElementById("td_name").innerHTML = ff.replace(
+					name, "<font color='red'>"+name+"</font>");
+				}
 			</script>
 
 			<script type="text/javascript">
@@ -147,13 +174,22 @@
 						$(this).unbind("mousemove");
 					});
 				});
+				
+				function currentTime() {
+					var time = new Date(); //获得当前时间
+					var year = time.getFullYear();//获得年、月、日
+					var month = time.getMonth()+1;
+					var day = time.getDate(); 
+					document.getElementById("borrow_date").value=year+"-"+month+"-"+day;
+				}
 			</script>
 			<br /> <br />
 			<!-- 搜索  -->
 			<div class="row">
 				<s:form action="/selectBook">
-					<s:submit theme="simple" cssClass="button" value="308一下"></s:submit>
-					<s:textfield theme="simple" placeholder="搜索图书"></s:textfield>
+					<s:submit theme="simple" cssClass="button" 
+						value="308一下"></s:submit>
+					<s:textfield name="bookname" theme="simple" placeholder="搜索图书"></s:textfield>
 				</s:form>
 			</div>
 
@@ -166,7 +202,7 @@
 				</div>
 			</div>
 			<!-- 左侧导航栏 -->
-			<div id="row">
+			<div class="row">
 				<div class="col c2 alignleft">
 					<ul class="menu">
 						<!-- 管理员 -->
@@ -195,36 +231,102 @@
 					</ul>
 				</div>
 
-				<div class="col c8">
+				<div class="col c8_table">
 					<div class="div_title">
-						<b> 会员信息修改 </b> 
+						<b> 图书借阅</b> <a href="returnbookManager.action"  class="a_head">图书归还</a>
+						<div id="div_borrow_info">
+							<s:form name="borrowinfo" method="post" namespace="/" onsubmit="return confirms();">
+								<font class="font_style">用户ID:</font>
+								<s:textfield theme="simple" name="readerID" placeholder="用户ID" cssClass="borrow" onblur="selectReader()" id="ip_readerid"></s:textfield>
+								<s:submit theme="simple" cssClass="borrow_button" value="查询" onclick="selectReader()"></s:submit>
+								<font class="font_style">借书日期:</font>
+								<s:textfield theme="simple" name="borrowdate" cssClass="borrow" readonly="true" id="borrow_date"></s:textfield>
+								<br/>
+								<font class="font_style">图书ID:</font>
+								<s:textfield theme="simple" name="bookISBN" placeholder="图书ID" cssClass="borrow" onblur="selectBooks()" id="ip_isbn"></s:textfield>
+								<s:submit theme="simple" cssClass="borrow_button" value="查询" onclick="selectBooks()"></s:submit>
+								<font class="font_style">应还日期:</font>
+								<s:textfield theme="simple" name="backdate" cssClass="borrow" readonly="true" id="ip_backdate"></s:textfield>
+								<br/>
+								<font id="borrowTips"
+									style="width:120px; height: 30px;font-size: 15px;margin-left: 34px;color:red;"></font>
+								<s:submit theme="simple" cssClass="borrow_button" value="确认" cssStyle="float:right;margin-right:35px;" onclick="commit()"></s:submit>
+							</s:form>
+						</div>
+						<s:if test="(#request.borrow_reader).size()>0">
+							<div id="div_table">
+								<table id="table3" cellspacing="0">
+									<tr>
+										<th class="th">用户ID</th>
+										<th class="th">用户名</th>
+									</tr>
+									<s:iterator value="#request.borrow_reader" id="reader">
+										<tr>
+											<td class="td" id="rid"><s:property value="readerid" /></td>
+											<td class="td"><s:property value="name" /></td>
+										</tr>
+									</s:iterator>
+								</table>
+							</div>
+						</s:if>
+						<s:if test="(#request.borrow_bookinfo).size()>0">
+							<div id="div_table">
+								<table id="table2" cellspacing="0">
+									<tr>
+										<th class="th">ISBN</th>
+										<th class="th">图书名</th>
+										<th class="th">类型</th>
+										<th class="th">库存</th>
+										<th class="th">可借天数</th>
+									</tr>
+									<s:iterator value="#request.borrow_bookinfo" id="book">
+										<tr>
+											<td class="td" id="bisbn"><s:property value="isbn" /></td>
+											<td class="td"><s:property value="bookname" /></td>
+											<td class="td"><s:property value="type" /></td>
+											<td class="td" id="bamount"><s:property value="amount" /></td>
+											<td class="td" id="bdays"><s:property value="days" /></td>
+										</tr>
+									</s:iterator>
+								</table>
+							</div>
+						</s:if>
 					</div>
-					<center>
-		<s:form action="upreader"  method="post" namespace="/" onsubmit="return register1();">
-			<p id="namets2"									
-			style="width: 150px; height: 12px;  font-size: 12px;"></p>
-			</br>
-			<s:hidden name="reader.readerid" value="%{reader.readerid}"/>
-			<s:textfield label="用户名" name="reader.name" id="uName1" placeholder="用户名" 
-				cssClass="addin" value="%{reader.name}" onblur="return checkname1()" ></s:textfield>
-			<s:password label="密码" name="reader.pwd" id="uPass1" placeholder="密码"
-				cssClass="addin" value="%{reader.pwd}" onblur="return checkpass1();" ></s:password>
-			<s:textfield label="年龄" name="reader.age" id="uAge" placeholder="年龄"
-				cssClass="addin" value="%{reader.age}" onblur="return checkage()" ></s:textfield>
-			<s:radio name="reader.sex" list="#{'男':'男','女':'女'}" value="%{reader.sex}" 
-			cssStyle="margin-left:10px; margin-top:15px;margin-bottom:15px;"> </s:radio>
-			<s:textfield label="联系方式" name="reader.tel" id="uTel" placeholder="联系方式"
-				cssClass="addin" value="%{reader.tel}" onblur="return checktel()" ></s:textfield>
-			<s:textfield label="邮箱" name="reader.email" id="uEmail" placeholder="邮箱"
-				cssClass="addin" value="%{reader.email}" onblur="return checkemail()" ></s:textfield>
+					<script type="text/javascript">
+						function selectReader() {
+							document.borrowinfo.action = "/library/borrowBook!selectReaderID.action";
+							document.borrowinfo.submit();
+						}
+						function selectBooks() {
+							document.borrowinfo.action = "/library/borrowBook!selectBook.action";
+							document.borrowinfo.submit();
+						}
+						function commit() {
+							document.borrowinfo.action = "/library/borrowBook!addRecord.action";
+							document.borrowinfo.submit();
+						}
+						 $("table[id='table2'] tr td[id='bisbn']").click(function(){
+							 document.getElementById("ip_isbn").value =$(this).html();
+						 });
+						 $("table[id='table3'] tr td[id='rid']").click(function(){
+							 document.getElementById("ip_readerid").value =$(this).html();
+						 });
+						 $("table[id='table2'] tr td[id='bdays']").click(function(){
+							   var days = $(this).html();
+						       var date = new Date();
+						       date.setDate(date.getDate()+parseInt(days));
+						       var year = date.getFullYear();
+						       var month = date.getMonth()+1;
+						       var today = date.getDate();
+							 document.getElementById("ip_backdate").value = year+"-"+month+"-"+today;
+						 });
+						
+					</script>
 
-			<s:submit cssClass="addbt" title="Sign In" value="修改信息"></s:submit>
-
-		</s:form>
-</center>
-
-				
+					<div class="div_bottom">
+					</div>
 				</div>
+
 				<div class="col c2">
 					<h3>Presentation:</h3>
 					<p>

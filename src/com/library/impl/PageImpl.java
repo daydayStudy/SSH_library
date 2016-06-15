@@ -1,6 +1,8 @@
 package com.library.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,6 +14,7 @@ import org.hibernate.Transaction;
 
 import com.library.bean.BookInfo;
 import com.library.bean.BookManagerBean;
+import com.library.bean.BorrowRecordBean;
 import com.library.bean.HibernateSessionFactory;
 import com.library.bean.ReturnBookBean;
 import com.library.bean.SelectBookBean;
@@ -20,7 +23,7 @@ import com.library.util.JUtils;
 
 /**
  * @author Administrator
- *��ҳ
+ *锟斤拷页
  */
 public class PageImpl {
 
@@ -29,7 +32,7 @@ public class PageImpl {
 	Query query = null;
 	
 	/**
-	 * ���ȫ����¼
+	 * 锟斤拷锟饺拷锟斤拷锟铰�
 	 * @param hql
 	 * @return
 	 */
@@ -57,7 +60,7 @@ public class PageImpl {
 	}
 	
 	/**
-	 * ��ҳ
+	 * 锟斤拷页
 	 * @param hql
 	 * @param offset
 	 * @param pageSize
@@ -89,7 +92,7 @@ public class PageImpl {
 	}
 	
 	/**
-	 * ��ҳ��ͼ����Ϣ����ҳ�棩
+	 * 锟斤拷页锟斤拷图锟斤拷锟斤拷息锟斤拷锟斤拷页锟芥）
 	 * @param hql
 	 * @param offset
 	 * @param pageSize
@@ -177,7 +180,7 @@ public class PageImpl {
 		return result;
 	}
 	/**
-	 * ��ҳ��ͼ���ѯҳ�棩
+	 * 锟斤拷页锟斤拷图锟斤拷锟窖筹拷妫�
 	 * @param hql
 	 * @param offset
 	 * @param pageSize
@@ -225,6 +228,63 @@ public class PageImpl {
 					bean.setAmount(0);
 				}
 				bean.setIsbn(obj[6].toString());
+				
+				result.add(bean);
+			}
+			transaction.commit();
+			
+		} catch (Exception e) {
+			if(transaction != null) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			query = null;
+			HibernateSessionFactory.closeSession();
+		}
+		
+		return result;
+	}
+	
+	//select b.reader.name,b.bookInfo.bookname,b.borrowdate,b.backdate from Borrow as b where b.reader.readerid="+id
+	/**
+	 * 图书借阅记录信息分页
+	 * @param hql
+	 * @param offset
+	 * @param pageSize
+	 * @return
+	 */
+	public List<BorrowRecordBean> queryBorrowRecordInfo(String hql, int offset, int pageSize) {
+		session = HibernateSessionFactory.getSession();
+		List<BorrowRecordBean> result = new ArrayList<BorrowRecordBean>();
+		
+		try {
+			transaction = session.beginTransaction();
+			query = session.createQuery(hql).setFirstResult(offset)
+						.setMaxResults(pageSize);
+			List list = query.list();
+			
+			for(Iterator it=list.iterator();it.hasNext();) {
+				BorrowRecordBean bean = new BorrowRecordBean();
+				Object[] obj = (Object[]) it.next();
+				
+				bean.setReaderid(obj[0].toString());
+				bean.setBookname(obj[1].toString());
+				
+				String str1 = obj[2].toString();
+				String date = str1.substring(0, 11);
+				bean.setBorrowDate(date);
+				
+				String str2 = obj[3].toString();
+				date = str2.substring(0, 11);
+				bean.setBackDate(date);
+				
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				Date borrowDate = format.parse(str1);
+				Date backDate = format.parse(str2);
+				int days = (int) ((backDate.getTime()-borrowDate.getTime())/86400000);
+				
+				bean.setDays(days);
 				
 				result.add(bean);
 			}

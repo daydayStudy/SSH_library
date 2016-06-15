@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import oracle.net.aso.b;
 
 import org.hibernate.HibernateException;
@@ -11,8 +13,12 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.library.bean.BookManagerBean;
 import com.library.bean.Borrow;
+import com.library.bean.BorrowBookBean;
+import com.library.bean.BorrowRecordBean;
 import com.library.bean.HibernateSessionFactory;
+import com.library.bean.PageBean;
 import com.library.bean.Stock;
 import com.library.dao.BorrowDao;
 
@@ -24,6 +30,7 @@ public class BorrowImpl implements BorrowDao {
 
 	private Session session = null;
 	private Transaction tran = null;
+	private PageImpl pageImpl = new PageImpl();
 	
 	@Override
 	public boolean deleteBorrow(int borrowId) {
@@ -133,6 +140,32 @@ public class BorrowImpl implements BorrowDao {
 		}
 
 		return false;
+	}
+	
+	/**
+	 * ½èÔÄ¼ÇÂ¼·ÖÒ³
+	 * @param pageSize
+	 * @param page
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public PageBean getPageBean(int id,int pageSize, int page) {
+		PageBean pageBean = new PageBean();
+
+		String hql = "select b.reader.readerid,b.bookInfo.bookname,b.borrowdate,b.backdate from Borrow as b where b.reader.readerid="+id;
+		int allRows = pageImpl.getAllCount(hql);
+		int totalPage = pageBean.getTotalPages(pageSize, allRows);
+		int currentPage = pageBean.getCurPage(page);
+		int offset = pageBean.getCurrentPageOffset(pageSize, currentPage);
+		List<BorrowRecordBean> list = pageImpl.queryBorrowRecordInfo(hql, offset, pageSize);
+
+
+		pageBean.setList(list);
+		pageBean.setAllRows(allRows);
+		pageBean.setCurrentPage(currentPage);
+		pageBean.setTotalPage(totalPage);
+
+		return pageBean;
 	}
 
 }

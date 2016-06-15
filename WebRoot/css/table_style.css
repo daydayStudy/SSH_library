@@ -15,7 +15,14 @@ table,caption,tbody,tfoot,thead,tr,th,td {
 	background: #CCCCCC;
 }
 
-
+#div_table {
+	overflow-y:scroll;
+	margin: 2px 2px 2px;
+	width: 614px;
+	height: 211px;
+	border-radius: 6px;
+	border: 1px solid #CCCCCC;
+}
 
 .div_bottom {
 	height: 30px;
@@ -26,12 +33,42 @@ table,caption,tbody,tfoot,thead,tr,th,td {
 	background: #CCCCCC;
 }
 
+#div_borrow_info {
+	margin: 2px 2px 2px;
+	width: 614px;
+	height: 135px;
+	border-radius: 6px;
+	border: 1px solid #CCCCCC;
+}
+
+.input_style{
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	color: #000;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1em;
+	height: 30px;
+	padding: 0 0 0 34px;
+	margin: 10px 0px 0px 10px;
+	transition: background 0.3s ease-in-out;
+	width: 165px;
+	float: left;
+}
+
 a {
 	color: #666;
 }
 
+.font_style {
+	margin-left:32px;
+}
+
+.button_style{
+	float:right;
+	margin-right: 35px;
+}
 .a_head {
-	 font-family:Arial,Helvetica,sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
 	float: right;
 	color: #3288a8;
 	margin-right: 7px;
@@ -39,7 +76,7 @@ a {
 }
 
 .a_bottom {
-	 font-family:Arial,Helvetica,sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
 	float: right;
 	color: #3288a8;
 	margin-right: 7px;
@@ -71,11 +108,36 @@ a {
 	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
 
+#table2 {
+	overflow: hidden;
+	border: 1px solid #d3d3d3;
+	background: #fefefe;
+	width: 100%;
+	margin: 0px auto 0;
+	-moz-border-radius: 5px; /* FF1+ */
+	-webkit-border-radius: 5px; /* Saf3-4 */
+	border-radius: 5px;
+	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+#table3 {
+	overflow: hidden;
+	border: 1px solid #d3d3d3;
+	background: #fefefe;
+	width: 100%;
+	margin: 0px auto 0;
+	-moz-border-radius: 5px; /* FF1+ */
+	-webkit-border-radius: 5px; /* Saf3-4 */
+	border-radius: 5px;
+	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
 /* .th,.td {
 	padding: 10px 28px 10px;
 	text-align: center;
 } */
-
 .th {
 	padding: 6px 2px 6px;
 	text-align: center;
