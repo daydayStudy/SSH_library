@@ -88,7 +88,7 @@ public class BorrowAction extends ActionSupport implements ServletResponseAware 
 	}
 	
 	/**
-	 * ²éÑ¯ÓÃ»§id
+	 * ï¿½ï¿½Ñ¯ï¿½Ã»ï¿½id
 	 * @return
 	 */
 	public String selectReaderID() {
@@ -107,7 +107,7 @@ public class BorrowAction extends ActionSupport implements ServletResponseAware 
 
 	
 	/**
-	 * ²éÑ¯Í¼Êé
+	 * ï¿½ï¿½Ñ¯Í¼ï¿½ï¿½
 	 * @return
 	 */
 	public String selectBook() {
@@ -122,7 +122,7 @@ public class BorrowAction extends ActionSupport implements ServletResponseAware 
 	}
 	
 	/**
-	 * Ìí¼Ó½èÔÄ¼ÇÂ¼
+	 * ï¿½ï¿½Ó½ï¿½ï¿½Ä¼ï¿½Â¼
 	 * @return
 	 */
 	public String addRecord() {
@@ -146,7 +146,7 @@ public class BorrowAction extends ActionSupport implements ServletResponseAware 
 				boolean result = borrowImpl.addBorrow(borrow);
 				if(result) {
 					try {
-						//¸üÐÂ¿â´æ
+						//ï¿½ï¿½ï¿½Â¿ï¿½ï¿½
 						String hql = "from Stock as o where o.bookInfo.isbn="+bookISBN;
 						List<Stock> list = stockImpl.selectStocks(hql);
 						if(list.size()>0) {
@@ -157,9 +157,9 @@ public class BorrowAction extends ActionSupport implements ServletResponseAware 
 						}
 						
 						response.setContentType("text/html;charset=UTF-8");
-						response.setCharacterEncoding("UTF-8");//·ÀÖ¹µ¯³öµÄÐÅÏ¢³öÏÖÂÒÂë 
+						response.setCharacterEncoding("UTF-8");//ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 						PrintWriter out = response.getWriter();
-						out.print("<script>alert('½èÔÄ³É¹¦!')</script>");
+						out.print("<script>alert('å€Ÿé˜…å¤±è´¥!')</script>");
 						out.print("<script>window.location.href='" + "borrow_book.jsp" + "'</script>");   
 						out.flush();   
 						out.close();
@@ -167,7 +167,7 @@ public class BorrowAction extends ActionSupport implements ServletResponseAware 
 						e.printStackTrace();
 					}
 					
-					System.out.println("½èÔÄ³É¹¦");
+					System.out.println("ï¿½ï¿½ï¿½Ä³É¹ï¿½");
 				}
 				
 			} catch (NumberFormatException e) {

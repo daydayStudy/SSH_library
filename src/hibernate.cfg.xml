@@ -13,7 +13,7 @@
 		jdbc:oracle:thin:@localhost:1521:orcl
 	</property>
 	<property name="connection.username">system</property>
-	<property name="connection.password">123456</property>
+	<property name="connection.password">573179166</property>
 	<property name="connection.driver_class">
 		oracle.jdbc.driver.OracleDriver
 	</property>

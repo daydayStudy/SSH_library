@@ -61,7 +61,7 @@ public class LoginAction extends ActionSupport implements ServletResponseAware {
 	public String login() throws IOException {
 		if(checkLogin()) {
 			ActionContext context=ActionContext.getContext();
-			//ÍùsessionÀï·Å
+			//ï¿½ï¿½sessionï¿½ï¿½ï¿½
 			context.getSession().put("loginName",name);
 			PrintWriter out = response.getWriter();
 			out.print("<script>window.location.href='" + "home.jsp" + "'</script>");   
@@ -71,12 +71,12 @@ public class LoginAction extends ActionSupport implements ServletResponseAware {
 //			return SUCCESS;
 		} else {
 			ActionContext context=ActionContext.getContext();
-			//ÍùsessionÀï·Å
+			//ï¿½ï¿½sessionï¿½ï¿½ï¿½
 			context.getSession().put("loginName",null);
 			response.setContentType("text/html;charset=UTF-8");
-			response.setCharacterEncoding("UTF-8");//·ÀÖ¹µ¯³öµÄÐÅÏ¢³öÏÖÂÒÂë 
+			response.setCharacterEncoding("UTF-8");//ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 			PrintWriter out = response.getWriter();
-			out.print("<script>alert('µÇÂ¼Ê§°Ü£¡')</script>");
+			out.print("<script>alert('ç™»å½•å¤±è´¥')</script>");
 			out.print("<script>window.location.href='" + "home.jsp" + "'</script>");   
 			out.flush();   
 			out.close();
@@ -86,8 +86,8 @@ public class LoginAction extends ActionSupport implements ServletResponseAware {
 	}
 
 	public boolean checkLogin() { //1304001
-		System.out.println("Ñ¡Ôñ="+selected);
-		if("1".equals(selected)) { //ÓÃ»§
+		System.out.println("Ñ¡ï¿½ï¿½="+selected);
+		if("1".equals(selected)) { //ï¿½Ã»ï¿½
 			if(JUtils.changeToNum(name)) {
 				int id = Integer.parseInt(name);
 				System.out.println("id="+id);
@@ -95,7 +95,7 @@ public class LoginAction extends ActionSupport implements ServletResponseAware {
 			} else {
 				return false;
 			}
-		} else { //¹ÜÀíÔ±
+		} else { //ï¿½ï¿½ï¿½ï¿½Ô±
 			if(JUtils.changeToNum(name)) {
 				int id = Integer.parseInt(name);
 				return adminImpl.login(id, pwd);

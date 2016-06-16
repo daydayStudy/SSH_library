@@ -5,7 +5,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts2.interceptor.ServletResponseAware;
+
 import oracle.net.aso.p;
+
 
 
 
@@ -23,12 +26,12 @@ import com.library.impl.BookTypeImpl;
 import com.opensymphony.xwork2.ActionSupport;
 
 
-public class UpdatebookTypeAction extends ActionSupport {
+public class UpdatebookTypeAction extends ActionSupport implements ServletResponseAware{
 
 	
 	public  BookType booktype;
 	private BookTypeDao stdao = new BookTypeImpl();
-
+	private HttpServletResponse response;
 
 
 
@@ -55,11 +58,18 @@ public class UpdatebookTypeAction extends ActionSupport {
 			return SUCCESS;
 		}
 		else{
-	
+			response.setCharacterEncoding("UTF-8");        	
+			PrintWriter out= response.getWriter();
+			out.print("<script>alert('更新失败')</script>");
+			out.print("<script>window.location.href='btypeManager.action'</script>");   
+			out.flush();   
+			out.close();	
 		return INPUT;}
     }
 
-    
+	public void setServletResponse(HttpServletResponse response) {
+		this.response = response;
+	}
         
 }
 
