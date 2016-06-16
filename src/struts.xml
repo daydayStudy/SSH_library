@@ -121,5 +121,15 @@
         <action name="borrowRecord" class="com.library.action.BorrowRecordAction">
         	<result name="success">/borrow_record.jsp</result>
         </action>
+        
+        <!-- 预定图书 -->
+        <action name="orderBook" class="com.library.action.OrderAction">
+        	<result name="success">/order_book.jsp</result>
+        </action>
+        
+        <!-- 预定记录 -->
+        <action name="orderRecord" class="com.library.action.OrderRecordAction">
+        	<result name="success">/order_record.jsp</result>
+        </action>
 	</package>
 </struts>    

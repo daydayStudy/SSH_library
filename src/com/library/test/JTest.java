@@ -20,6 +20,7 @@ import com.library.bean.BookManagerBean;
 import com.library.bean.BorrowBookBean;
 import com.library.bean.BorrowRecordBean;
 import com.library.bean.HibernateSessionFactory;
+import com.library.bean.OrderRecordBean;
 import com.library.bean.PageBean;
 import com.library.bean.Reader;
 import com.library.impl.BookInfoImpl;
@@ -140,4 +141,17 @@ public class JTest extends TestCase {
 		int allRows = pageImpl.getAllCount(hql);
 		System.out.println(allRows);
 	}
+	
+	public void testOrder() {
+		PageImpl pageImpl = new PageImpl();
+//		String hql = "select o.reader.readerid,o.bookInfo.bookname,o.orderdate,o.amount,s.amount from Order as o,Stock as s where s.bookInfo.isbn=o.bookInfo.isbn";
+		String hql = "select o.reader.readerid,o.bookInfo.bookname,o.orderdate,o.amount,s.amount from Order as o,Stock as s  "
+				+ " where s.bookInfo.isbn=o.bookInfo.isbn and o.reader.readerid="+1304001+"order by o.orderid desc";
+		List<OrderRecordBean> beans = pageImpl.queryOrderRecordInfo(hql, 0, 8);
+		for(Iterator<OrderRecordBean> iterator=beans.iterator();iterator.hasNext();) {
+			OrderRecordBean bean = iterator.next();
+			System.out.println(bean.getReaderid().toString());
+		}
+	}
+	
 }

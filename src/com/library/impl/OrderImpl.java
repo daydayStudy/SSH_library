@@ -9,18 +9,22 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.library.bean.BorrowRecordBean;
 import com.library.bean.HibernateSessionFactory;
 import com.library.bean.Order;
+import com.library.bean.OrderRecordBean;
+import com.library.bean.PageBean;
 import com.library.dao.OrderDao;
 
 /**
  * @author Administrator
- * Ô¤¶¨ÒµÎñÂß¼­Àà
+ * Ô¤ï¿½ï¿½Òµï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½
  */
 public class OrderImpl implements OrderDao {
 
 	private Session session = null;
 	private Transaction tran = null;
+	private PageImpl pageImpl = new PageImpl();
 	
 	@Override
 	public boolean addOrder(Order order) {
@@ -107,6 +111,27 @@ public class OrderImpl implements OrderDao {
 		}
 
 		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public PageBean getPageBean(int id,int pageSize, int page) {
+		PageBean pageBean = new PageBean();
+
+		String hql = "select o.reader.readerid,o.bookInfo.bookname,o.orderdate,o.amount,s.amount from Order as o,Stock as s  "
+				+ " where s.bookInfo.isbn=o.bookInfo.isbn and o.reader.readerid="+id+"order by o.orderid desc";
+		int allRows = pageImpl.getAllCount(hql);
+		int totalPage = pageBean.getTotalPages(pageSize, allRows);
+		int currentPage = pageBean.getCurPage(page);
+		int offset = pageBean.getCurrentPageOffset(pageSize, currentPage);
+		List<OrderRecordBean> list = pageImpl.queryOrderRecordInfo(hql, offset, pageSize);
+
+
+		pageBean.setList(list);
+		pageBean.setAllRows(allRows);
+		pageBean.setCurrentPage(currentPage);
+		pageBean.setTotalPage(totalPage);
+
+		return pageBean;
 	}
 
 }

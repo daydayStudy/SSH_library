@@ -35,7 +35,7 @@
 		<hr>
 		
 	<center>
-		 注册成功！<br/>		 
+		 注册成功！许锋你个傻鸟<br/>		 
 		 
 		 
   欢迎你，<s:property value="#request.reader.name"/>会员注册成功！！！<br/>

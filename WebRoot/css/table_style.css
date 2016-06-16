@@ -41,6 +41,14 @@ table,caption,tbody,tfoot,thead,tr,th,td {
 	border: 1px solid #CCCCCC;
 }
 
+#div_borrow_info2 {
+	margin: 2px 2px 2px;
+	width: 614px;
+	height: 175px;
+	border-radius: 6px;
+	border: 1px solid #CCCCCC;
+}
+
 .input_style{
 	border: 1px solid #ccc;
 	border-radius: 2px;

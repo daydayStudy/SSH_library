@@ -16,6 +16,7 @@ import com.library.bean.BookInfo;
 import com.library.bean.BookManagerBean;
 import com.library.bean.BorrowRecordBean;
 import com.library.bean.HibernateSessionFactory;
+import com.library.bean.OrderRecordBean;
 import com.library.bean.ReturnBookBean;
 import com.library.bean.SelectBookBean;
 import com.library.util.JUtils;
@@ -285,6 +286,57 @@ public class PageImpl {
 				int days = (int) ((backDate.getTime()-borrowDate.getTime())/86400000);
 				
 				bean.setDays(days);
+				
+				result.add(bean);
+			}
+			transaction.commit();
+			
+		} catch (Exception e) {
+			if(transaction != null) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			query = null;
+			HibernateSessionFactory.closeSession();
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 预定记录信息分页
+	 * @param hql
+	 * @param offset
+	 * @param pageSize
+	 * @return
+	 */
+	public List<OrderRecordBean> queryOrderRecordInfo(String hql, int offset, int pageSize) {
+		session = HibernateSessionFactory.getSession();
+		List<OrderRecordBean> result = new ArrayList<OrderRecordBean>();
+		
+		try {
+			transaction = session.beginTransaction();
+			query = session.createQuery(hql).setFirstResult(offset)
+						.setMaxResults(pageSize);
+			List list = query.list();
+			// readerid,bookname,orderdate,o.amount,s.amount
+			for(Iterator it=list.iterator();it.hasNext();) {
+				OrderRecordBean bean = new OrderRecordBean();
+				Object[] obj = (Object[]) it.next();
+				
+				bean.setReaderid(obj[0].toString());
+				bean.setBookname(obj[1].toString());
+				
+				String str1 = obj[2].toString();
+				String date = str1.substring(0, 11);
+				bean.setOrderdate(date);
+				
+				int amount = Integer.parseInt(obj[3].toString());
+				bean.setAmount(amount);
+				
+				int stock = Integer.parseInt(obj[4].toString());
+				bean.setStocks(stock);
 				
 				result.add(bean);
 			}

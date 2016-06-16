@@ -184,6 +184,7 @@
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
 							<li><a href="selectBook.action">图书查询</a></li>
 							<li><a href="borrowRecord.action">借阅记录</a></li>
+							<li><a href="orderRecord.action">预定记录</a></li>
 							<li><a id="select" href="slreader.action?method=select&id=<s:property value="#session.get('loginName')"/>">信息修改</a></li>
 						</s:if>
 						<!-- 游客 -->
