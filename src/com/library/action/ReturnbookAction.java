@@ -86,7 +86,7 @@ public class ReturnbookAction extends ActionSupport  implements ServletResponseA
 
 
 
-	public String  borrow()  throws IOException{
+	public void  borrow()  throws IOException{
 		if("select".equals(method)) { 
 
         	if(JUtils.changeToNum(id)) {
@@ -96,14 +96,14 @@ public class ReturnbookAction extends ActionSupport  implements ServletResponseA
         		borrow=bordao.getBorrow(isbn);
         		
         		Date now = new Date();
-        		long day = borrow.getBackdate().getTime() - now.getTime(); 
-        		if(day>0){
+        		boolean flag = borrow.getBackdate().before(now);
+        		if(flag==false){
         			stock=stcdao.getStock(isbn);
             		stock.setAmount(stock.getAmount()+1);
             		stcdao.updateStock(stock);       		
             		borrow.setIsback(1);
             		bordao.updateBorrow(borrow);
-            		return "success";
+            		
         		}
         		else {
         			response.setContentType("text/html;charset=UTF-8");
@@ -117,7 +117,7 @@ public class ReturnbookAction extends ActionSupport  implements ServletResponseA
         		}
         	}
         }
-		return null;
+		
 
 	}
 			
