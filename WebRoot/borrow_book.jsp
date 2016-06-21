@@ -236,7 +236,7 @@
 					<div class="div_title">
 						<b> 图书借阅</b> <a href="returnbookManager.action"  class="a_head">图书归还</a>
 						<div id="div_borrow_info">
-							<s:form name="borrowinfo" method="post" namespace="/" onsubmit="return confirms();">
+							<s:form name="borrowinfo" method="post" namespace="/" onsubmit="return confirms()">
 								<font class="font_style">用户ID:</font>
 								<s:textfield theme="simple" name="readerID" placeholder="用户ID" cssClass="borrow" onblur="selectReader()" id="ip_readerid"></s:textfield>
 								<s:submit theme="simple" cssClass="borrow_button" value="查询" onclick="selectReader()"></s:submit>
@@ -244,14 +244,14 @@
 								<s:textfield theme="simple" name="borrowdate" cssClass="borrow" readonly="true" id="borrow_date"></s:textfield>
 								<br/>
 								<font class="font_style">图书ID:</font>
-								<s:textfield theme="simple" name="bookISBN" placeholder="图书ID" cssClass="borrow" onblur="selectBooks()" id="ip_isbn"></s:textfield>
+								<s:textfield theme="simple" name="bookISBN" placeholder="输入图书名称查询" cssClass="borrow" onblur="selectBooks()" id="ip_isbn"></s:textfield>
 								<s:submit theme="simple" cssClass="borrow_button" value="查询" onclick="selectBooks()"></s:submit>
 								<font class="font_style">应还日期:</font>
 								<s:textfield theme="simple" name="backdate" cssClass="borrow" readonly="true" id="ip_backdate"></s:textfield>
 								<br/>
 								<font id="borrowTips"
 									style="width:120px; height: 30px;font-size: 15px;margin-left: 34px;color:red;"></font>
-								<s:submit theme="simple" cssClass="borrow_button" value="确认" cssStyle="float:right;margin-right:35px;" onclick="commit()"></s:submit>
+								<s:submit id="b_commit" theme="simple" cssClass="borrow_button" value="确认" cssStyle="float:right;margin-right:35px;"></s:submit>
 							</s:form>
 						</div>
 						<s:if test="(#request.borrow_reader).size()>0">
@@ -294,6 +294,7 @@
 						</s:if>
 					</div>
 					<script type="text/javascript">
+						
 						function selectReader() {
 							document.borrowinfo.action = "/library/borrowBook!selectReaderID.action";
 							document.borrowinfo.submit();
@@ -329,31 +330,27 @@
 				</div>
 
 				<div class="col c2">
-					<h3>Presentation:</h3>
+					<h3>Introdution:</h3>
 					<p>
-						This is the <a href="http://www.cssmoban.com/">Origo</a> template,
-						with the basic layout from the <a
-							href="http://www.cssmoban.com/templates/andreas01/">andreas01</a>
-						template and the code base from <a
-							href="http://www.cssmoban.com/templates/freestyle/">Freestyle</a>.
+						308图书馆，随时随地上网查阅图书，舒适环境，温馨格调，只有你，值得拥有！
 					</p>
 
-					<h3>Links:</h3>
+					<h3>Notes:</h3>
 					<p>
-						<a href="#">Sample link 1</a><br /> <a href="#">Sample link 2</a><br />
-						<a href="#">Sample link 3</a>
+						<a href="#">Search whatever you want</a><br /> 
+						<a href="#">Read wherever you want</a><br />
 					</p>
 				</div>
 			</div>
 
 			<div id="footer" class="row">
 				<div class="col c12 aligncenter">
-					<h3>&copy; 2012 Your Name</h3>
+					<h3>&copy; 2016 308图书馆</h3>
 					<p>
-						<a href="http://www.cssmoban.com/">Template design</a> by <a
-							href="http://www.cssmoban.com/">Andreas Viklund</a><br /> More
-						Templates <a href="http://www.cssmoban.com/" target="_blank"
-							title="模板之家">模板之家</a>
+						<a href="">许锋</a> <a
+							href="">陈俊聪</a> 制作<br /> 北理珠
+						37栋 <a style="" href="" target="_blank"
+							title="模板之家">308工作室</a>
 					</p>
 				</div>
 			</div>

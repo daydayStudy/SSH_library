@@ -7,6 +7,8 @@ function confirms() {
 		return false;
 	}
 
+	document.borrowinfo.action = "/library/borrowBook!addRecord.action";
+	document.borrowinfo.submit();
 	return true;
 }
 

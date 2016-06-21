@@ -13,10 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletResponseAware;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import com.library.bean.BookInfo;
 import com.library.bean.Borrow;
 import com.library.bean.BorrowBookBean;
+import com.library.bean.HibernateSessionFactory;
 import com.library.bean.Reader;
 import com.library.bean.Stock;
 import com.library.impl.BookInfoImpl;
@@ -27,7 +30,7 @@ import com.library.util.JUtils;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class BorrowAction extends ActionSupport implements ServletResponseAware {
-	
+
 	/**
 	 * 
 	 */
@@ -86,7 +89,7 @@ public class BorrowAction extends ActionSupport implements ServletResponseAware 
 	public void setBookISBN(String bookISBN) {
 		this.bookISBN = bookISBN;
 	}
-	
+
 	/**
 	 * ��ѯ�û�id
 	 * @return
@@ -101,11 +104,11 @@ public class BorrowAction extends ActionSupport implements ServletResponseAware 
 				request.setAttribute("borrow_reader", readers);
 			}
 		}
-		
+
 		return SUCCESS;
 	}
 
-	
+
 	/**
 	 * ��ѯͼ��
 	 * @return
@@ -117,10 +120,10 @@ public class BorrowAction extends ActionSupport implements ServletResponseAware 
 			HttpServletRequest request = ServletActionContext.getRequest();
 			request.setAttribute("borrow_bookinfo", infos);
 		}
-		
+
 		return SUCCESS;
 	}
-	
+
 	/**
 	 * ��ӽ��ļ�¼
 	 * @return
@@ -134,7 +137,7 @@ public class BorrowAction extends ActionSupport implements ServletResponseAware 
 				BookInfo bookInfo = new BookInfo();
 				bookInfo.setIsbn(bookISBN);
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-				
+
 				borrow.setReader(reader);
 				borrow.setIsback(0);
 				borrow.setBookInfo(bookInfo);
@@ -142,43 +145,64 @@ public class BorrowAction extends ActionSupport implements ServletResponseAware 
 				borrow.setBackdate(date);
 				date = format.parse(borrowdate);
 				borrow.setBorrowdate(date);
-				
-				boolean result = borrowImpl.addBorrow(borrow);
-				if(result) {
-					try {
-						//���¿��
-						String hql = "from Stock as o where o.bookInfo.isbn="+bookISBN;
-						List<Stock> list = stockImpl.selectStocks(hql);
-						if(list.size()>0) {
-							Stock stock = list.get(0);
-							int amount = stock.getAmount();
-							stock.setAmount(amount-1);
-							stockImpl.updateStock(stock);
-						}
+
+				String hql = "from Stock as o where o.bookInfo.isbn="+bookISBN;
+				List<Stock> list = stockImpl.selectStocks(hql);
+				if(list.size()>0) {
+					boolean result = borrowImpl.addBorrow(borrow);
+					//���¿��
+					if(result) {
+						Stock stock = list.get(0);
+						int amount = stock.getAmount();
+						stock.setAmount(amount-1);
+						stockImpl.updateStock(stock);
 						
-						response.setContentType("text/html;charset=UTF-8");
-						response.setCharacterEncoding("UTF-8");//��ֹ��������Ϣ�������� 
-						PrintWriter out = response.getWriter();
-						out.print("<script>alert('借阅失败!')</script>");
-						out.print("<script>window.location.href='" + "borrow_book.jsp" + "'</script>");   
-						out.flush();   
-						out.close();
-					} catch (IOException e) {
-						e.printStackTrace();
+						showSuccess();
+					}else {
+						showError();
 					}
-					
 					System.out.println("���ĳɹ�");
+				}else {
+					showError();
 				}
-				
+
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			
+
 		}
-		
+
 		return SUCCESS;
+	}
+
+	private void showError() {
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+			response.setCharacterEncoding("UTF-8");//��ֹ��������Ϣ�������� 
+			PrintWriter out = response.getWriter();
+			out.print("<script>alert('借阅失败!')</script>");
+			out.print("<script>window.location.href='" + "borrow_book.jsp" + "'</script>");   
+			out.flush();   
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void showSuccess() {
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+			response.setCharacterEncoding("UTF-8");//��ֹ��������Ϣ�������� 
+			PrintWriter out = response.getWriter();
+			out.print("<script>alert('借阅成功!')</script>");
+			out.print("<script>window.location.href='" + "borrow_book.jsp" + "'</script>");   
+			out.flush();   
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

@@ -36,6 +36,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="F:/junit-4.11.jar"/>
+	<classpathentry kind="lib" path="D:/myeclipse/junit-4.11.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

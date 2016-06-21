@@ -215,7 +215,8 @@
 					<table id="table" cellspacing="0">
 						<tr>
 						    <th class="th">图书ID</th>
-							<th class="th">借阅者</th>
+							<th class="th">用户名</th>
+							<th class="th">用户ID</th>
 							<th class="th">图书名称</th>
 							<th class="th">借阅日期</th>
 							<th class="th">应归还日期</th>
@@ -230,12 +231,18 @@
 							<tr>
 							    <td class="td"><s:property value="isbn" /></td>
 								<td class="td"><s:property value="name" /></td>
+								<td class="td"><s:property value="rederid" /></td>
 								<td class="td"><s:property value="bookname" /></td>
 								<td class="td"><s:property value="borrowdate" /></td>
 								<td class="td"><s:property value="backdate" /></td>								
 								<td class="td"><s:property value="amount" /></td>
 								<td class="td">
-									<a id="select" href="rtbook.action?method=select&id=<s:property value="isbn"/>">归还 </a>
+									<a id="select" href="rtbook.action?method=select&id=<s:property value="isbn"/>
+									&borrowid=<s:property value="borrowid"/>
+									&bookname=<s:property value="bookname"/>
+									&readid=<s:property value="rederid"/>
+									&backdate=<s:property value="backdate"/>
+									&amount=<s:property value="amount"/>">归还 </a>
 									
 								</td>
 							</tr>
@@ -267,31 +274,27 @@
 				</div>
 
 				<div class="col c2">
-					<h3>Presentation:</h3>
+					<h3>Introdution:</h3>
 					<p>
-						This is the <a href="http://www.cssmoban.com/">Origo</a> template,
-						with the basic layout from the <a
-							href="http://www.cssmoban.com/templates/andreas01/">andreas01</a>
-						template and the code base from <a
-							href="http://www.cssmoban.com/templates/freestyle/">Freestyle</a>.
+						308图书馆，随时随地上网查阅图书，舒适环境，温馨格调，只有你，值得拥有！
 					</p>
 
-					<h3>Links:</h3>
+					<h3>Notes:</h3>
 					<p>
-						<a href="#">Sample link 1</a><br /> <a href="#">Sample link 2</a><br />
-						<a href="#">Sample link 3</a>
+						<a href="#">Search whatever you want</a><br /> 
+						<a href="#">Read wherever you want</a><br />
 					</p>
 				</div>
 			</div>
 
 			<div id="footer" class="row">
 				<div class="col c12 aligncenter">
-					<h3>&copy; 2012 Your Name</h3>
+					<h3>&copy; 2016 308图书馆</h3>
 					<p>
-						<a href="http://www.cssmoban.com/">Template design</a> by <a
-							href="http://www.cssmoban.com/">Andreas Viklund</a><br /> More
-						Templates <a href="http://www.cssmoban.com/" target="_blank"
-							title="模板之家">模板之家</a>
+						<a href="">许锋</a> <a
+							href="">陈俊聪</a> 制作<br /> 北理珠
+						37栋 <a style="" href="" target="_blank"
+							title="模板之家">308工作室</a>
 					</p>
 				</div>
 			</div>

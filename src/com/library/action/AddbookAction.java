@@ -42,18 +42,10 @@ public class AddbookAction extends ActionSupport implements ServletResponseAware
 	private BookTypeDao stdao = new BookTypeImpl();
 	private StockDao stcdao = new StockImpl();
 	private HttpServletResponse response;
-	
-	
-
-	
-   
-
-
 
 	public Stock getStock() {
 		return stock;
 	}
-
 
 
 	public void setStock(Stock stock) {
@@ -61,25 +53,17 @@ public class AddbookAction extends ActionSupport implements ServletResponseAware
 	}
 
 
-
 	public int getTypeid() {
 		return typeid;
 	}
 
-
-
 	public void setTypeid(int typeid) {
 		this.typeid = typeid;
 	}
-
-
-
 	
 	public BookInfo getBook() {		
 		return book;
 	}
-
- 
 
 	public void setBook(BookInfo book) {
 		
@@ -98,7 +82,7 @@ public class AddbookAction extends ActionSupport implements ServletResponseAware
 		}
 		else{
 			response.setContentType("text/html;charset=UTF-8");
-		response.setCharacterEncoding("UTF-8");        	
+			response.setCharacterEncoding("UTF-8");        	
 			PrintWriter out= response.getWriter();
 			out.print("<script>alert('添加图书失败')</script>");
 			out.print("<script>window.location.href='bookManager.action'</script>");   

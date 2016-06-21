@@ -115,7 +115,7 @@
         <!-- 图书归还-->
         <action name="rtbook" class="com.library.action.ReturnbookAction">
             <result name="success" type="redirect">/returnbookManager.action</result>
-            
+            <result name="ticket">/fine_money.jsp</result>
         </action>
         
         <!-- 借阅记录 -->
@@ -132,6 +132,11 @@
         <!-- 预定记录 -->
         <action name="orderRecord" class="com.library.action.OrderRecordAction">
         	<result name="success">/order_record.jsp</result>
+        </action>
+        
+        <!-- 罚款 -->
+        <action name="fineMoney" class="com.library.action.FineMoneyAct">
+        	<result name="success" type="redirect">/returnbookManager.action</result>
         </action>
 	</package>
 </struts>    

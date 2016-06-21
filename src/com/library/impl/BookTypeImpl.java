@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import oracle.net.aso.q;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -172,4 +174,17 @@ public class BookTypeImpl implements BookTypeDao {
 	}
 
 
+	public float selectFines(int typeid) {
+		String hql = "select b.finemoney from BookType as b where b.typeid="+typeid;
+		session = HibernateSessionFactory.getSession();
+		Query query = session.createQuery(hql);
+		List list = query.list();
+		if(list.size()>0) {
+			float fines = (float) list.get(0);
+			return fines;
+		}
+		
+		
+		return 0l;
+	}
 }

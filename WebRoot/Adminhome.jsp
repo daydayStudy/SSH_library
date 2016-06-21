@@ -190,26 +190,27 @@
 				</div>
 
 				<div class="col c2">
-					<h3>308图书馆</h3>
-					<p>不知道借什么书？上308图书馆308一下，你就知道</p>
-					<p>借书之后，老是忘记自己归还日期？上308图书馆，你就知道</p>
-					<p>还书手续太麻烦？上308图书馆，只需一个按钮</p>
-					<p>308图书馆，随时随地上网查阅图书，舒适环境，温馨格调，只有你，值得拥有。</p>
+					<h3>Introdution:</h3>
+					<p>
+						308图书馆，随时随地上网查阅图书，舒适环境，温馨格调，只有你，值得拥有！
+					</p>
+
+					<h3>Notes:</h3>
+					<p>
+						<a href="#">Search whatever you want</a><br /> 
+						<a href="#">Read wherever you want</a><br />
+					</p>
 				</div>
-				</div>
-			
-			<a href="#top"
-				style="display:block; width:35px; height:42px; 
-  position:fixed; right:20px; bottom:20px;"><img
-				src="images/top.gif"></a>
+			</div>
+
 			<div id="footer" class="row">
 				<div class="col c12 aligncenter">
-					<h3>&copy; 2012 Your Name</h3>
+					<h3>&copy; 2016 308图书馆</h3>
 					<p>
-						<a href="http://www.cssmoban.com/">Template design</a> by <a
-							href="http://www.cssmoban.com/">Andreas Viklund</a><br> More
-						Templates <a href="http://www.cssmoban.com/" target="_blank"
-							title="模板之家">22</a>
+						<a href="">许锋</a> <a
+							href="">陈俊聪</a> 制作<br /> 北理珠
+						37栋 <a style="" href="" target="_blank"
+							title="模板之家">308工作室</a>
 					</p>
 				</div>
 			</div>

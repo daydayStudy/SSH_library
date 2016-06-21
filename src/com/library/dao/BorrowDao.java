@@ -36,6 +36,6 @@ public interface BorrowDao {
 	 * @param borrow
 	 * @return
 	 */
-	public Borrow getBorrow(String ISBN);
+	public Borrow getBorrow(String ISBN,int borrowid);
 	public boolean addBorrow(Borrow borrow);
 }

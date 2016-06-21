@@ -150,7 +150,7 @@ public class PageImpl {
 			query = session.createQuery(hql).setFirstResult(offset)
 						.setMaxResults(pageSize);
 			List list = query.list();
-			
+//			isbn,name,bookname,b.isback,borrowdate,backdate,amount,readerid
 			for(Iterator it=list.iterator();it.hasNext();) {
 				ReturnBookBean bean = new ReturnBookBean();
 				Object[] obj = (Object[]) it.next();
@@ -159,10 +159,20 @@ public class PageImpl {
 				bean.setBookname(obj[2].toString());
 				int isback = Integer.parseInt(obj[3].toString());
 				bean.setIsback(isback);
-				bean.setBorrowdate(obj[4].toString());
-				bean.setBackdate(obj[5].toString());
+				
+				String string = obj[4].toString();
+				String date = string.substring(0, 11);
+				bean.setBorrowdate(date);
+				
+				string = obj[5].toString();
+				date = string.substring(0, 11);
+				bean.setBackdate(date);
+				
 				int amount = Integer.parseInt(obj[6].toString());
-				bean.setAmount(amount);				
+				bean.setAmount(amount);	
+				
+				bean.setRederid(obj[7].toString());
+				bean.setBorrowid(obj[8].toString());
 				
 				result.add(bean);
 			}
@@ -281,9 +291,11 @@ public class PageImpl {
 				bean.setBackDate(date);
 				
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-				Date borrowDate = format.parse(str1);
+				//当前日期
+				String currentDate = format.format(new Date());
+				Date now = format.parse(currentDate);
 				Date backDate = format.parse(str2);
-				int days = (int) ((backDate.getTime()-borrowDate.getTime())/86400000);
+				int days = (int) ((backDate.getTime()-now.getTime())/86400000);
 				
 				bean.setDays(days);
 				

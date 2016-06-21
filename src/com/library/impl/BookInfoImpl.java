@@ -147,11 +147,17 @@ public class BookInfoImpl implements BookInfoDao  {
 		return pageBean;
 	}
 	
+	/**
+	 * 图书借阅记录分页（管理员）
+	 * @param pageSize
+	 * @param page
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public PageBean getPageBean2(int pageSize, int page) {
 		PageBean pageBean = new PageBean();
 		
-		String hql = "select b.isbn,bor.reader.name,b.bookname,bor.isback,bor.borrowdate,bor.backdate,s.amount from BookInfo as b,"
+		String hql = "select b.isbn,bor.reader.name,b.bookname,bor.isback,bor.borrowdate,bor.backdate,s.amount,bor.reader.readerid,bor.borrowid from BookInfo as b,"
 				+ " Borrow as bor,Stock as s where b.isbn=bor.bookInfo.isbn and b.isbn=s.bookInfo.isbn and b.isdelete=0"
 				+"and bor.isback=0";
 		int allRows = pageImpl.getAllCount(hql);
@@ -281,5 +287,23 @@ public class BookInfoImpl implements BookInfoDao  {
 		}
 		
 		return result;
+	}
+	
+	/**
+	 * 返回类别id
+	 * @param isbn
+	 * @return
+	 */
+	public int selectFines(String isbn) {
+		String hql = "select  b.bookType.typeid from BookInfo as b where b.isbn="+isbn;
+		session = HibernateSessionFactory.getSession();
+		Query query = session.createQuery(hql);
+		List list = query.list();
+		if(list.size()> 0) {
+			int typeid =  (int) list.get(0);
+			return typeid;
+		}
+		
+		return 0;
 	}
 }

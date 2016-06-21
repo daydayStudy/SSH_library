@@ -154,4 +154,23 @@ public class JTest extends TestCase {
 		}
 	}
 	
+	public void testSle() {
+//		String hql = "select b.bookType.typeid from BookInfo as b where b.isbn="+"13020110";
+//		session = HibernateSessionFactory.getSession();
+//		Query query = session.createQuery(hql);
+//		List list = query.list();
+//		if(list.size()> 0) {
+//			int typeid =  (int) list.get(0);
+//			System.out.println(typeid);
+//		}
+		String hql = "select b.finemoney from BookType as b where b.typeid="+1;
+		session = HibernateSessionFactory.getSession();
+		Query query = session.createQuery(hql);
+		List list = query.list();
+		if(list.size()>0) {
+			float fines = (float) list.get(0);
+			System.out.println(fines);
+		}
+	}
+	
 }
