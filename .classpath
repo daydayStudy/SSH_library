@@ -19,7 +19,6 @@
 			<attribute name="owner.project.facets" value="jst.web.jstl"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="F:/junit-4.11.jar"/>
 	<classpathentry kind="con" path="com.genuitec.runtime.library/com.genuitec.hibernate_3.1">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="WEB-INF/lib"/>
@@ -35,5 +34,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="D:/myeclipse/junit-4.11.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
