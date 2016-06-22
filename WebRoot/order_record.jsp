@@ -237,20 +237,31 @@
 							<th class="th">图书库存</th>
 						</tr>
 						
-						<s:if test="#request.selectbookBean.list.size()==0">
+						<s:if test="#request.orderinfo.list.size()==0">
 							<tr class="td">
 								<td class="td" colspan="7">对不起，暂无预定信息</td>
 							</tr>
 						</s:if>
 						<s:else>
 							<s:iterator value="#request.orderinfo.list" id="list">
+							<s:if test="stocks>0">
 								<tr>
+									<td class="td" style="color:blue;" ><s:property value="readerid" /></td>
+									<td class="td" style="color:blue;"><s:property value="bookname" /></td>
+									<td class="td" style="color:blue;"><s:property value="orderdate" /></td>
+									<td class="td" style="color:blue;"><s:property value="amount" /></td>
+									<td class="td" style="color:blue;"><s:property value="stocks" /></td>
+								</tr>
+							</s:if>
+							<s:else>
+							<tr>
 									<td class="td" ><s:property value="readerid" /></td>
 									<td class="td"><s:property value="bookname" /></td>
 									<td class="td"><s:property value="orderdate" /></td>
 									<td class="td"><s:property value="amount" /></td>
 									<td class="td"><s:property value="stocks" /></td>
 								</tr>
+							</s:else>
 							</s:iterator>
 						</s:else>
 					</table>
