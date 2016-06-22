@@ -197,35 +197,19 @@
 				</div>
 
 				<div class="col c8">
-					<h2>Lorem Ipsum</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-						sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-						Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-						reprehenderit in voluptate velit esse cillum dolore eu fugiat
-						nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-						sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-					<h3>Dolor Sit Amet</h3>
-					<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco
-						laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-						dolor in reprehenderit in voluptate velit esse cillum dolore eu
-						fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						proident, sunt in culpa qui officia deserunt mollit anim id est
-						laborum.</p>
+					<center>			
+					<h3>我们308</h3>
+					<p>陈俊聪  许锋 李夏辉 马煜斌</p>
+					<img src="images/ndn.jpg" width="640"   height="480" alt="" />
+					</center>
 				</div>
 
 				<div class="col c2">
-					<h3>Introdution:</h3>
-					<p>
-						308图书馆，随时随地上网查阅图书，舒适环境，温馨格调，只有你，值得拥有！
-					</p>
-
-					<h3>Notes:</h3>
-					<p>
-						<a href="#">Search whatever you want</a><br /> 
-						<a href="#">Read wherever you want</a><br />
-					</p>
+					<h3>308图书馆</h3>
+					<p>不知道借什么书？上308图书馆308一下，你就知道</p>
+					<p>借书之后，老是忘记自己归还日期？上308图书馆，你就知道</p>
+					<p>还书手续太麻烦？上308图书馆，只需一个按钮</p>
+					<p>308图书馆，随时随地上网查阅图书，舒适环境，温馨格调，只有你，值得拥有。</p>
 				</div>
 			</div>
 
