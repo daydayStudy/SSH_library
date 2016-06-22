@@ -1,18 +1,33 @@
 package com.library.bean;
 
-import java.util.Date;
 
 public class ReturnBookBean {
 
 	// b.isbn,bor.reader.name,b.bookname,bor.isback,bor.borrowdate,bor.backdate,s.amount
+	private String borrowid;
 	private String isbn;
 	private String name;
+	private String rederid;
 	private String bookname;
 	private int isback;
 	private String borrowdate;
 	private String backdate;
 	private int amount;
 	
+	
+	
+	public String getBorrowid() {
+		return borrowid;
+	}
+	public void setBorrowid(String borrowid) {
+		this.borrowid = borrowid;
+	}
+	public String getRederid() {
+		return rederid;
+	}
+	public void setRederid(String rederid) {
+		this.rederid = rederid;
+	}
 	public String getIsbn() {
 		return isbn;
 	}

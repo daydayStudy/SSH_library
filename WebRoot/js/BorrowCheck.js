@@ -7,6 +7,8 @@ function confirms() {
 		return false;
 	}
 
+	document.borrowinfo.action = "/library/borrowBook!addRecord.action";
+	document.borrowinfo.submit();
 	return true;
 }
 
@@ -54,6 +56,20 @@ function checkBackDate(){
 	
 	if(userPass.length == 0) {
 		pts.innerHTML ="归还日期不能为空";
+		pts.style.color="red";
+		return false;
+	}
+
+	pts.innerHTML = '';
+	return true;
+}
+
+function checkOrderNumber() {
+	var userPass = document.getElementById("ip_amount").value;
+	var pts = document.getElementById("orderTips");
+	
+	if(userPass.length == 0) {
+		pts.innerHTML ="预定数量不能为空";
 		pts.style.color="red";
 		return false;
 	}

@@ -184,6 +184,7 @@
 							<li><a href="home.jsp">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
 							<li><a href="selectBook.action">图书查询</a></li>
 							<li><a href="borrowRecord.action">借阅记录</a></li>
+							<li><a href="orderRecord.action">预定记录</a></li>
 							<li><a id="select" href="slreader.action?method=select&id=<s:property value="#session.get('loginName')"/>">信息修改</a></li>
 						</s:if>
 						<!-- 游客 -->
@@ -226,31 +227,22 @@
 				
 				</div>
 				<div class="col c2">
-					<h3>Presentation:</h3>
-					<p>
-						This is the <a href="http://www.cssmoban.com/">Origo</a> template,
-						with the basic layout from the <a
-							href="http://www.cssmoban.com/templates/andreas01/">andreas01</a>
-						template and the code base from <a
-							href="http://www.cssmoban.com/templates/freestyle/">Freestyle</a>.
-					</p>
-
-					<h3>Links:</h3>
-					<p>
-						<a href="#">Sample link 1</a><br /> <a href="#">Sample link 2</a><br />
-						<a href="#">Sample link 3</a>
-					</p>
+					<h3>308图书馆</h3>
+					<p>不知道借什么书？上308图书馆308一下，你就知道</p>
+					<p>借书之后，老是忘记自己归还日期？上308图书馆，你就知道</p>
+					<p>还书手续太麻烦？上308图书馆，只需一个按钮</p>
+					<p>308图书馆，随时随地上网查阅图书，舒适环境，温馨格调，只有你，值得拥有。</p>
 				</div>
 			</div>
 
 			<div id="footer" class="row">
 				<div class="col c12 aligncenter">
-					<h3>&copy; 2012 Your Name</h3>
+					<h3>&copy; 2016 308图书馆</h3>
 					<p>
-						<a href="http://www.cssmoban.com/">Template design</a> by <a
-							href="http://www.cssmoban.com/">Andreas Viklund</a><br /> More
-						Templates <a href="http://www.cssmoban.com/" target="_blank"
-							title="模板之家">模板之家</a>
+						<a href="">许锋</a> <a
+							href="">陈俊聪</a> 制作<br /> 北理珠
+						37栋 <a style="" href="" target="_blank"
+							title="模板之家">308工作室</a>
 					</p>
 				</div>
 			</div>

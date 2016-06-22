@@ -81,13 +81,14 @@ public class BorrowImpl implements BorrowDao {
 		return false;
 	}
 
-	public Borrow getBorrow(String ISBN){
+	public Borrow getBorrow(String ISBN,int borrowid){
 		try {
 			session = HibernateSessionFactory.getSession();
 			
-			String sql = "from Borrow as r where r.bookInfo.isbn=?";
+			String sql = "from Borrow as r where r.borrowid=? and r.bookInfo.isbn=?";
 			Query query = session.createQuery(sql);
-			query.setParameter(0, ISBN);
+			query.setParameter(0, borrowid);
+			query.setParameter(1, ISBN);
 			List result = query.list();
 			if(result.size()>0) {
 				for(Iterator it=result.iterator(); it.hasNext();) {
@@ -143,7 +144,7 @@ public class BorrowImpl implements BorrowDao {
 	}
 	
 	/**
-	 * ½èÔÄ¼ÇÂ¼·ÖÒ³
+	 * ï¿½ï¿½ï¿½Ä¼ï¿½Â¼ï¿½ï¿½Ò³
 	 * @param pageSize
 	 * @param page
 	 * @return
@@ -152,7 +153,7 @@ public class BorrowImpl implements BorrowDao {
 	public PageBean getPageBean(int id,int pageSize, int page) {
 		PageBean pageBean = new PageBean();
 
-		String hql = "select b.reader.readerid,b.bookInfo.bookname,b.borrowdate,b.backdate from Borrow as b where b.reader.readerid="+id;
+		String hql = "select b.reader.readerid,b.bookInfo.bookname,b.borrowdate,b.backdate from Borrow as b where b.isback=0 and b.reader.readerid="+id;
 		int allRows = pageImpl.getAllCount(hql);
 		int totalPage = pageBean.getTotalPages(pageSize, allRows);
 		int currentPage = pageBean.getCurPage(page);
